@@ -1,0 +1,30 @@
+<header class="navbar">
+  <div class="navbar-left">
+    <button class="hamburger" (click)="menuToggle.emit()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="breadcrumb-area">
+      <span class="breadcrumb-prefix">AGIL</span>
+      <span class="breadcrumb-sep">/</span>
+      <h1 class="page-title">{{ currentTitle }}</h1>
+    </div>
+  </div>
+  <div class="navbar-right">
+    <button class="btn-icon-alerts" routerLink="/alerts" (click)="ws.resetUnread()" title="Alertes">
+      <span class="material-symbols-outlined">notifications</span>
+      @if (ws.unreadCount() > 0) {
+        <span class="alert-badge">{{ ws.unreadCount() }}</span>
+      }
+    </button>
+    <div class="user-menu">
+      <div class="user-avatar">{{ userInitials }}</div>
+      <div class="user-info-nav">
+        <span class="welcome">{{ userName }}</span>
+        <span class="user-role">{{ userRole }}</span>
+      </div>
+      <button class="btn-icon-logout" (click)="logout()" title="Déconnexion">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  margin-top: 20px;
+}
+
+.shap-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.shap-header {
+  margin-bottom: 14px;
+
+  h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 0 0 16px;
+
+  strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+.day-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  select {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    option {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+  }
+}
+
+.day-pred {
+  font-size: 13px;
+  color: var(--text-secondary);
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 320px;
+  padding: 8px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  &.small {
+    height: 220px;
+  }
+}
+
+.section-title {
+  margin: 20px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    &.pos { color: var(--green); }
+    &.neg { color: var(--red); }
+  }
+}
+
+@media (max-width: 768px) {
+  .shap-card { padding: 16px; }
+  .chart-wrapper { height: 260px; }
+  .chart-wrapper.small { height: 200px; }
+}

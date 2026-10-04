@@ -1,0 +1,130 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": {
+        "content": [
+            {
+                "id": 108,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5814). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-22, 2026-03-29",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:37:47"
+            },
+            {
+                "id": 107,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.51). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-29, 2026-03-30",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:37:46"
+            },
+            {
+                "id": 106,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.6027). Niveau de risque: MEDIUM. Dates suspectes: ",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:37:45"
+            },
+            {
+                "id": 65,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5814). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-22, 2026-03-29",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:35:40"
+            },
+            {
+                "id": 64,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.51). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-29, 2026-03-30",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:35:38"
+            },
+            {
+                "id": 63,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.6027). Niveau de risque: MEDIUM. Dates suspectes: ",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-11T16:35:37"
+            },
+            {
+                "id": 48,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "LOW",
+                "message": "Consommation anormalement elevee de GPL CARBURANT detectee a Station La Marsa",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-04-07T15:23:01"
+            },
+            {
+                "id": 31,
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie de consommation : GASOIL depasse 2 ecarts-types",
+                "status": "RESOLVED",
+                "resolvedByName": "Admin AGIL",
+                "resolvedAt": "2026-03-28T15:23:01",
+                "createdAt": "2026-03-28T15:23:01"
+            }
+        ],
+        "pageable": {
+            "pageNumber": 0,
+            "pageSize": 20,
+            "sort": {
+                "unsorted": false,
+                "empty": false,
+                "sorted": true
+            },
+            "offset": 0,
+            "unpaged": false,
+            "paged": true
+        },
+        "totalElements": 8,
+        "totalPages": 1,
+        "last": true,
+        "numberOfElements": 8,
+        "size": 20,
+        "number": 0,
+        "sort": {
+            "unsorted": false,
+            "empty": false,
+            "sorted": true
+        },
+        "first": true,
+        "empty": false
+    },
+    "timestamp": "2026-10-04T12:35:33.820627788"
+}

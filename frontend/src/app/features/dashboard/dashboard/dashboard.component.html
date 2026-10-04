@@ -1,0 +1,209 @@
+@if (loading) {
+  <div class="loading">
+    <span class="material-symbols-outlined spin-icon">hourglass_top</span>
+    Chargement du tableau de bord...
+  </div>
+} @else if (dashboard) {
+  <!-- KPI Cards -->
+  <div class="stats-grid">
+    <div class="stat-card clickable" role="button" tabindex="0"
+         (click)="goToStations()" (keyup.enter)="goToStations()"
+         title="Voir les stations">
+      <div class="stat-top">
+        <div class="stat-icon-wrapper icon-blue">
+          <span class="material-symbols-outlined">store</span>
+        </div>
+        <div class="stat-sub">sur {{ dashboard.totalStations }} total</div>
+      </div>
+      <div class="stat-value">{{ dashboard.activeStations }}</div>
+      <div class="stat-label">Stations Actives</div>
+    </div>
+    <div class="stat-card clickable" role="button" tabindex="0"
+         (click)="goToAlerts()" (keyup.enter)="goToAlerts()"
+         title="Voir les alertes">
+      <div class="stat-top">
+        <div class="stat-icon-wrapper icon-orange">
+          <span class="material-symbols-outlined">notifications_active</span>
+        </div>
+      </div>
+      <div class="stat-value" [class.val-danger]="dashboard.activeAlerts > 0">
+        {{ dashboard.activeAlerts }}
+      </div>
+      <div class="stat-label">Alertes Actives</div>
+    </div>
+    <div class="stat-card clickable" role="button" tabindex="0"
+         (click)="goToAlerts(undefined, 'HIGH')" (keyup.enter)="goToAlerts(undefined, 'HIGH')"
+         title="Voir les alertes critiques">
+      <div class="stat-top">
+        <div class="stat-icon-wrapper icon-red">
+          <span class="material-symbols-outlined">warning</span>
+        </div>
+      </div>
+      <div class="stat-value val-danger">{{ dashboard.criticalAlerts }}</div>
+      <div class="stat-label">Alertes Critiques</div>
+    </div>
+    <div class="stat-card clickable" role="button" tabindex="0"
+         (click)="goToStocks()" (keyup.enter)="goToStocks()"
+         title="Voir les stocks critiques">
+      <div class="stat-top">
+        <div class="stat-icon-wrapper icon-accent">
+          <span class="material-symbols-outlined">propane_tank</span>
+        </div>
+      </div>
+      <div class="stat-value" [class.val-danger]="dashboard.criticalTanks.length > 0">
+        {{ dashboard.criticalTanks.length }}
+      </div>
+      <div class="stat-label">Réservoirs Critiques</div>
+    </div>
+  </div>
+
+  <div class="grid-2col">
+    <!-- Station Summaries -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-symbols-outlined card-title-icon">list_alt</span>
+          Résumé des Stations
+        </h3>
+        <a routerLink="/stations" class="btn btn-outline btn-sm">Voir tout</a>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Station</th>
+              <th>Région</th>
+              <th>Conso. Moy/Jour</th>
+              <th>Jours Avant Rupture</th>
+              <th>Alertes</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (s of dashboard.stationSummaries; track s.stationId) {
+              <tr class="clickable-row" (click)="goToStations(s.stationId)"
+                  title="Voir cette station">
+                <td><strong>{{ s.stationName }}</strong></td>
+                <td>{{ s.region }}</td>
+                <td>{{ s.avgDailyConsumption | number:'1.0-0' }} L</td>
+                <td>
+                  @if (s.daysBeforeRupture !== null) {
+                    <span [class]="getDaysClass(s.daysBeforeRupture)">
+                      {{ s.daysBeforeRupture | number:'1.0-1' }} jours
+                    </span>
+                  } @else {
+                    <span class="badge badge-neutral">N/A</span>
+                  }
+                </td>
+                <td>
+                  @if (s.activeAlertCount > 0) {
+                    <span class="badge badge-danger">{{ s.activeAlertCount }}</span>
+                  } @else {
+                    <span class="badge badge-success">0</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chart: Days Before Rupture -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-symbols-outlined card-title-icon">bar_chart</span>
+          Jours Avant Rupture par Station
+        </h3>
+      </div>
+      <div class="chart-container">
+        <canvas #ruptureChart></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2col" style="margin-top: 20px;">
+    <!-- Critical Tanks -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-symbols-outlined card-title-icon icon-c-red">warning</span>
+          Réservoirs Critiques
+        </h3>
+        <a routerLink="/stocks" class="btn btn-outline btn-sm">Voir tout</a>
+      </div>
+      @if (dashboard.criticalTanks.length === 0) {
+        <div class="empty-state">
+          <span class="material-symbols-outlined empty-icon">check_circle</span>
+          <p>Aucun réservoir en état critique</p>
+        </div>
+      } @else {
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Station</th>
+                <th>Carburant</th>
+                <th>Stock</th>
+                <th>Seuil</th>
+                <th>Niveau</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (tank of dashboard.criticalTanks; track tank.id) {
+                <tr class="clickable-row" (click)="goToStocks(tank.stationId)"
+                    title="Voir le stock de cette station">
+                  <td>{{ tank.stationName }}</td>
+                  <td>{{ tank.fuelTypeName }}</td>
+                  <td>{{ tank.currentStock | number:'1.0-0' }} L</td>
+                  <td>{{ tank.criticalThreshold | number:'1.0-0' }} L</td>
+                  <td>
+                    <div class="stock-bar">
+                      <div class="stock-fill danger" [style.width.%]="tank.stockPercentage"></div>
+                    </div>
+                    <span class="stock-pct">{{ tank.stockPercentage | number:'1.0-1' }}%</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+
+    <!-- Recent Alerts -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-symbols-outlined card-title-icon icon-c-orange">notifications</span>
+          Alertes Récentes
+        </h3>
+        <a routerLink="/alerts" class="btn btn-outline btn-sm">Voir tout</a>
+      </div>
+      @if (dashboard.recentAlerts.length === 0) {
+        <div class="empty-state">
+          <span class="material-symbols-outlined empty-icon">check_circle</span>
+          <p>Aucune alerte active</p>
+        </div>
+      } @else {
+        <div class="alerts-list">
+          @for (alert of dashboard.recentAlerts; track alert.id) {
+            <div class="alert-item clickable" [class]="'alert-' + alert.severity.toLowerCase()"
+                 role="button" tabindex="0"
+                 (click)="goToAlerts(alert.stationId)" (keyup.enter)="goToAlerts(alert.stationId)"
+                 title="Voir les alertes de cette station">
+              <div class="alert-header">
+                <span [class]="'badge badge-' + getSeverityBadge(alert.severity)">
+                  {{ alert.severity }}
+                </span>
+                <span class="alert-station">{{ alert.stationName }}</span>
+                <span class="alert-time">{{ alert.createdAt | date:'dd/MM HH:mm' }}</span>
+              </div>
+              <p class="alert-message">{{ alert.message }}</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

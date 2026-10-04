@@ -1,0 +1,201 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;color:#2D9CDB;">map</span>
+      Prévisions IA — Par Région
+    </h3>
+    <div style="display:flex;gap:14px;align-items:center">
+      <label class="view-toggle">
+        <span class="view-toggle-label">Vue simplifiée</span>
+        <span class="view-switch">
+          <input type="checkbox" [checked]="viewMode === 'expert'"
+                 (change)="viewMode = viewMode === 'expert' ? 'simple' : 'expert'; onViewModeChange()">
+          <span class="view-slider"></span>
+        </span>
+        <span class="view-toggle-label">Vue experte</span>
+      </label>
+      <span class="region-badge">
+        <span class="material-symbols-outlined" style="font-size:14px">location_on</span>
+        {{ regions.length }} région(s) disponible(s)
+      </span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar" style="margin-top:16px">
+    <select [(ngModel)]="selectedRegion" (change)="onRegionChange()" class="form-control" style="width:220px">
+      <option [ngValue]="null">Sélectionner une région</option>
+      @for (r of regions; track r.region) {
+        <option [ngValue]="r.region">{{ r.region }} ({{ r.station_count }} stations)</option>
+      }
+    </select>
+    <select [(ngModel)]="selectedFuelTypeId" class="form-control" style="width:200px">
+      <option [ngValue]="null">Type de carburant</option>
+      @for (f of fuelTypes; track f.fuel_type_id) {
+        <option [ngValue]="f.fuel_type_id">{{ f.fuel_type_name }}</option>
+      }
+    </select>
+    <button class="btn btn-primary" (click)="generate()"
+      [disabled]="!selectedRegion || !selectedFuelTypeId || generating">
+      {{ generating ? 'Génération...' : '🤖 Générer Prévision Régionale' }}
+    </button>
+  </div>
+
+  <!-- Region info card -->
+  @if (selectedRegion && getSelectedRegionInfo()) {
+    <div class="region-info">
+      <span class="material-symbols-outlined" style="font-size:16px;color:var(--text-muted)">info</span>
+      <span>
+        <strong>{{ selectedRegion }}</strong> —
+        {{ getSelectedRegionInfo()!.station_count }} station(s) active(s) —
+        Carburants: {{ getSelectedRegionInfo()!.fuel_types }}
+      </span>
+    </div>
+  }
+
+  <!-- ===== SIMPLIFIED VIEW (non-technical, default) ===== -->
+  @if (viewMode === 'simple' && iaResult) {
+    <div class="simple-view">
+      <div [class]="'simple-banner banner-' + getRiskBadge(iaResult.risk_level)">
+        <span class="material-symbols-outlined banner-icon">
+          {{ iaResult.risk_level === 'HIGH' ? 'warning' : (iaResult.risk_level === 'MEDIUM' ? 'info' : 'check_circle') }}
+        </span>
+        <div class="banner-text">
+          <strong>{{ getSimpleRiskLabel() }} — {{ iaResult.region }}</strong>
+          <span>{{ getSimpleRiskMessage() }}</span>
+        </div>
+      </div>
+
+      <div class="simple-stats">
+        <div class="simple-stat">
+          <span class="simple-stat-label">Demande prévue demain</span>
+          <span class="simple-stat-value">
+            {{ getRegionTomorrow() !== null ? (getRegionTomorrow() | number:'1.0-0') + ' L' : 'N/A' }}
+          </span>
+        </div>
+        <div class="simple-stat">
+          <span class="simple-stat-label">Total prévu sur 7 jours</span>
+          <span class="simple-stat-value">
+            {{ getRegionWeekTotal() !== null ? (getRegionWeekTotal() | number:'1.0-0') + ' L' : 'N/A' }}
+          </span>
+        </div>
+        <div class="simple-stat">
+          <span class="simple-stat-label">Stations dans la région</span>
+          <span class="simple-stat-value">
+            {{ getSelectedRegionInfo()?.station_count ?? '—' }}
+          </span>
+        </div>
+      </div>
+
+      @if (iaResult.forecast_7_days?.length) {
+        <div class="chart-section" style="margin-top:20px">
+          <canvas #regionChart></canvas>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- IA Result -->
+  @if (viewMode === 'expert' && iaResult) {
+    <div class="ia-summary">
+      <div class="ia-cards">
+        <div class="ia-card">
+          <span class="ia-label">Région</span>
+          <span class="ia-value region-name">{{ iaResult.region }}</span>
+        </div>
+        <div class="ia-card">
+          <span class="ia-label">Meilleur Modèle</span>
+          <span class="ia-value">{{ iaResult.best_model || 'N/A' }}</span>
+        </div>
+        <div class="ia-card">
+          <span class="ia-label">Score Anomalie</span>
+          <span class="ia-value" [class.text-danger]="iaResult.anomaly_score > 0.5">
+            {{ iaResult.anomaly_score | number:'1.0-4' }}
+          </span>
+        </div>
+        <div class="ia-card">
+          <span class="ia-label">Niveau de Risque</span>
+          <span [class]="'badge badge-' + getRiskBadge(iaResult.risk_level)">
+            {{ iaResult.risk_level }}
+          </span>
+        </div>
+      </div>
+
+      @if (iaResult.ensemble_weights) {
+        <div class="weights-bar">
+          <span class="weight-label">Poids Ensemble :</span>
+          <span class="weight-item">LR: {{ iaResult.ensemble_weights.LinearRegression * 100 | number:'1.0-1' }}%</span>
+          <span class="weight-item">RF: {{ iaResult.ensemble_weights.RandomForest * 100 | number:'1.0-1' }}%</span>
+          @if (iaResult.ensemble_weights.XGBoost !== undefined) {
+            <span class="weight-item xgb">XGB: {{ iaResult.ensemble_weights.XGBoost * 100 | number:'1.0-1' }}%</span>
+          }
+          <span class="weight-item">Prophet: {{ iaResult.ensemble_weights.Prophet * 100 | number:'1.0-1' }}%</span>
+        </div>
+      }
+
+      <!-- Forecast Chart -->
+      @if (iaResult.forecast_7_days?.length) {
+        <div class="chart-section" style="margin-top:16px">
+          <canvas #regionChart></canvas>
+        </div>
+      }
+
+      <!-- Models Comparison -->
+      @if (iaResult.models) {
+        <div class="models-table">
+          <h4>Comparaison des Modèles</h4>
+          <table class="data-table">
+            <thead>
+              <tr><th>Modèle</th><th>MAE</th><th>RMSE</th><th>MAPE</th></tr>
+            </thead>
+            <tbody>
+              @for (entry of getModelEntries(); track entry.name) {
+                <tr [class.best-model]="entry.name === iaResult.best_model">
+                  <td>
+                    <strong>{{ entry.name }}</strong>
+                    @if (entry.name === iaResult.best_model) {
+                      <span class="badge badge-success" style="margin-left:6px">Meilleur</span>
+                    }
+                  </td>
+                  <td>{{ entry.mae | number:'1.0-2' }}</td>
+                  <td>{{ entry.rmse | number:'1.0-2' }}</td>
+                  <td>{{ (entry.mape * 100) | number:'1.0-2' }}%</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- Feature Importance -->
+      @if (iaResult.feature_importance && iaResult.feature_importance.length > 0) {
+        <div class="feature-importance-section">
+          <h4>
+            <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;color:#2D9CDB">insights</span>
+            Importance des Features (Région)
+          </h4>
+          <p class="fi-subtitle">Facteurs les plus influents dans la prédiction régionale</p>
+          <div class="fi-chart-container">
+            <canvas #featureChart></canvas>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Empty state -->
+  @if (!iaResult && !generating) {
+    <div class="empty-state">
+      <div class="icon">🗺️</div>
+      <p>Sélectionnez une région et un carburant, puis générez les prévisions régionales</p>
+      <p class="empty-hint">Les prévisions agrègent les ventes de toutes les stations de la région sélectionnée</p>
+    </div>
+  }
+
+  @if (generating) {
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      Génération des prévisions pour la région {{ selectedRegion }}...
+    </div>
+  }
+</div>

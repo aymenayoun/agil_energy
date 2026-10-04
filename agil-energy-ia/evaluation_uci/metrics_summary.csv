@@ -1,0 +1,4 @@
+model_name,MAE,RMSE,MAPE,SMAPE,R2,Explained_Variance,MedAE,Max_Error,MASE,Forecast_Bias,Forecast_Bias_Pct,Directional_Accuracy,n_samples
+LinearRegression,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,14
+RandomForest,1013.7088,1173.1476,0.0754,0.0758,0.9094,0.9155,1051.233,1862.5253,0.2403,-303.5834,-2.15,0.6923,14
+XGBoost,842.9212,1082.0009,0.0628,0.063,0.923,0.9234,853.8354,2735.2373,0.1998,-79.7395,-0.57,0.9231,14

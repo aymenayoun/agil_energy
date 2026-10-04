@@ -1,0 +1,26 @@
+station_id,station_name,latitude,longitude,gouvernorat,type_zone,proximite_autoroute
+1,Station Tunis Centre,36.8065,10.1815,Tunis,urbaine,oui
+2,Station La Marsa,36.8783,10.3253,Tunis,urbaine,oui
+3,Station Ariana,36.8625,10.1956,Ariana,urbaine,oui
+4,Station Ennasr,36.8442,10.15,Ariana,periurbaine,oui
+5,Station Ben Arous,36.7542,10.2317,Ben Arous,periurbaine,oui
+6,Station Boumhel,36.7267,10.2183,Ben Arous,periurbaine,oui
+7,Station Sousse Centre,35.8256,10.6369,Sousse,urbaine,oui
+8,Station Sahloul,35.8467,10.5833,Sousse,periurbaine,oui
+9,Station Sfax Centre,34.7406,10.7603,Sfax,urbaine,oui
+10,Station Sfax Teniour,34.765,10.74,Sfax,periurbaine,oui
+11,Station Nabeul,36.4561,10.7376,Nabeul,urbaine,oui
+12,Station Hammamet,36.4,10.6167,Nabeul,touristique,non
+13,Station Kairouan,35.6744,10.0963,Kairouan,urbaine,oui
+14,Station Gabes,33.8881,10.0975,Gabes,urbaine,oui
+15,Station Bizerte,37.2744,9.8739,Bizerte,urbaine,oui
+16,Station Monastir,35.7643,10.8113,Monastir,urbaine,oui
+17,Station Gafsa,34.425,8.7842,Gafsa,urbaine,oui
+18,Station Kasserine,35.1676,8.8365,Kasserine,rurale,non
+19,Station Medenine,33.3549,10.5055,Medenine,urbaine,oui
+20,Station Djerba,33.8075,10.8578,Medenine,touristique,non
+21,Station Beja,36.7256,9.1817,Beja,rurale,non
+22,Station Jendouba,36.5011,8.7803,Jendouba,rurale,non
+23,Station Tozeur,33.9197,8.1336,Tozeur,rurale,non
+24,Station Mourouj,36.735,10.195,Ben Arous,periurbaine,oui
+25,Station Sidi Bouzid,35.0383,9.4858,Sidi Bouzid,rurale,non

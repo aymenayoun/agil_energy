@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Code de vérification</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:Arial,Helvetica,sans-serif;color:#1f2937;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:32px 16px;">
+    <tr>
+        <td align="center">
+            <table role="presentation" width="100%" style="max-width:520px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+                <tr>
+                    <td style="background:#0f172a;padding:24px;color:#ffffff;text-align:center;">
+                        <h1 style="margin:0;font-size:22px;letter-spacing:0.5px;">AGIL Energy</h1>
+                        <p style="margin:6px 0 0;font-size:13px;opacity:0.8;">Système intelligent d'aide à la décision</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:32px 28px;">
+                        <h2 style="margin:0 0 12px;font-size:18px;">Bonjour <span th:text="${name}">utilisateur</span>,</h2>
+                        <p style="margin:0 0 20px;line-height:1.6;font-size:14px;">
+                            Une tentative de connexion à votre compte vient d'être effectuée.
+                            Pour confirmer votre identité, veuillez saisir le code suivant :
+                        </p>
+                        <div style="text-align:center;margin:24px 0;">
+                            <span th:text="${code}" style="display:inline-block;font-size:32px;letter-spacing:8px;font-weight:bold;padding:14px 24px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;color:#0f172a;">000000</span>
+                        </div>
+                        <p style="margin:0 0 8px;font-size:13px;color:#475569;">
+                            Ce code expirera dans <strong th:text="${minutes}">5</strong> minutes.
+                        </p>
+                        <p style="margin:0;font-size:13px;color:#475569;">
+                            Si vous n'êtes pas à l'origine de cette tentative, ignorez ce message et changez votre mot de passe.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background:#f8fafc;padding:16px;text-align:center;font-size:12px;color:#64748b;">
+                        © AGIL Energy S.A. — Message automatique, ne pas répondre.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

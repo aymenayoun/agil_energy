@@ -1,0 +1,157 @@
+.header-title { display: flex; flex-direction: column; gap: 4px; }
+.header-title .subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.header-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.severity-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ---------- Summary strip ---------- */
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--orange);
+}
+.summary-icon {
+  font-size: 28px;
+  color: var(--orange);
+}
+.summary-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.summary-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---------- Anomaly cards ---------- */
+.anomalies-list { display: flex; flex-direction: column; gap: 12px; }
+
+.anomaly-card {
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--border);
+  background: var(--bg-secondary);
+  transition: background 0.15s;
+}
+.anomaly-card:hover { background: var(--bg-card-hover); }
+
+.severity-high   { border-left-color: var(--red);    }
+.severity-medium { border-left-color: var(--orange); }
+.severity-low    { border-left-color: var(--blue);   }
+
+.anomaly-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.severity-badge { display: inline-flex; align-items: center; gap: 4px; }
+
+.anomaly-direction {
+  font-weight: 600;
+  font-size: 13px;
+  &.up   { color: var(--red); }
+  &.down { color: var(--blue); }
+}
+.anomaly-station { font-size: 13px; color: var(--text-secondary); }
+.anomaly-date {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ---------- Stats grid inside each card ---------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.stat-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.stat-value.emphasis { color: var(--orange); }
+.stat-value.range    { font-size: 13px; }
+.stat-value.z-high   { color: var(--red); font-weight: 700; }
+
+.anomaly-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.resolved-info { font-size: 12px; color: var(--text-muted); }
+
+/* ---------- Empty / loading ---------- */
+.empty-state small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .summary-strip { grid-template-columns: 1fr; }
+  .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+.empty-state .empty-icon {
+  font-size: 48px;
+  color: var(--green, #10b981);
+  margin-bottom: 8px;
+}
+
+.anomaly-station {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.anomaly-station .station-icon {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.anomaly-direction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

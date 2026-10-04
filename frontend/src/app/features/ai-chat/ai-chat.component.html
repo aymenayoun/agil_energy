@@ -1,0 +1,70 @@
+<div class="ai-chat-container">
+  <div class="chat-header">
+    <div>
+      <h2>Assistant AGIL IA</h2>
+      <small>RAG local · Ollama + FAISS</small>
+    </div>
+    <div class="header-controls">
+      <button class="btn-secondary" (click)="clear()" [disabled]="loading">Effacer</button>
+      <button class="btn-secondary" (click)="rebuildIndex()" [disabled]="loading">Reconstruire index</button>
+    </div>
+  </div>
+
+  <div class="messages">
+    <div *ngFor="let m of messages" class="msg" [class.user]="m.role === 'user'" [class.assistant]="m.role === 'assistant'">
+      <div class="bubble">
+        <ng-container *ngIf="!m.compareOutput">
+          <div class="content" [innerText]="m.content"></div>
+        </ng-container>
+
+        <ng-container *ngIf="m.compareOutput">
+          <div class="compare">
+            <div class="compare-col">
+              <h4>Llama 3.2 (rapide)</h4>
+              <div class="content" [innerText]="m.compareOutput.default"></div>
+            </div>
+            <div class="compare-col">
+              <h4>Qwen 2.5 (avancé)</h4>
+              <div class="content" [innerText]="m.compareOutput.experimental"></div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="meta" *ngIf="m.role === 'assistant' && (m.model || m.mode)">
+          <span *ngIf="m.model">Modèle: {{ m.model }}</span>
+          <span *ngIf="m.mode"> · Mode: {{ m.mode }}</span>
+          <button *ngIf="m.context?.length" class="link-btn" (click)="showContext = !showContext">
+            {{ showContext ? 'Masquer' : 'Voir' }} sources ({{ m.context!.length }})
+          </button>
+        </div>
+
+        <div class="context" *ngIf="showContext && m.context?.length">
+          <div *ngFor="let c of m.context" class="ctx-item">
+            <strong>[{{ c.source }}]</strong> (score: {{ c.score | number:'1.2-2' }})
+            <div>{{ c.text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="msg assistant">
+      <div class="bubble typing">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div #messagesEnd></div>
+  </div>
+
+  <div class="input-row">
+    <textarea
+      [(ngModel)]="input"
+      (keydown)="onKey($event)"
+      placeholder="Posez votre question... (Entrée pour envoyer, Maj+Entrée pour saut de ligne)"
+      rows="2"
+      [disabled]="loading">
+    </textarea>
+    <button class="btn-primary" (click)="send()" [disabled]="loading || !input.trim()">
+      Envoyer
+    </button>
+  </div>
+</div>

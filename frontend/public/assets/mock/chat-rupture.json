@@ -1,0 +1,52 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": {
+        "question": "Quelles stations présentent un risque de rupture de stock ?",
+        "answer": "Selon les alertes prioritaires, les stations présentant un risque de rupture de stock sont :\n\n- Station Tunis Centre : avec une rupture estimée dans 0.3 jours (scénario P90) et une demande moyenne de 3965.8L/j.",
+        "mode": "default",
+        "model_used": "llama3.2:3b",
+        "retrieved_context": [
+            {
+                "text": "D'après les données historiques AGIL, le classement des causes de fermeture de stations par fréquence est :\n- maintenance : 9 incidents\n- rupture_stock : 9 incidents\n- coupure_electricite : 6 incidents\n- panne_pompe : 6 incidents\n- travaux : 5 incidents\n(Total : 35 incidents sur la période analysée, touchant 21 stations différentes.)",
+                "source": "data_insights",
+                "metadata": {
+                    "category": "closures",
+                    "total": 35
+                },
+                "score": 0.8361224403421508,
+                "semantic_score": 0.8860178589820862,
+                "bm25_score": 0.7862270217022154
+            },
+            {
+                "text": "État actuel des alertes AGIL : 15 alertes actives au moment de la mise à jour (HIGH : 15, MEDIUM : 0, LOW : 0). Alertes prioritaires :\n- [HIGH] ANOMALY — Station Tunis Centre : Anomalie détectée (score: 0.8616). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26\n- [HIGH] ANOMALY — Station Tunis Centre : Anomalie détectée (score: 0.8616). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26\n- [HIGH] SALE_ANOMALY — Station Tunis Centre : Vente anormalement élevée détectée : Station Tunis Centre — GASOIL (4600.0L). Moyenne 90j : 1145.2L, plage normale : [705.6L ; 1584.7L], Z-score : 15.72σ.\n- [HIGH] ANOMALY — Station Tunis Centre : Anomalie détectée (score: 1.0). Niveau de risque: HIGH. Dates suspectes: 2026-04-07, 2026-04-08, 2026-04-09, 2026-04-10, 2026-04-11, 2026-04-12\n- [HIGH] STOCK_RUPTURE — Station Tunis Centre : Rupture estimée dans 0.3 jours (scénario P90 (pessimistic)). Stock: 1275.12L, Demande moy: 3965.8L/j",
+                "source": "live_data",
+                "metadata": {
+                    "category": "alerts_status",
+                    "active_count": 15,
+                    "high_count": 15
+                },
+                "score": 0.734446736973275,
+                "semantic_score": 0.8417388796806335,
+                "bm25_score": 0.6271545942659165
+            },
+            {
+                "text": "Une rupture de stock observée sur une station indique généralement soit un retard de livraison, soit une sous-estimation de la demande par le système de prévision. C'est un événement à croiser avec les alertes de rupture (days_before_rupture) pour valider la qualité des prédictions.",
+                "source": "domain_knowledge",
+                "metadata": {},
+                "score": 0.9589948952198029,
+                "semantic_score": 0.9179897904396057,
+                "bm25_score": 1.0
+            },
+            {
+                "text": "Une prédiction de rupture (days_before_rupture <= 3) déclenche une alerte de priorité HIGH si <= 1 jour, MEDIUM sinon. Le gestionnaire doit contacter le dépôt pour réapprovisionnement prioritaire.",
+                "source": "domain_knowledge",
+                "metadata": {},
+                "score": 0.6902040336526479,
+                "semantic_score": 0.8551043272018433,
+                "bm25_score": 0.5253037401034526
+            }
+        ]
+    },
+    "timestamp": "2026-10-03T18:06:55.199256333"
+}

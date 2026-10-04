@@ -1,0 +1,128 @@
+# ============================================
+# AGIL Energy — Docker Compose (Full Stack)
+# ============================================
+# Services: MySQL 8 + Spring Boot + Angular/Nginx + FastAPI
+# Ollama: uses your native installation (not containerized)
+#
+# Usage:
+#   docker compose up --build -d     # Build and start all
+#   docker compose logs -f backend   # Follow backend logs
+#   docker compose down              # Stop all
+#   docker compose down -v           # Stop + delete data
+#
+# ============================================
+
+services:
+  # ========================
+  # MySQL 8.0 Database
+  # ========================
+  mysql:
+    image: mysql:8.0
+    container_name: agil-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD manquant — copier .env.example vers .env}
+      MYSQL_DATABASE: ${DB_NAME:-agil_energy}
+    ports:
+      - "3307:3306"   # 3307 on host to avoid conflict with local MySQL on 3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # Optional: place a .sql dump in ./init-db/ to auto-import on first run
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ========================
+  # Spring Boot Backend
+  # ========================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agil-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Database — points to the mysql container (not localhost)
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD manquant}
+      DB_NAME: ${DB_NAME:-agil_energy}
+      # JPA — use 'update' so Hibernate creates tables in fresh DB
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      # JWT
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET manquant — générer une clé base64 de 256 bits}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-604800000}
+      # IA Microservice — points to the ia container
+      IA_SERVICE_URL: http://ia:5000
+      IA_API_KEY: ${IA_API_KEY:?IA_API_KEY manquant}
+      # Mail
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-AGIL Energy}
+      # Health & testing overrides (set in CI .env)
+      MANAGEMENT_HEALTH_MAIL_ENABLED: ${MANAGEMENT_HEALTH_MAIL_ENABLED:-true}
+      OTP_ENABLED: ${OTP_ENABLED:-true}
+      ALERT_EMAIL_ENABLED: ${ALERT_EMAIL_ENABLED:-true}
+    ports:
+      - "8082:8082"
+
+  # ========================
+  # Angular Frontend (Nginx)
+  # ========================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: agil-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+  # ========================
+  # Python IA Microservice
+  # ========================
+  ia:
+    build:
+      context: ./agil-energy-ia
+      dockerfile: Dockerfile
+    container_name: agil-ia
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      # Database
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD manquant}
+      DB_NAME: ${DB_NAME:-agil_energy}
+      # API key
+      API_KEY: ${IA_API_KEY:?IA_API_KEY manquant}
+      # Ollama — connects to your NATIVE Ollama installation on the host
+      # host.docker.internal resolves to the Windows host from inside Docker
+      OLLAMA_HOST: http://host.docker.internal:11434
+      # Model storage
+      MODEL_DIR: /app/saved_models
+    ports:
+      - "5000:5000"
+    volumes:
+      - ia_models:/app/saved_models
+
+volumes:
+  mysql_data:
+  ia_models:

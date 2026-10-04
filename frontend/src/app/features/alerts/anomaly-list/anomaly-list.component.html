@@ -1,0 +1,145 @@
+<div class="card">
+  <div class="card-header">
+    <div class="header-title">
+      <h3 class="card-title">Anomalies de vente détectées</h3>
+      <p class="subtitle">
+        Ventes s'écartant de plus de 2σ du comportement habituel de la station sur les 90 derniers jours
+      </p>
+    </div>
+    <div class="header-actions">
+      <app-station-picker
+        [stations]="stations()"
+        [(ngModel)]="selectedStationId"
+        (stationChange)="onStationChange()"
+        [allowAll]="true"
+        placeholder="Toutes les stations"
+        width="220px">
+      </app-station-picker>
+
+      <select class="severity-select" [(ngModel)]="severityFilter">
+        <option value="ALL">Toutes sévérités</option>
+        <option value="HIGH">Critique (|Z| > 3σ)</option>
+        <option value="MEDIUM">Moyenne (2σ &lt; |Z| ≤ 3σ)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Summary strip -->
+  <div class="summary-strip">
+    <div class="summary-card">
+      <span class="summary-icon material-symbols-outlined">calendar_today</span>
+      <div>
+        <div class="summary-value">{{ stats()?.totalLast7Days ?? 0 }}</div>
+        <div class="summary-label">Anomalies sur 7 jours</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <span class="summary-icon material-symbols-outlined">trending_up</span>
+      <div>
+        <div class="summary-value">
+          {{ stats()?.maxAbsZScore !== null && stats()?.maxAbsZScore !== undefined
+              ? ((stats()!.maxAbsZScore! | number:'1.2-2') + 'σ')
+              : '—' }}
+        </div>
+        <div class="summary-label">Écart maximal (7j)</div>
+      </div>
+    </div>
+    <div class="summary-card">
+      <span class="summary-icon material-symbols-outlined">location_on</span>
+      <div>
+        <div class="summary-value">{{ stats()?.topStation?.stationName ?? '—' }}</div>
+        <div class="summary-label">
+          {{ stats()?.topStation
+              ? (stats()!.topStation!.count + ' anomalie' + (stats()!.topStation!.count > 1 ? 's' : '') + ' (7j)')
+              : 'Station la plus touchée' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">Chargement...</div>
+  } @else if (filtered().length === 0) {
+    <div class="empty-state">
+      <span class="material-symbols-outlined empty-icon">task_alt</span>
+      <p>Aucune anomalie détectée</p>
+      <small>Les ventes enregistrées suivent le comportement habituel des stations.</small>
+    </div>
+  } @else {
+    <div class="anomalies-list">
+      @for (a of filtered(); track a.alert.id) {
+        <div class="anomaly-card" [class]="'severity-' + a.alert.severity.toLowerCase()">
+          <div class="anomaly-top">
+            <span [class]="'severity-badge badge badge-' + getSeverityBadge(a.alert.severity)">
+              <span class="material-symbols-outlined" style="font-size:14px">
+                {{ getSeverityIcon(a.alert.severity) }}
+              </span>
+              {{ getSeverityLabel(a.alert.severity) }}
+            </span>
+            <span class="anomaly-direction" [class.up]="a.direction === 'high'" [class.down]="a.direction === 'low'">
+              <span class="material-symbols-outlined" style="font-size:14px; vertical-align: middle;">
+                {{ a.direction === 'high' ? 'trending_up' : 'trending_down' }}
+              </span>
+              {{ a.direction === 'high' ? 'Vente élevée' : 'Vente basse' }}
+            </span>
+            <span class="anomaly-station">
+              <span class="material-symbols-outlined station-icon">location_on</span>
+              {{ a.alert.stationName }}
+            </span>
+            <span class="anomaly-date">{{ a.alert.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-label">Vente enregistrée</div>
+              <div class="stat-value emphasis">{{ a.quantity | number:'1.0-1' }} L</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Moyenne 90j</div>
+              <div class="stat-value">{{ a.mean | number:'1.0-1' }} L</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Plage normale</div>
+              <div class="stat-value range">
+                [{{ a.rangeLow | number:'1.0-0' }} ; {{ a.rangeHigh | number:'1.0-0' }}] L
+              </div>
+            </div>
+            <div class="stat z-stat">
+              <div class="stat-label">Z-score</div>
+              <div class="stat-value" [class.z-high]="absZ(a) > 3">
+                {{ (a.zScore ?? 0) > 0 ? '+' : '' }}{{ a.zScore | number:'1.2-2' }}σ
+              </div>
+            </div>
+          </div>
+
+          <div class="anomaly-bottom">
+            <span [class]="a.alert.status === 'ACTIVE' ? 'badge badge-warning' : 'badge badge-success'">
+              {{ a.alert.status === 'ACTIVE' ? 'Active' : 'Résolue' }}
+            </span>
+            @if (a.alert.status === 'ACTIVE') {
+              <button class="btn btn-success btn-sm" (click)="resolve(a.alert.id)">
+                Marquer comme résolue
+              </button>
+            } @else {
+              <span class="resolved-info">
+                Résolue par {{ a.alert.resolvedByName }} le {{ a.alert.resolvedAt | date:'dd/MM HH:mm' }}
+              </span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (totalPages > 1) {
+      <div class="pagination">
+        <button class="btn btn-outline btn-sm" [disabled]="currentPage === 0" (click)="goToPage(currentPage - 1)">
+          <span class="material-symbols-outlined">chevron_left</span> Précédent
+        </button>
+        <span class="page-info">Page {{ currentPage + 1 }} / {{ totalPages }} — {{ totalElements }} anomalies</span>
+        <button class="btn btn-outline btn-sm" [disabled]="currentPage >= totalPages - 1" (click)="goToPage(currentPage + 1)">
+          Suivant <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    }
+  }
+</div>

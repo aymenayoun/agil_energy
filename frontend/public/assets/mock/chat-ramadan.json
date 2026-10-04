@@ -1,0 +1,82 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": {
+        "question": "Quel est l'impact du Ramadan sur la consommation de carburant ?",
+        "answer": "Selon les données historiques AGIL, le Ramadan entraîne en moyenne une augmentation de 48.2% de la consommation quotidienne de carburant par rapport à une journée normale de la même saison.",
+        "mode": "default",
+        "model_used": "llama3.2:3b",
+        "retrieved_context": [
+            {
+                "text": "D'après les données historiques AGIL (30 jours analysés), la période Ramadan entraîne en moyenne une hausse de 48.2% de la consommation quotidienne de carburant par rapport à une journée normale de la même saison (moyenne période : 37,610 L/jour ; baseline saisonnière : 25,369 L/jour).",
+                "source": "data_insights",
+                "metadata": {
+                    "category": "religious",
+                    "event": "Ramadan",
+                    "n_days": 30,
+                    "delta_pct": 48.25,
+                    "baseline_type": "season_matched"
+                },
+                "score": 0.7806911413132411,
+                "semantic_score": 0.8792871236801147,
+                "bm25_score": 0.6820951589463675
+            },
+            {
+                "text": "D'après les données historiques AGIL, les 5 gouvernorats avec la plus forte consommation de carburant sont :\nTunis : 14.8% du volume total national\nBen Arous : 13.9% du volume total national\nSousse : 11.9% du volume total national\nSfax : 11.9% du volume total national\nNabeul : 9.3% du volume total national",
+                "source": "data_insights",
+                "metadata": {
+                    "category": "region_ranking"
+                },
+                "score": 0.7641563462077061,
+                "semantic_score": 0.8238272070884705,
+                "bm25_score": 0.7044854853269419
+            },
+            {
+                "text": "D'après les données historiques AGIL, le classement des carburants par volume total vendu est :\n1. GASOIL : 44.1% du volume total\n2. SUPER SP : 29.3% du volume total\n3. GASOIL SANS SOUFRE : 16.7% du volume total\n4. GPL CARBURANT : 7.0% du volume total\n5. SSP PREMIUM : 2.9% du volume total\n(Analyse basée sur un volume cumulé de 12,151,896 litres.)",
+                "source": "data_insights",
+                "metadata": {
+                    "category": "fuel_ranking",
+                    "n_fuels": 5
+                },
+                "score": 0.7535489898806327,
+                "semantic_score": 0.7984501123428345,
+                "bm25_score": 0.7086478674184309
+            },
+            {
+                "text": "D'après les données historiques AGIL (40 jours fériés analysés), les jours fériés nationaux tunisiens entraînent en moyenne une baisse de 9.1% de la consommation quotidienne de carburant par rapport à un jour ouvré normal.",
+                "source": "data_insights",
+                "metadata": {
+                    "category": "holidays",
+                    "n_days": 40,
+                    "delta_pct": -9.05
+                },
+                "score": 0.7127689082910007,
+                "semantic_score": 0.8187938928604126,
+                "bm25_score": 0.6067439237215888
+            },
+            {
+                "text": "Événement religieux : Ramadan. Dates historiques connues : 2024-03-11 au 2024-04-09, 2025-03-01 au 2025-03-29, 2026-02-18 au 2026-03-19. Impact typique sur la consommation de carburant : augmentation avant le début de la période (effet 'rush' d'approvisionnement), baisse pendant l'événement.",
+                "source": "religious_events",
+                "metadata": {
+                    "event": "Ramadan",
+                    "n_occurrences": 3
+                },
+                "score": 0.9594249129295349,
+                "semantic_score": 0.9188498258590698,
+                "bm25_score": 1.0
+            },
+            {
+                "text": "Événement religieux : Aid_El_Fitr. Dates historiques connues : 2024-04-10 au 2024-04-12, 2025-03-30 au 2025-04-01, 2026-03-20 au 2026-03-22. Impact typique sur la consommation de carburant : augmentation avant le début de la période (effet 'rush' d'approvisionnement), baisse pendant l'événement.",
+                "source": "religious_events",
+                "metadata": {
+                    "event": "Aid_El_Fitr",
+                    "n_occurrences": 3
+                },
+                "score": 0.9059551327885589,
+                "semantic_score": 0.872735857963562,
+                "bm25_score": 0.9391744076135556
+            }
+        ]
+    },
+    "timestamp": "2026-10-03T18:08:16.46059752"
+}

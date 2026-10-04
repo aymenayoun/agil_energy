@@ -1,0 +1,64 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### for testing ###
+PasswordHashGenerator.java
+
+## Angular ##
+frontend/node_modules/
+frontend/dist/
+
+## saved models ##
+agil-energy-ia/saved_models/
+
+## Docker
+.env
+docker-compose.override.yml
+
+## Python IA
+**/__pycache__/
+*.pyc
+*.pyo
+agil-energy-ia/.venv/
+
+## Playwright
+frontend/playwright-report/
+frontend/test-results/
+frontend/blob-report/
+frontend/.playwright/
+
+agil-energy-ia/venv/
+
+agil-energy-ia/venv/
+frontend/.angular/

@@ -1,0 +1,141 @@
+<div class="card map-page">
+  <div class="card-header">
+    <h3 class="card-title">
+      <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;color:#2D9CDB;">public</span>
+      Carte Interactive — Tunisie
+    </h3>
+    <div class="map-legend">
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#2D9CDB;opacity:0.5"></span>
+        Région avec données
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch" style="background:#555;opacity:0.2;border-style:dashed"></span>
+        Région sans données
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot" style="background:#F2C94C"></span>
+        Station active
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot" style="background:#888"></span>
+        Station inactive
+      </span>
+    </div>
+  </div>
+
+  <div class="map-layout">
+    <!-- LEFT: Map -->
+    <div id="tunisia-map" class="tunisia-map"></div>
+
+    <!-- RIGHT: Side Panel -->
+    @if (sideOpen) {
+      <aside class="side-panel">
+        <div class="side-header">
+          <div>
+            <span class="side-badge" [class]="sideMode === 'region' ? 'badge-region' : 'badge-station'">
+              {{ sideMode === 'region' ? 'Région' : 'Station' }}
+            </span>
+            <h4 class="side-title">{{ selectedEntityName }}</h4>
+          </div>
+          <button class="side-close" (click)="closeSide()" title="Fermer">✕</button>
+        </div>
+
+        <div class="side-body">
+          <!-- Fuel type selector -->
+          <div class="side-section">
+            <label class="side-label">Type de carburant</label>
+            <select [(ngModel)]="selectedFuelTypeId" class="form-control">
+              <option [ngValue]="null">Sélectionner...</option>
+              @for (f of fuelTypes; track f.fuel_type_id) {
+                <option [ngValue]="f.fuel_type_id">{{ f.fuel_type_name }}</option>
+              }
+            </select>
+          </div>
+
+          <button class="btn btn-primary full-width" (click)="generate()"
+            [disabled]="!selectedFuelTypeId || sideLoading">
+            {{ sideLoading ? 'Génération...' : '🤖 Générer Prévision' }}
+          </button>
+
+          <!-- Loading -->
+          @if (sideLoading) {
+            <div class="side-loading">
+              <div class="loading-spinner"></div>
+              Calcul des prévisions...
+            </div>
+          }
+
+          <!-- Result -->
+          @if (sideResult && !sideLoading) {
+            <div class="side-section">
+              <div class="metric-row">
+                <div class="metric">
+                  <span class="metric-label">Moyenne /jour</span>
+                  <span class="metric-value">{{ getForecastAverage() | number:'1.0-1' }} L</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Total 7 jours</span>
+                  <span class="metric-value">{{ getForecastTotal() | number:'1.0-0' }} L</span>
+                </div>
+              </div>
+
+              <div class="metric-row">
+                <div class="metric">
+                  <span class="metric-label">Meilleur modèle</span>
+                  <span class="metric-value small">{{ sideResult.best_model || 'N/A' }}</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Risque</span>
+                  <span [class]="'badge badge-' + getRiskBadge(sideResult.risk_level)">
+                    {{ sideResult.risk_level }}
+                  </span>
+                </div>
+              </div>
+
+              @if (sideMode === 'station' && sideResult.days_before_rupture != null) {
+                <div class="rupture-warning"
+                  [class.critical]="sideResult.days_before_rupture <= 3">
+                  <span class="material-symbols-outlined" style="font-size:16px">warning</span>
+                  Rupture estimée dans
+                  <strong>{{ sideResult.days_before_rupture | number:'1.0-1' }} jours</strong>
+                </div>
+              }
+
+              <!-- Mini forecast list -->
+              @if (sideResult.forecast_7_days?.length) {
+                <div class="forecast-mini">
+                  <div class="forecast-mini-title">Prévisions 7 jours</div>
+                  @for (q of sideResult.forecast_7_days; track $index) {
+                    <div class="forecast-mini-row">
+                      <span>J+{{ $index + 1 }}</span>
+                      <div class="forecast-bar-wrap">
+                        <div class="forecast-bar"
+                          [style.width.%]="(q / getForecastTotal()) * 700"></div>
+                      </div>
+                      <span>{{ q | number:'1.0-1' }} L</span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          @if (!sideResult && !sideLoading) {
+            <div class="side-empty">
+              <p>Sélectionnez un carburant et cliquez sur
+                <strong>Générer Prévision</strong> pour voir les prévisions IA.</p>
+            </div>
+          }
+        </div>
+      </aside>
+    }
+  </div>
+
+  @if (!sideOpen) {
+    <div class="map-hint">
+      <span class="material-symbols-outlined" style="font-size:16px">touch_app</span>
+      Cliquez sur une région (polygone) ou une station (cercle jaune) pour générer une prévision
+    </div>
+  }
+</div>

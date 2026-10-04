@@ -1,0 +1,62 @@
+<div class="station-picker" [class.disabled]="disabled" [style.width]="width">
+  <div class="input-wrap">
+    <span class="material-symbols-outlined picker-icon">search</span>
+    <input
+      #inputEl
+      type="text"
+      class="picker-input"
+      [placeholder]="placeholder"
+      [(ngModel)]="query"
+      (input)="onInput()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keydown)="onKeyDown($event)"
+      [disabled]="disabled"
+      autocomplete="off"
+      spellcheck="false" />
+
+    @if (selectedId !== null && !disabled) {
+      <button type="button" class="clear-btn" (mousedown)="clear($event)" title="Effacer">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    }
+    <span class="material-symbols-outlined caret" [class.open]="open">expand_more</span>
+  </div>
+
+  @if (open && !disabled) {
+    <div class="dropdown">
+      @if (allowAll) {
+        <button type="button"
+          class="option option-all"
+          [class.highlighted]="highlightedIndex === 0"
+          (mousedown)="select(null)">
+          <span class="material-symbols-outlined" style="font-size:16px">public</span>
+          {{ allLabel }}
+        </button>
+      }
+
+      @if (filtered.length === 0) {
+        <div class="no-result">Aucune station trouvée</div>
+      } @else {
+        @for (s of filtered; track s.id; let i = $index) {
+          <button type="button"
+            class="option"
+            [class.highlighted]="highlightedIndex === rowIndex(i)"
+            [class.selected]="selectedId === s.id"
+            (mousedown)="select(s)">
+            <div class="opt-main">
+              <span class="opt-name" [innerHTML]="highlight(s.name)"></span>
+              <span class="opt-id">#{{ s.id }}</span>
+            </div>
+            <div class="opt-sub">
+              <span class="opt-region" [innerHTML]="highlight(s.region)"></span>
+              @if (s.managerName) {
+                <span class="opt-manager">· {{ s.managerName }}</span>
+              }
+            </div>
+          </button>
+        }
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,336 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": {
+        "totalStations": 26,
+        "activeStations": 25,
+        "activeAlerts": 220,
+        "criticalAlerts": 45,
+        "criticalTanks": [],
+        "recentAlerts": [
+            {
+                "id": 261,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "ANOMALY",
+                "severity": "HIGH",
+                "message": "Anomalie détectée (score: 1.0). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:36:52"
+            },
+            {
+                "id": 260,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "ANOMALY",
+                "severity": "HIGH",
+                "message": "Anomalie détectée (score: 1.0). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:36:20"
+            },
+            {
+                "id": 259,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "ANOMALY",
+                "severity": "HIGH",
+                "message": "Anomalie détectée (score: 1.0). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:36:13"
+            },
+            {
+                "id": 258,
+                "stationId": 9,
+                "stationName": "Station Sfax Centre",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5111). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-18, 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:46"
+            },
+            {
+                "id": 257,
+                "stationId": 3,
+                "stationName": "Station Ariana",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5722). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-21, 2026-03-22",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:17"
+            },
+            {
+                "id": 256,
+                "stationId": 3,
+                "stationName": "Station Ariana",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5032). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-18, 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:16"
+            },
+            {
+                "id": 255,
+                "stationId": 3,
+                "stationName": "Station Ariana",
+                "alertType": "ANOMALY",
+                "severity": "MEDIUM",
+                "message": "Anomalie détectée (score: 0.5075). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-18, 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:14"
+            },
+            {
+                "id": 253,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "STOCK_RUPTURE",
+                "severity": "MEDIUM",
+                "message": "Rupture estimée dans 2.7 jours (scénario P90 (pessimistic)). Stock: 13275.12L, Demande moy: 4918.09L/j",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:04"
+            },
+            {
+                "id": 254,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "ANOMALY",
+                "severity": "HIGH",
+                "message": "Anomalie détectée (score: 0.9288). Niveau de risque: HIGH. Dates suspectes: 2026-04-12, 2026-04-13, 2026-04-14, 2026-04-15, 2026-04-16, 2026-04-17, 2026-04-20, 2026-04-24, 2026-04-25",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:04"
+            },
+            {
+                "id": 252,
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "alertType": "ANOMALY",
+                "severity": "HIGH",
+                "message": "Anomalie détectée (score: 1.0). Niveau de risque: HIGH. Dates suspectes: 2026-04-25, 2026-04-26",
+                "status": "ACTIVE",
+                "resolvedByName": null,
+                "resolvedAt": null,
+                "createdAt": "2026-10-03T20:05:03"
+            }
+        ],
+        "stationSummaries": [
+            {
+                "stationId": 1,
+                "stationName": "Station Tunis Centre",
+                "region": "Tunis",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 41
+            },
+            {
+                "stationId": 2,
+                "stationName": "Station La Marsa",
+                "region": "Tunis",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 7
+            },
+            {
+                "stationId": 3,
+                "stationName": "Station Ariana",
+                "region": "Ariana",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 38
+            },
+            {
+                "stationId": 4,
+                "stationName": "Station Ennasr",
+                "region": "Ariana",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 3
+            },
+            {
+                "stationId": 5,
+                "stationName": "Station Ben Arous",
+                "region": "Ben Arous",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 15
+            },
+            {
+                "stationId": 6,
+                "stationName": "Station Boumhel",
+                "region": "Ben Arous",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 5
+            },
+            {
+                "stationId": 7,
+                "stationName": "Station Sousse Centre",
+                "region": "Sousse",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 4
+            },
+            {
+                "stationId": 8,
+                "stationName": "Station Sahloul",
+                "region": "Sousse",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 4
+            },
+            {
+                "stationId": 9,
+                "stationName": "Station Sfax Centre",
+                "region": "Sfax",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 9
+            },
+            {
+                "stationId": 10,
+                "stationName": "Station Sfax Teniour",
+                "region": "Sfax",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 8
+            },
+            {
+                "stationId": 11,
+                "stationName": "Station Nabeul",
+                "region": "Nabeul",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 10
+            },
+            {
+                "stationId": 12,
+                "stationName": "Station Hammamet",
+                "region": "Nabeul",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 2
+            },
+            {
+                "stationId": 13,
+                "stationName": "Station Kairouan",
+                "region": "Kairouan",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 8
+            },
+            {
+                "stationId": 14,
+                "stationName": "Station Gabes",
+                "region": "Gabes",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 3
+            },
+            {
+                "stationId": 15,
+                "stationName": "Station Bizerte",
+                "region": "Bizerte",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 2
+            },
+            {
+                "stationId": 16,
+                "stationName": "Station Monastir",
+                "region": "Monastir",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 8
+            },
+            {
+                "stationId": 17,
+                "stationName": "Station Gafsa",
+                "region": "Gafsa",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 2
+            },
+            {
+                "stationId": 18,
+                "stationName": "Station Kasserine",
+                "region": "Kasserine",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 4
+            },
+            {
+                "stationId": 19,
+                "stationName": "Station Medenine",
+                "region": "Medenine",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 13
+            },
+            {
+                "stationId": 20,
+                "stationName": "Station Djerba",
+                "region": "Medenine",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 2
+            },
+            {
+                "stationId": 21,
+                "stationName": "Station Beja",
+                "region": "Beja",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 6
+            },
+            {
+                "stationId": 22,
+                "stationName": "Station Jendouba",
+                "region": "Jendouba",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 6
+            },
+            {
+                "stationId": 23,
+                "stationName": "Station Tozeur",
+                "region": "Tozeur",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 3
+            },
+            {
+                "stationId": 24,
+                "stationName": "Station Mourouj",
+                "region": "Ben Arous",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 17
+            },
+            {
+                "stationId": 25,
+                "stationName": "Station Sidi Bouzid",
+                "region": "Sidi Bouzid",
+                "avgDailyConsumption": 0,
+                "daysBeforeRupture": null,
+                "activeAlertCount": 0
+            }
+        ]
+    },
+    "timestamp": "2026-10-04T12:36:26.358364413"
+}

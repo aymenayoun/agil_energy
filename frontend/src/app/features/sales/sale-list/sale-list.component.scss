@@ -1,0 +1,18 @@
+:host { display: block; }
+
+.filter-station { width: 200px; }
+.filter-date { width: 160px; }
+
+.filters-bar .form-control { min-width: 0; }
+
+.empty-state .material-symbols-outlined {
+  color: var(--text-muted) !important;
+}
+
+@media (max-width: 768px) {
+  .filters-bar { flex-direction: column; }
+  .filters-bar .form-control,
+  .filters-bar select { width: 100% !important; }
+  .filter-station { width: 100%; }
+  .filter-date { width: 100%; }
+}

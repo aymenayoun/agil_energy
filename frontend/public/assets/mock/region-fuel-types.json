@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": [
+        {
+            "fuel_type_id": 1,
+            "fuel_type_name": "GASOIL"
+        },
+        {
+            "fuel_type_id": 2,
+            "fuel_type_name": "GASOIL SANS SOUFRE"
+        },
+        {
+            "fuel_type_id": 4,
+            "fuel_type_name": "SUPER SP"
+        },
+        {
+            "fuel_type_id": 5,
+            "fuel_type_name": "SSP PREMIUM"
+        },
+        {
+            "fuel_type_id": 6,
+            "fuel_type_name": "GPL CARBURANT"
+        }
+    ],
+    "timestamp": "2026-10-03T20:06:32.460005926"
+}

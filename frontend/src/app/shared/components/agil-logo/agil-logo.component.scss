@@ -1,0 +1,16 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+svg {
+  display: block;
+  /* keep edges sharp when scaled down */
+  shape-rendering: geometricPrecision;
+}
+
+.agil-tile {
+  border-radius: 22%;
+  box-shadow: 0 0 16px rgba(242, 201, 76, 0.2);
+}

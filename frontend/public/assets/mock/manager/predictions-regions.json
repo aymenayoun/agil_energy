@@ -1,0 +1,12 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": [
+        {
+            "region": "Tunis",
+            "station_count": 10,
+            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
+        }
+    ],
+    "timestamp": "2026-10-04T11:10:38.90312983"
+}

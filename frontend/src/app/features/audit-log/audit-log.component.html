@@ -1,0 +1,134 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <span class="material-symbols-outlined card-title-icon">history</span>
+      Journal d'Audit
+    </h3>
+    <div class="header-actions">
+      <button class="btn btn-outline btn-sm" (click)="resetFilters()">
+        <span class="material-symbols-outlined" style="font-size:14px">refresh</span>
+        Réinitialiser
+      </button>
+      <button class="btn btn-primary" (click)="exportCsv()">
+        <span class="material-symbols-outlined" style="font-size:16px">download</span>
+        Exporter CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label>Date début</label>
+      <input type="date" class="form-control" [(ngModel)]="startDate" (change)="loadLogs()" />
+    </div>
+    <div class="filter-group">
+      <label>Date fin</label>
+      <input type="date" class="form-control" [(ngModel)]="endDate" (change)="loadLogs()" />
+    </div>
+    <div class="filter-group">
+      <label>Action</label>
+      <select class="form-control" [(ngModel)]="actionFilter" (change)="applyFilters()">
+        <option value="">Toutes les actions</option>
+        @for (a of availableActions; track a) {
+          <option [value]="a">{{ a }}</option>
+        }
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Utilisateur</label>
+      <select class="form-control" [(ngModel)]="userFilter" (change)="applyFilters()">
+        <option value="">Tous les utilisateurs</option>
+        @for (u of availableUsers; track u) {
+          <option [value]="u">{{ u }}</option>
+        }
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Limite</label>
+      <select class="form-control" [(ngModel)]="limit" (change)="loadLogs()">
+        <option [ngValue]="50">50</option>
+        <option [ngValue]="100">100</option>
+        <option [ngValue]="250">250</option>
+        <option [ngValue]="500">500</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-bar">
+    <span>Total affiché : <strong>{{ filteredLogs.length }}</strong> / {{ total }}</span>
+    @if (startDate && endDate) {
+      <span>Période : <strong>{{ startDate }} → {{ endDate }}</strong></span>
+    }
+  </div>
+
+  <!-- Loading -->
+  @if (loading) {
+    <div class="loading">
+      <span class="material-symbols-outlined spin-icon">hourglass_top</span>
+      Chargement du journal...
+    </div>
+  } @else if (filteredLogs.length === 0) {
+    <div class="empty-state">
+      <span class="material-symbols-outlined empty-icon">inbox</span>
+      <p>Aucune entrée trouvée</p>
+    </div>
+  } @else {
+    <!-- Logs table -->
+    <div class="log-list">
+      @for (log of filteredLogs; track log.id) {
+        <div class="log-entry" [class.expanded]="expandedId === log.id" (click)="toggleDetails(log.id)">
+          <div class="log-main">
+            <div class="log-icon" [style.color]="getActionColor(log.action)">
+              <span class="material-symbols-outlined">{{ getActionIcon(log.action) }}</span>
+            </div>
+            <div class="log-content">
+              <div class="log-top">
+                <span class="log-action">{{ log.action_label }}</span>
+                <span class="log-entity" *ngIf="log.entite">
+                  <span class="material-symbols-outlined" style="font-size:12px;vertical-align:middle">chevron_right</span>
+                  {{ log.entite }} #{{ log.entite_id }}
+                </span>
+                <span class="log-date">{{ log.date }}</span>
+              </div>
+              <div class="log-meta">
+                <span [class]="getRoleBadge(log.role)">{{ log.role }}</span>
+                <span class="log-user">
+                  <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle">person</span>
+                  {{ log.utilisateur }}
+                </span>
+                @if (log.details && expandedId !== log.id) {
+                  <span class="log-details-preview">{{ formatDetails(log.details) }}</span>
+                }
+              </div>
+              @if (expandedId === log.id) {
+                <div class="log-details-expanded">
+                  @if (log.details) {
+                    <div class="detail-row">
+                      <span class="detail-label">Détails :</span>
+                      <span class="detail-value">{{ formatDetails(log.details) }}</span>
+                    </div>
+                  }
+                  @if (log.ip) {
+                    <div class="detail-row">
+                      <span class="detail-label">IP :</span>
+                      <span class="detail-value">{{ log.ip }}</span>
+                    </div>
+                  }
+                  <div class="detail-row">
+                    <span class="detail-label">ID log :</span>
+                    <span class="detail-value">#{{ log.id }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+            <span class="material-symbols-outlined chevron">
+              {{ expandedId === log.id ? 'expand_less' : 'expand_more' }}
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

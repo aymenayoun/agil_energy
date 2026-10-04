@@ -1,0 +1,138 @@
+date,nom_ferie,type
+2024-01-01,Nouvel An,fixe
+2024-01-14,Revolution et Jeunesse,national
+2024-03-20,Fete de l'Independance,national
+2024-04-09,Journee des Martyrs,national
+2024-05-01,Fete du Travail,fixe
+2024-07-25,Fete de la Republique,national
+2024-08-13,Journee de la Femme,national
+2024-10-15,Fete de l'Evacuation,national
+2025-01-01,Nouvel An,fixe
+2025-01-14,Revolution et Jeunesse,national
+2025-03-20,Fete de l'Independance,national
+2025-04-09,Journee des Martyrs,national
+2025-05-01,Fete du Travail,fixe
+2025-07-25,Fete de la Republique,national
+2025-08-13,Journee de la Femme,national
+2025-10-15,Fete de l'Evacuation,national
+2026-01-01,Nouvel An,fixe
+2026-01-14,Revolution et Jeunesse,national
+2026-03-20,Fete de l'Independance,national
+2026-04-09,Journee des Martyrs,national
+2026-05-01,Fete du Travail,fixe
+2026-07-25,Fete de la Republique,national
+2026-08-13,Journee de la Femme,national
+2026-10-15,Fete de l'Evacuation,national
+2024-03-11,Ramadan 2024,ramadan
+2024-03-12,Ramadan 2024,ramadan
+2024-03-13,Ramadan 2024,ramadan
+2024-03-14,Ramadan 2024,ramadan
+2024-03-15,Ramadan 2024,ramadan
+2024-03-16,Ramadan 2024,ramadan
+2024-03-17,Ramadan 2024,ramadan
+2024-03-18,Ramadan 2024,ramadan
+2024-03-19,Ramadan 2024,ramadan
+2024-03-20,Ramadan 2024,ramadan
+2024-03-21,Ramadan 2024,ramadan
+2024-03-22,Ramadan 2024,ramadan
+2024-03-23,Ramadan 2024,ramadan
+2024-03-24,Ramadan 2024,ramadan
+2024-03-25,Ramadan 2024,ramadan
+2024-03-26,Ramadan 2024,ramadan
+2024-03-27,Ramadan 2024,ramadan
+2024-03-28,Ramadan 2024,ramadan
+2024-03-29,Ramadan 2024,ramadan
+2024-03-30,Ramadan 2024,ramadan
+2024-03-31,Ramadan 2024,ramadan
+2024-04-01,Ramadan 2024,ramadan
+2024-04-02,Ramadan 2024,ramadan
+2024-04-03,Ramadan 2024,ramadan
+2024-04-04,Ramadan 2024,ramadan
+2024-04-05,Ramadan 2024,ramadan
+2024-04-06,Ramadan 2024,ramadan
+2024-04-07,Ramadan 2024,ramadan
+2024-04-08,Ramadan 2024,ramadan
+2024-04-09,Ramadan 2024,ramadan
+2024-04-10,Aid El Fitr 2024,religieux
+2024-04-11,Aid El Fitr 2024,religieux
+2024-04-12,Aid El Fitr 2024,religieux
+2024-06-16,Aid El Adha 2024,religieux
+2024-06-17,Aid El Adha 2024,religieux
+2024-06-18,Aid El Adha 2024,religieux
+2024-07-07,1er Muharram 2024,religieux
+2024-09-15,Mouled 2024,religieux
+2025-03-01,Ramadan 2025,ramadan
+2025-03-02,Ramadan 2025,ramadan
+2025-03-03,Ramadan 2025,ramadan
+2025-03-04,Ramadan 2025,ramadan
+2025-03-05,Ramadan 2025,ramadan
+2025-03-06,Ramadan 2025,ramadan
+2025-03-07,Ramadan 2025,ramadan
+2025-03-08,Ramadan 2025,ramadan
+2025-03-09,Ramadan 2025,ramadan
+2025-03-10,Ramadan 2025,ramadan
+2025-03-11,Ramadan 2025,ramadan
+2025-03-12,Ramadan 2025,ramadan
+2025-03-13,Ramadan 2025,ramadan
+2025-03-14,Ramadan 2025,ramadan
+2025-03-15,Ramadan 2025,ramadan
+2025-03-16,Ramadan 2025,ramadan
+2025-03-17,Ramadan 2025,ramadan
+2025-03-18,Ramadan 2025,ramadan
+2025-03-19,Ramadan 2025,ramadan
+2025-03-20,Ramadan 2025,ramadan
+2025-03-21,Ramadan 2025,ramadan
+2025-03-22,Ramadan 2025,ramadan
+2025-03-23,Ramadan 2025,ramadan
+2025-03-24,Ramadan 2025,ramadan
+2025-03-25,Ramadan 2025,ramadan
+2025-03-26,Ramadan 2025,ramadan
+2025-03-27,Ramadan 2025,ramadan
+2025-03-28,Ramadan 2025,ramadan
+2025-03-29,Ramadan 2025,ramadan
+2025-03-30,Aid El Fitr 2025,religieux
+2025-03-31,Aid El Fitr 2025,religieux
+2025-04-01,Aid El Fitr 2025,religieux
+2025-06-06,Aid El Adha 2025,religieux
+2025-06-07,Aid El Adha 2025,religieux
+2025-06-08,Aid El Adha 2025,religieux
+2025-06-26,1er Muharram 2025,religieux
+2025-09-04,Mouled 2025,religieux
+2026-02-18,Ramadan 2026,ramadan
+2026-02-19,Ramadan 2026,ramadan
+2026-02-20,Ramadan 2026,ramadan
+2026-02-21,Ramadan 2026,ramadan
+2026-02-22,Ramadan 2026,ramadan
+2026-02-23,Ramadan 2026,ramadan
+2026-02-24,Ramadan 2026,ramadan
+2026-02-25,Ramadan 2026,ramadan
+2026-02-26,Ramadan 2026,ramadan
+2026-02-27,Ramadan 2026,ramadan
+2026-02-28,Ramadan 2026,ramadan
+2026-03-01,Ramadan 2026,ramadan
+2026-03-02,Ramadan 2026,ramadan
+2026-03-03,Ramadan 2026,ramadan
+2026-03-04,Ramadan 2026,ramadan
+2026-03-05,Ramadan 2026,ramadan
+2026-03-06,Ramadan 2026,ramadan
+2026-03-07,Ramadan 2026,ramadan
+2026-03-08,Ramadan 2026,ramadan
+2026-03-09,Ramadan 2026,ramadan
+2026-03-10,Ramadan 2026,ramadan
+2026-03-11,Ramadan 2026,ramadan
+2026-03-12,Ramadan 2026,ramadan
+2026-03-13,Ramadan 2026,ramadan
+2026-03-14,Ramadan 2026,ramadan
+2026-03-15,Ramadan 2026,ramadan
+2026-03-16,Ramadan 2026,ramadan
+2026-03-17,Ramadan 2026,ramadan
+2026-03-18,Ramadan 2026,ramadan
+2026-03-19,Ramadan 2026,ramadan
+2026-03-20,Aid El Fitr 2026,religieux
+2026-03-21,Aid El Fitr 2026,religieux
+2026-03-22,Aid El Fitr 2026,religieux
+2026-05-27,Aid El Adha 2026,religieux
+2026-05-28,Aid El Adha 2026,religieux
+2026-05-29,Aid El Adha 2026,religieux
+2026-06-16,1er Muharram 2026,religieux
+2026-08-25,Mouled 2026,religieux

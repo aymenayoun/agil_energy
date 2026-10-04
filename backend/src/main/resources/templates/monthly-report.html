@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="'Rapport ' + ${data.stationName} + ' — ' + ${data.monthName} + ' ' + ${data.year}">Rapport mensuel</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 14mm 18mm 14mm;
+            @bottom-center {
+                content: "Page " counter(page) " / " counter(pages);
+                font-family: Arial, sans-serif;
+                font-size: 9pt;
+                color: #888;
+            }
+        }
+        body { font-family: Arial, sans-serif; color: #222; font-size: 10pt; }
+        h1 { color: #1f6feb; font-size: 20pt; margin: 0 0 4pt 0; }
+        h2 { color: #1f6feb; font-size: 13pt; border-bottom: 2px solid #1f6feb; padding-bottom: 3pt; margin-top: 18pt; }
+        h3 { color: #444; font-size: 11pt; margin-top: 14pt; }
+        .subtitle { color: #666; font-size: 11pt; margin: 0 0 12pt 0; }
+        .meta { color: #555; font-size: 9pt; margin-bottom: 10pt; }
+        .kpi-grid { display: table; width: 100%; border-collapse: separate; border-spacing: 6pt; margin-top: 8pt; }
+        .kpi-row { display: table-row; }
+        .kpi-cell {
+            display: table-cell; width: 25%;
+            background: #f4f7fb; border-left: 4px solid #1f6feb;
+            padding: 8pt 10pt; border-radius: 3pt;
+        }
+        .kpi-label { font-size: 8pt; color: #777; text-transform: uppercase; letter-spacing: 0.5pt; }
+        .kpi-value { font-size: 14pt; color: #1f6feb; font-weight: bold; margin-top: 3pt; }
+        table.data { width: 100%; border-collapse: collapse; margin-top: 6pt; font-size: 9pt; }
+        table.data th { background: #1f6feb; color: #fff; padding: 5pt 7pt; text-align: left; }
+        table.data td { padding: 4pt 7pt; border-bottom: 1px solid #e3e6ea; }
+        table.data tr:nth-child(even) td { background: #fafbfc; }
+        .badge { display: inline-block; padding: 1pt 5pt; border-radius: 3pt; font-size: 8pt; font-weight: bold; }
+        .badge-ok { background: #e7f7ee; color: #1d8a4b; }
+        .badge-crit { background: #fdecec; color: #c0392b; }
+        .badge-warn { background: #fff5d8; color: #b88407; }
+        .chart { text-align: center; margin: 6pt 0 10pt 0; }
+        .chart img { max-width: 100%; height: auto; }
+        .footer-note { color: #888; font-size: 8pt; margin-top: 14pt; text-align: center; font-style: italic; }
+        .pagebreak { page-break-before: always; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<h1 th:text="'Rapport mensuel — ' + ${data.stationName}">Rapport mensuel</h1>
+<p class="subtitle"
+   th:text="${data.monthName} + ' ' + ${data.year} + ' · Région : ' + ${data.stationRegion}">Période · Région</p>
+<p class="meta">
+    <span th:text="'Période : ' + ${#temporals.format(data.startDate, 'dd/MM/yyyy')} + ' → ' + ${#temporals.format(data.endDate, 'dd/MM/yyyy')}"></span>
+    · <span th:text="'Généré le ' + ${#temporals.format(data.generatedAt, 'dd/MM/yyyy')}"></span>
+    · <span th:text="'Par : ' + ${data.generatedBy}"></span>
+</p>
+
+<!-- KPI -->
+<h2>Indicateurs clés</h2>
+<div class="kpi-grid">
+    <div class="kpi-row">
+        <div class="kpi-cell">
+            <div class="kpi-label">Ventes totales</div>
+            <div class="kpi-value" th:text="${#numbers.formatDecimal(data.totalSales, 1, 'WHITESPACE', 2, 'POINT')} + ' L'">0 L</div>
+        </div>
+        <div class="kpi-cell">
+            <div class="kpi-label">Livraisons totales</div>
+            <div class="kpi-value" th:text="${#numbers.formatDecimal(data.totalDeliveries, 1, 'WHITESPACE', 2, 'POINT')} + ' L'">0 L</div>
+        </div>
+        <div class="kpi-cell">
+            <div class="kpi-label">Alertes du mois</div>
+            <div class="kpi-value" th:text="${data.alertsCreatedDuringPeriod}">0</div>
+        </div>
+        <div class="kpi-cell">
+            <div class="kpi-label">Réservoirs</div>
+            <div class="kpi-value" th:text="${data.tankCount}">0</div>
+        </div>
+    </div>
+</div>
+
+<!-- CHART 1 -->
+<h2>Évolution des ventes journalières</h2>
+<div class="chart">
+    <img th:src="${salesChart}" alt="Ventes journalières" />
+</div>
+
+<!-- FUEL STATS TABLE -->
+<h2>Synthèse par carburant</h2>
+<table class="data">
+    <thead>
+    <tr>
+        <th>Carburant</th>
+        <th>Ventes (L)</th>
+        <th>Livraisons (L)</th>
+        <th>Moyenne / jour (L)</th>
+        <th>Stock actuel (L)</th>
+        <th>% rempli</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="f : ${data.fuelStats}">
+        <td th:text="${f.fuelTypeName}">Diesel</td>
+        <td th:text="${#numbers.formatDecimal(f.totalSales, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(f.totalDeliveries, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(f.avgDailySales, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(f.currentStock, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(f.stockPercentage, 1, 'WHITESPACE', 1, 'POINT')} + ' %'">0 %</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- CHART 2 -->
+<div class="pagebreak"></div>
+<h2>Comparatif Ventes / Livraisons</h2>
+<div class="chart">
+    <img th:src="${comparisonChart}" alt="Ventes vs Livraisons" />
+</div>
+
+<!-- TANKS -->
+<h2>État des réservoirs</h2>
+<div class="chart">
+    <img th:src="${tankChart}" alt="Niveaux de stock" />
+</div>
+<table class="data">
+    <thead>
+    <tr>
+        <th>Carburant</th>
+        <th>Capacité (L)</th>
+        <th>Stock (L)</th>
+        <th>Seuil critique (L)</th>
+        <th>% rempli</th>
+        <th>État</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${data.tanks}">
+        <td th:text="${t.fuelTypeName}">Diesel</td>
+        <td th:text="${#numbers.formatDecimal(t.capacity, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(t.currentStock, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(t.criticalThreshold, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td th:text="${#numbers.formatDecimal(t.stockPercentage, 1, 'WHITESPACE', 1, 'POINT')} + ' %'">0 %</td>
+        <td>
+            <span th:if="${t.critical}" class="badge badge-crit">CRITIQUE</span>
+            <span th:unless="${t.critical}" class="badge badge-ok">OK</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- ALERTS -->
+<div class="pagebreak"></div>
+<h2 th:text="'Alertes du mois (' + ${data.alertsCreatedDuringPeriod} + ')'">Alertes du mois</h2>
+<table class="data" th:if="${not #lists.isEmpty(data.alerts)}">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Sévérité</th>
+        <th>Message</th>
+        <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${data.alerts}">
+        <td th:text="${#temporals.format(a.createdAt, 'dd/MM/yyyy')}">01/01</td>
+        <td th:text="${a.alertType}">STOCK_LOW</td>
+        <td>
+            <span th:class="'badge ' + (${a.severity} == 'HIGH' ? 'badge-crit' : (${a.severity} == 'MEDIUM' ? 'badge-warn' : 'badge-ok'))"
+                  th:text="${a.severity}">HIGH</span>
+        </td>
+        <td th:text="${a.message}">Description</td>
+        <td th:text="${a.status}">ACTIVE</td>
+    </tr>
+    </tbody>
+</table>
+<p th:if="${#lists.isEmpty(data.alerts)}" style="color:#666;font-style:italic;">
+    Aucune alerte enregistrée durant cette période.
+</p>
+
+<!-- DETAILED SALES -->
+<div class="pagebreak"></div>
+<h2 th:text="'Détail des ventes (' + ${#lists.size(data.sales)} + ')'">Détail des ventes</h2>
+<table class="data" th:if="${not #lists.isEmpty(data.sales)}">
+    <thead><tr><th>Date</th><th>Carburant</th><th>Quantité (L)</th><th>Validée</th></tr></thead>
+    <tbody>
+    <tr th:each="s : ${data.sales}">
+        <td th:text="${#temporals.format(s.saleDate, 'dd/MM/yyyy')}">01/01</td>
+        <td th:text="${s.fuelTypeName}">Diesel</td>
+        <td th:text="${#numbers.formatDecimal(s.quantity, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td>
+            <span th:if="${s.validated}" class="badge badge-ok">Oui</span>
+            <span th:unless="${s.validated}" class="badge badge-warn">Non</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- DETAILED DELIVERIES -->
+<h2 th:text="'Détail des livraisons (' + ${#lists.size(data.deliveries)} + ')'">Détail des livraisons</h2>
+<table class="data" th:if="${not #lists.isEmpty(data.deliveries)}">
+    <thead><tr><th>Date</th><th>Carburant</th><th>Quantité (L)</th><th>Validée</th></tr></thead>
+    <tbody>
+    <tr th:each="d : ${data.deliveries}">
+        <td th:text="${#temporals.format(d.deliveryDate, 'dd/MM/yyyy')}">01/01</td>
+        <td th:text="${d.fuelTypeName}">Diesel</td>
+        <td th:text="${#numbers.formatDecimal(d.quantity, 1, 'WHITESPACE', 2, 'POINT')}">0</td>
+        <td>
+            <span th:if="${d.validated}" class="badge badge-ok">Oui</span>
+            <span th:unless="${d.validated}" class="badge badge-warn">Non</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="footer-note">AGIL Energy — Rapport généré automatiquement par le système</p>
+
+</body>
+</html>

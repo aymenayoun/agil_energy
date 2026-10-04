@@ -1,0 +1,33 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": {
+        "question": "bonjour",
+        "answer": "Pas de réponse spécifique à la question posée. La réponse est simplement \"Bonjour\".",
+        "mode": "default",
+        "model_used": "llama3.2:3b",
+        "retrieved_context": [
+            {
+                "text": "Jour férié en Tunisie le 2026-01-14 : Revolution et Jeunesse. Type : national.",
+                "source": "holidays",
+                "metadata": {
+                    "date": "2026-01-14"
+                },
+                "score": 0.39885005354881287,
+                "semantic_score": 0.7977001070976257,
+                "bm25_score": 0.0
+            },
+            {
+                "text": "Jour férié en Tunisie le 2025-01-14 : Revolution et Jeunesse. Type : national.",
+                "source": "holidays",
+                "metadata": {
+                    "date": "2025-01-14"
+                },
+                "score": 0.39797812700271606,
+                "semantic_score": 0.7959562540054321,
+                "bm25_score": 0.0
+            }
+        ]
+    },
+    "timestamp": "2026-10-04T12:52:40.218388055"
+}

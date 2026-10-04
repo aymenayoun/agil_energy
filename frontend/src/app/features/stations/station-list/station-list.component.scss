@@ -1,0 +1,389 @@
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+}
+.filter-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.create-form {
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.create-form h4 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.error-msg {
+  color: var(--red);
+  background: var(--red-dim);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(235, 87, 87, 0.2);
+}
+
+.tank-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+.fuel-name {
+  min-width: 70px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.stock-bar-sm {
+  width: 60px;
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.stock-fill-sm {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.stock-fill-sm.danger  { background: var(--red); }
+.stock-fill-sm.warning { background: var(--orange); }
+.stock-fill-sm.ok      { background: var(--green); }
+
+.stock-text { color: var(--text-muted); font-size: 11px; }
+.text-muted { color: var(--text-muted); font-size: 13px; }
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lg);
+}
+.modal-content h3 {
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+.modal-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.form-actions { display: flex; gap: 12px; margin-top: 16px; }
+/* ── View Toggle ── */
+.view-toggle {
+  display: flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: 'Outfit', sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.toggle-btn:hover { color: var(--text-primary); }
+.toggle-btn.active {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+}
+
+/* ── Map Container ── */
+.map-container {
+  margin-top: 4px;
+}
+.map-legend-bar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+.station-count {
+  margin-left: auto;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.map-layout {
+  display: flex;
+  height: calc(100vh - 280px);
+  min-height: 450px;
+}
+.stations-map {
+  flex: 1;
+  background: var(--bg-secondary);
+}
+
+/* ── Detail Panel ── */
+.map-detail {
+  width: 340px;
+  max-width: 100%;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  animation: slide-in 0.25s ease;
+  overflow-y: auto;
+}
+@keyframes slide-in {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+.detail-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.detail-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 6px 0 2px;
+  color: var(--text-primary);
+}
+.detail-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.status-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+.status-pill.active { background: rgba(39, 174, 96, 0.15); color: #27AE60; }
+.status-pill.inactive { background: rgba(235, 87, 87, 0.15); color: #EB5757; }
+
+.side-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.side-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
+.detail-body {
+  padding: 14px 16px;
+  flex: 1;
+}
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.detail-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin: 16px 0 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Tank Cards ── */
+.tank-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.tank-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.tank-fuel-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.tank-status {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+.tank-status.ok { background: rgba(39, 174, 96, 0.15); color: #27AE60; }
+.tank-status.warning { background: rgba(242, 153, 74, 0.15); color: #F2994A; }
+.tank-status.critical { background: rgba(235, 87, 87, 0.15); color: #EB5757; }
+
+.tank-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-elevated);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.tank-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+.tank-bar-fill.danger  { background: #EB5757; }
+.tank-bar-fill.warning { background: #F2994A; }
+.tank-bar-fill.ok      { background: #27AE60; }
+
+.tank-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.tank-threshold {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.no-tanks {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-muted);
+}
+.no-tanks p { font-size: 13px; margin: 6px 0 0; }
+.full-width { width: 100%; }
+
+@media (max-width: 900px) {
+  .map-layout { flex-direction: column; height: auto; }
+  .map-detail { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  .stations-map { height: 50vh; }
+}
+
+/* ── Edit Station Modal extras ── */
+.modal-wide {
+  max-width: 540px;
+}
+
+.modal-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.modal-header-row h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ── Coord display (read-only lat/lng) ── */
+.coord-display input {
+  background: var(--bg-elevated) !important;
+  color: var(--text-muted);
+  cursor: default;
+  font-size: 12px;
+}

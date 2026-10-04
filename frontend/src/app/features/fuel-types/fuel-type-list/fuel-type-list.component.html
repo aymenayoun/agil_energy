@@ -1,0 +1,115 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Gestion des Carburants</h3>
+    <button class="btn btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Annuler' : '+ Nouveau Carburant' }}
+    </button>
+  </div>
+
+  <!-- Create form -->
+  @if (showForm) {
+    <div class="create-form">
+      <h4>Ajouter un type de carburant</h4>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom</label>
+          <input class="form-control" [(ngModel)]="newFuelType.name" placeholder="Ex. Gasoil, SP95, SP98..." maxlength="50" />
+        </div>
+        <div class="form-group form-group-wide">
+          <label>Description</label>
+          <input class="form-control" [(ngModel)]="newFuelType.description" placeholder="Description (optionnelle)" maxlength="255" />
+        </div>
+      </div>
+      @if (formError) {
+        <div class="error-msg">{{ formError }}</div>
+      }
+      <button class="btn btn-success" (click)="createFuelType()">Ajouter le carburant</button>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else {
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Créé le</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (fuelType of fuelTypes; track fuelType.id) {
+            <tr>
+              <td><strong>{{ fuelType.name }}</strong></td>
+              <td>{{ fuelType.description || '-' }}</td>
+              <td>{{ fuelType.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <div class="action-group">
+                  <button class="btn btn-outline btn-sm" (click)="openEdit(fuelType)" title="Modifier">
+                    <span class="material-symbols-outlined" style="font-size:14px">edit</span>
+                  </button>
+                  @if (confirmingId === fuelType.id) {
+                    <span class="confirm-label">Confirmer ?</span>
+                    <button class="btn btn-danger btn-sm" (click)="deleteFuelType(fuelType.id)">Oui</button>
+                    <button class="btn btn-outline btn-sm" (click)="confirmingId = null">Non</button>
+                  } @else {
+                    <button class="btn btn-danger btn-sm" (click)="confirmingId = fuelType.id">Supprimer</button>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+          @if (fuelTypes.length === 0) {
+            <tr>
+              <td colspan="4" class="empty-row">Aucun type de carburant enregistré</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-bar">
+      <span>Total : <strong>{{ fuelTypes.length }}</strong> types de carburant</span>
+    </div>
+  }
+</div>
+
+<!-- Edit Modal -->
+@if (showEditForm) {
+  <div class="modal-overlay" (click)="closeEdit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>
+          <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle;color:var(--accent)">edit</span>
+          Modifier le carburant
+        </h3>
+        <button class="modal-close" (click)="closeEdit()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nom</label>
+        <input class="form-control" [(ngModel)]="editFuelType.name" placeholder="Ex. Gasoil, SP95..." maxlength="50" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" [(ngModel)]="editFuelType.description" placeholder="Description (optionnelle)" maxlength="255" />
+      </div>
+
+      @if (editError) {
+        <div class="error-msg">{{ editError }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submitEdit()">
+          <span class="material-symbols-outlined" style="font-size:14px">save</span>
+          Enregistrer
+        </button>
+        <button class="btn btn-outline" (click)="closeEdit()">Annuler</button>
+      </div>
+    </div>
+  </div>
+}

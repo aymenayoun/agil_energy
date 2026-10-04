@@ -1,0 +1,167 @@
+<div class="login-container">
+  <!-- Left decorative panel -->
+  <div class="login-branding">
+    <div class="branding-content">
+      <div class="branding-logo-full">
+        <app-agil-logo variant="lockup" [width]="260" label="AGIL energy"></app-agil-logo>
+      </div>
+      <p class="branding-tagline">Société Nationale de Distribution des Pétroles</p>
+      <div class="branding-divider"></div>
+      <p class="branding-desc">Système Intelligent d'Aide à la Décision pour la gestion optimisée des stations-service</p>
+
+      <div class="branding-features">
+        <div class="feature-item">
+          <span class="material-symbols-outlined">monitoring</span>
+          <span>Suivi en temps réel</span>
+        </div>
+        <div class="feature-item">
+          <span class="material-symbols-outlined">auto_graph</span>
+          <span>Prévisions IA</span>
+        </div>
+        <div class="feature-item">
+          <span class="material-symbols-outlined">notifications_active</span>
+          <span>Alertes intelligentes</span>
+        </div>
+      </div>
+    </div>
+    <div class="branding-footer">
+      <span>Agil Energy S.A. — Tous droits réservés</span>
+    </div>
+
+    <!-- Background decorative elements -->
+    <div class="deco-grid"></div>
+    <div class="deco-glow"></div>
+  </div>
+
+  <!-- Right login panel -->
+  <div class="login-panel">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-icon-mobile">
+          <app-agil-logo variant="tile" [size]="48" label="AGIL Energy"></app-agil-logo>
+        </div>
+        <h2>{{ step === 'credentials' ? 'Connexion' : 'Vérification en deux étapes' }}</h2>
+        @if (step === 'credentials') {
+          <p>Accédez à votre espace de gestion</p>
+        } @else {
+          <p>
+            Un code à 6 chiffres a été envoyé à<br>
+            <strong>{{ credentials.email }}</strong>
+          </p>
+        }
+      </div>
+
+      <!-- STEP 1: credentials -->
+      @if (step === 'credentials') {
+        <form (ngSubmit)="onLogin()" class="login-form">
+          <div class="form-group">
+            <label for="email">Adresse email</label>
+            <div class="input-wrapper">
+              <span class="input-icon material-symbols-outlined">mail</span>
+              <input
+                type="email"
+                id="email"
+                [(ngModel)]="credentials.email"
+                name="email"
+                placeholder="votre.email&#64;agil.tn"
+                required
+                [class.error]="errorMessage"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <div class="input-wrapper">
+              <span class="input-icon material-symbols-outlined">lock</span>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                [(ngModel)]="credentials.password"
+                name="password"
+                placeholder="Entrez votre mot de passe"
+                required
+                [class.error]="errorMessage"
+              />
+              <button type="button" class="toggle-password" (click)="showPassword = !showPassword">
+                <span class="material-symbols-outlined">
+                  {{ showPassword ? 'visibility_off' : 'visibility' }}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="forgot-link-row">
+            <a routerLink="/forgot-password" class="forgot-link">Mot de passe oublié ?</a>
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              <span class="material-symbols-outlined" style="font-size:16px">error</span>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <button type="submit" class="btn-login" [disabled]="loading">
+            @if (loading) { <span class="spinner"></span> }
+            {{ loading ? 'Connexion en cours...' : 'Se connecter' }}
+            @if (!loading) {
+              <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
+            }
+          </button>
+        </form>
+      }
+
+      <!-- STEP 2: OTP -->
+      @if (step === 'otp') {
+        <form (ngSubmit)="onVerifyOtp()" class="login-form">
+          <div class="form-group">
+            <label for="otp">Code de vérification</label>
+            <div class="input-wrapper">
+              <span class="input-icon material-symbols-outlined">key</span>
+              <input
+                type="text"
+                id="otp"
+                name="otp"
+                [(ngModel)]="otpCode"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                maxlength="6"
+                pattern="\d{6}"
+                placeholder="000000"
+                required
+                [class.error]="errorMessage"
+                class="otp-input"
+              />
+            </div>
+            <small class="otp-hint">Saisissez les 6 chiffres reçus par email</small>
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              <span class="material-symbols-outlined" style="font-size:16px">error</span>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <button type="submit" class="btn-login" [disabled]="loading || otpCode.length !== 6">
+            @if (loading) { <span class="spinner"></span> }
+            {{ loading ? 'Vérification...' : 'Valider le code' }}
+            @if (!loading) {
+              <span class="material-symbols-outlined btn-arrow">check_circle</span>
+            }
+          </button>
+
+          <button type="button" class="btn-back" (click)="backToCredentials()" [disabled]="loading">
+            <span class="material-symbols-outlined" style="font-size:18px">arrow_back</span>
+            Retour à la connexion
+          </button>
+        </form>
+      }
+
+      <div class="login-footer">
+        <span>Plateforme sécurisée — AGIL Energy S.A.</span>
+      </div>
+    </div>
+  </div>
+</div>

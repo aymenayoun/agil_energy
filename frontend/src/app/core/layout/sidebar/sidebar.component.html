@@ -1,0 +1,103 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <app-agil-logo variant="tile" [size]="42" label="AGIL Energy"></app-agil-logo>
+      <div class="brand-text">
+        <h2>AGIL <span class="brand-highlight">Energy</span></h2>
+        <p class="subtitle">Système d'Aide à la Décision</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Aperçu</div>
+    @if (hasAnyRole(['ADMIN', 'MANAGER'])) {
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <span class="icon material-symbols-outlined">dashboard</span>
+        <span class="nav-label">Tableau de Bord</span>
+      </a>
+    }
+
+    <div class="nav-section-label">Opérations</div>
+    <a routerLink="/stations" routerLinkActive="active" class="nav-item">
+      <span class="icon material-symbols-outlined">local_gas_station</span>
+      <span class="nav-label">Stations</span>
+    </a>
+    @if (hasAnyRole(['ADMIN'])) {
+      <a routerLink="/fuel-types" routerLinkActive="active" class="nav-item">
+        <span class="icon material-symbols-outlined">water_drop</span>
+        <span class="nav-label">Carburants</span>
+      </a>
+    }
+    <a routerLink="/sales" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+      <span class="icon material-symbols-outlined">point_of_sale</span>
+      <span class="nav-label">Ventes</span>
+    </a>
+    <a routerLink="/stocks" routerLinkActive="active" class="nav-item">
+      <span class="icon material-symbols-outlined">inventory_2</span>
+      <span class="nav-label">Stocks</span>
+    </a>
+    <a routerLink="/deliveries" routerLinkActive="active" class="nav-item">
+      <span class="icon material-symbols-outlined">local_shipping</span>
+      <span class="nav-label">Livraisons</span>
+    </a>
+
+    <div class="nav-section-label">Monitoring</div>
+    <a routerLink="/alerts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+      <span class="icon material-symbols-outlined">notifications</span>
+      <span class="nav-label">Alertes</span>
+    </a>
+    <a routerLink="/alerts/anomalies" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+      <span class="icon material-symbols-outlined">insights</span>
+      <span class="nav-label">Anomalies</span>
+    </a>
+
+    @if (hasAnyRole(['ADMIN', 'MANAGER'])) {
+      <div class="nav-section-label">Intelligence</div>
+      <a routerLink="/predictions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+        <span class="icon material-symbols-outlined">auto_graph</span>
+        <span class="nav-label">Prévisions IA</span>
+      </a>
+      <a routerLink="/predictions/regions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+        <span class="icon material-symbols-outlined">map</span>
+        <span class="nav-label">Prévisions Régionales</span>
+      </a>
+      <a routerLink="/predictions/map" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+        <span class="icon material-symbols-outlined">public</span>
+        <span class="nav-label">Carte Interactive</span>
+      </a>
+    }
+    @if (hasAnyRole(['ADMIN'])) {
+      <a routerLink="/ai-assistant" routerLinkActive="active" class="nav-item">
+        <span class="icon material-symbols-outlined">smart_toy</span>
+        <span class="nav-label">Assistant IA</span>
+      </a>
+    }
+
+    @if (hasAnyRole(['ADMIN'])) {
+      <div class="nav-section-label">Administration</div>
+      <a routerLink="/users" routerLinkActive="active" class="nav-item">
+        <span class="icon material-symbols-outlined">group</span>
+        <span class="nav-label">Utilisateurs</span>
+      </a>
+      <a routerLink="/audit-log" routerLinkActive="active" class="nav-item">
+        <span class="icon material-symbols-outlined">history</span>
+        <span class="nav-label">Journal d'Audit</span>
+      </a>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="footer-divider"></div>
+    <div class="user-info">
+      <div class="user-avatar-sm">{{ userName.charAt(0) }}</div>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <span class="role-badge">{{ roleLabel }}</span>
+        @if (scopeLabel) {
+          <span class="scope-badge">{{ scopeLabel }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</aside>

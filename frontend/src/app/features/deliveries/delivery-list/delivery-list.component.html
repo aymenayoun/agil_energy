@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Historique des Livraisons</h3>
+    <div class="header-actions">
+      <app-station-picker
+        [stations]="stations"
+        [(ngModel)]="selectedStationId"
+        (stationChange)="loadDeliveries()"
+        [allowAll]="true"
+        placeholder="Toutes les stations"
+        width="240px">
+      </app-station-picker>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else if (deliveries.length === 0) {
+    <div class="empty-state">
+      <div class="icon">🚚</div>
+      <p>Aucune livraison enregistrée</p>
+    </div>
+  } @else {
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Station</th>
+            <th>Carburant</th>
+            <th>Quantité</th>
+            <th>Enregistrée par</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (d of deliveries; track d.id) {
+            <tr>
+              <td>{{ d.deliveryDate | date:'dd/MM/yyyy' }}</td>
+              <td><strong>{{ d.stationName }}</strong></td>
+              <td>{{ d.fuelTypeName }}</td>
+              <td><strong>{{ d.quantity | number:'1.0-0' }} L</strong></td>
+              <td>{{ d.createdByName || '-' }}</td>
+              <td>
+                @if (d.validated) {
+                  <span class="badge badge-success">Validée</span>
+                } @else if (canValidate()) {
+                  <button class="btn btn-sm btn-warning" (click)="validateDelivery(d)">
+                    En attente — Valider
+                  </button>
+                } @else {
+                  <span class="badge badge-warning">En attente</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Summary bar -->
+    <div class="summary-bar">
+      <span>Total : <strong>{{ deliveries.length }}</strong> livraisons</span>
+      <span>Volume total : <strong>{{ totalVolume | number:'1.0-0' }} L</strong></span>
+    </div>
+  }
+</div>

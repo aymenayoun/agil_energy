@@ -1,0 +1,86 @@
+<div class="filters-bar">
+  <app-station-picker
+    [stations]="stations"
+    [(ngModel)]="selectedStationId"
+    (stationChange)="loadStocks()"
+    placeholder="Rechercher une station..."
+    width="260px">
+  </app-station-picker>
+  <button class="btn btn-outline" (click)="loadCritical()">
+    <span class="material-symbols-outlined" style="font-size:16px;color:#ef5350">warning</span>
+    Voir les critiques
+  </button>
+</div>
+
+<!-- Tank Cards -->
+@if (tanks.length > 0) {
+  <div class="tanks-grid">
+    @for (tank of tanks; track tank.id) {
+      <div class="tank-card" [class.critical]="tank.critical">
+        <div class="tank-header">
+          <h4>{{ tank.fuelTypeName }}</h4>
+          <span [class]="tank.critical ? 'badge badge-danger' : 'badge badge-success'">
+            {{ tank.critical ? 'CRITIQUE' : 'OK' }}
+          </span>
+        </div>
+        <div class="tank-station">{{ tank.stationName }}</div>
+
+        <div class="tank-gauge">
+          <div class="gauge-bar">
+            <div class="gauge-fill"
+              [class.danger]="tank.stockPercentage < 20"
+              [class.warning]="tank.stockPercentage >= 20 && tank.stockPercentage < 40"
+              [class.ok]="tank.stockPercentage >= 40"
+              [style.width.%]="tank.stockPercentage">
+            </div>
+          </div>
+          <div class="gauge-label"
+            [style.color]="tank.stockPercentage < 20 ? '#ef5350' : tank.stockPercentage < 40 ? '#ff9800' : '#4caf50'">
+            {{ tank.stockPercentage | number:'1.0-1' }}%
+          </div>
+        </div>
+
+        <div class="tank-details">
+          <div class="detail"><span>Stock actuel</span><strong>{{ tank.currentStock | number:'1.0-0' }} L</strong></div>
+          <div class="detail"><span>Capacité</span><strong>{{ tank.capacity | number:'1.0-0' }} L</strong></div>
+          <div class="detail"><span>Seuil critique</span><strong>{{ tank.criticalThreshold | number:'1.0-0' }} L</strong></div>
+        </div>
+
+        <button class="btn btn-primary btn-sm" style="width:100%; margin-top:12px"
+          (click)="openDelivery(tank)">+ Livraison</button>
+      </div>
+    }
+  </div>
+} @else if (selectedStationId) {
+  <div class="empty-state"><div class="icon">🛢️</div><p>Aucun réservoir trouvé</p></div>
+} @else {
+  <div class="empty-state"><div class="icon">🏪</div><p>Sélectionnez une station</p></div>
+}
+
+<!-- Delivery Modal -->
+@if (showDeliveryForm && selectedTank) {
+  <div class="modal-overlay" (click)="showDeliveryForm = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Enregistrer une Livraison</h3>
+      <p class="modal-sub">{{ selectedTank.stationName }} — {{ selectedTank.fuelTypeName }}</p>
+
+      <div class="form-group">
+        <label>Date de livraison</label>
+        <input type="date" class="form-control" [(ngModel)]="delivery.deliveryDate" />
+      </div>
+      <div class="form-group">
+        <label>Quantité (Litres)</label>
+        <input type="number" class="form-control" [(ngModel)]="delivery.quantity" min="0" step="0.01" />
+      </div>
+
+      @if (deliveryError) {
+        <div class="error-msg">{{ deliveryError }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submitDelivery()">Confirmer</button>
+        <button class="btn btn-outline" (click)="showDeliveryForm = false">Annuler</button>
+      </div>
+    </div>
+  </div>
+}

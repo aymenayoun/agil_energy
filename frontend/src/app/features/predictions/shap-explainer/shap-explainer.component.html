@@ -1,0 +1,38 @@
+<div class="shap-card">
+  <header class="shap-header">
+    <h3>
+      <span class="material-symbols-outlined" style="font-size:16px;color:var(--accent)">lightbulb</span>
+      Pourquoi cette prévision ?
+    </h3>
+    <p class="subtitle">
+      Contribution de chaque variable à la prévision du jour sélectionné.
+      Base du modèle&nbsp;: <strong>{{ shap().base_value | number:'1.0-1' }} L</strong>
+    </p>
+  </header>
+
+  <div class="day-selector">
+    <label>Jour prévu :</label>
+    <select [(ngModel)]="selectedDay" (change)="onDayChange()">
+      @for (d of days(); track d) {
+        <option [value]="d">Jour {{ d + 1 }}</option>
+      }
+    </select>
+    <span class="day-pred">
+      Prévision : <strong>{{ dayPrediction() | number:'1.0-1' }} L</strong>
+    </span>
+  </div>
+
+  <div class="chart-wrapper">
+    <canvas #perDayCanvas></canvas>
+  </div>
+
+  <h4 class="section-title">Variables globalement les plus importantes</h4>
+  <div class="chart-wrapper small">
+    <canvas #globalCanvas></canvas>
+  </div>
+
+  <footer class="legend">
+    <span class="legend-item pos">▌Augmente la prévision</span>
+    <span class="legend-item neg">▌Diminue la prévision</span>
+  </footer>
+</div>

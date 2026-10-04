@@ -1,0 +1,42 @@
+<div class="address-picker-wrapper">
+  <!-- Search input -->
+  <div class="address-search">
+    <span class="search-icon material-symbols-outlined">location_on</span>
+    <input
+      #searchInput
+      class="form-control address-input"
+      type="text"
+      [(ngModel)]="query"
+      (input)="onSearchInput()"
+      (focus)="onSearchFocus()"
+      placeholder="Tapez une adresse en Tunisie..."
+      autocomplete="off"
+    />
+    @if (searching) {
+      <span class="spinner"></span>
+    }
+    @if (query && !searching) {
+      <button class="clear-btn" (click)="clearSearch()" title="Effacer">×</button>
+    }
+  </div>
+
+  <!-- Suggestions dropdown -->
+  @if (showSuggestions) {
+    <div class="suggestions-dropdown">
+      @for (s of suggestions; track s.display_name) {
+        <div class="suggestion-item" (mousedown)="selectSuggestion(s)">
+          <span class="material-symbols-outlined suggestion-icon">place</span>
+          <span class="suggestion-text">{{ s.display_name }}</span>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Map -->
+  <div [id]="mapId" class="picker-map" [style.height]="mapHeight"></div>
+
+  <div class="map-hint">
+    <span class="material-symbols-outlined" style="font-size:13px">info</span>
+    Cliquez sur la carte pour placer le marqueur, ou glissez-le pour ajuster.
+  </div>
+</div>

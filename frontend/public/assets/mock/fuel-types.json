@@ -1,0 +1,55 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": [
+        {
+            "id": 1,
+            "name": "GASOIL",
+            "description": "Gasoil standard 50 ppm",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 2,
+            "name": "GASOIL SANS SOUFRE",
+            "description": "Gasoil a tres basse teneur en soufre 10 ppm",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 3,
+            "name": "GASOIL SS PREMIUM",
+            "description": "Gasoil sans soufre premium avec additifs",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 4,
+            "name": "SUPER SP",
+            "description": "Essence sans plomb 95",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 5,
+            "name": "SSP PREMIUM",
+            "description": "Essence sans plomb premium 98",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 6,
+            "name": "GPL CARBURANT",
+            "description": "Gaz de petrole liquefie pour vehicules",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 7,
+            "name": "LUBRIFIANTS",
+            "description": "Huiles et lubrifiants moteur",
+            "createdAt": "2026-04-11T16:32:03"
+        },
+        {
+            "id": 8,
+            "name": "GPL",
+            "description": "Gaz de petrole liquefie domestique/industriel",
+            "createdAt": "2026-04-11T16:32:03"
+        }
+    ],
+    "timestamp": "2026-10-03T18:14:02.424446574"
+}

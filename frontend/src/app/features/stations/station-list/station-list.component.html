@@ -1,0 +1,454 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;color:var(--accent)">local_gas_station</span>
+      Gestion des Stations
+    </h3>
+    <div class="header-actions">
+      <div class="view-toggle">
+        <button [class]="activeView === 'list' ? 'toggle-btn active' : 'toggle-btn'" (click)="switchView('list')">
+          <span class="material-symbols-outlined" style="font-size:16px">view_list</span>
+          Liste
+        </button>
+        <button [class]="activeView === 'map' ? 'toggle-btn active' : 'toggle-btn'" (click)="switchView('map')">
+          <span class="material-symbols-outlined" style="font-size:16px">map</span>
+          Carte
+        </button>
+      </div>
+      <app-station-picker
+        [stations]="stations"
+        [(ngModel)]="searchStationId"
+        (stationChange)="onSearchStationChange()"
+        placeholder="Rechercher une station..."
+        width="240px">
+      </app-station-picker>
+      <select [(ngModel)]="regionFilter" (change)="onRegionFilterChange()" class="filter-select">
+        <option value="">Toutes les régions</option>
+        @for (r of regions; track r) {
+          <option [value]="r">{{ r }}</option>
+        }
+      </select>
+      @if (isAdmin) {
+        <button class="btn btn-primary" (click)="showForm = !showForm">
+          {{ showForm ? 'Annuler' : '+ Nouvelle Station' }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Create Station Form -->
+  @if (showForm) {
+    <div class="create-form">
+      <h4>Créer une Station</h4>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom</label>
+          <input class="form-control" [(ngModel)]="newStation.name" placeholder="Nom de la station" />
+        </div>
+        <div class="form-group">
+          <label>Région</label>
+          <input class="form-control" [(ngModel)]="newStation.region" placeholder="Région" />
+        </div>
+        <</div>
+
+      <div class="form-group" style="margin-top: 4px;">
+        <label>Adresse & Localisation</label>
+        <app-address-map-picker
+          [address]="newStation.address || ''"
+          [latitude]="newStation.latitude"
+          [longitude]="newStation.longitude"
+          mapId="create-station-map"
+          mapHeight="220px"
+          (locationSelected)="onCreateLocationSelected($event)"
+        ></app-address-map-picker>
+      </div>
+
+      <div class="form-grid" style="margin-top: 8px;">
+        <div class="form-group coord-display">
+          <label>Latitude</label>
+          <input class="form-control" type="number" [(ngModel)]="newStation.latitude" readonly placeholder="Définie via la carte" />
+        </div>
+        <div class="form-group coord-display">
+          <label>Longitude</label>
+          <input class="form-control" type="number" [(ngModel)]="newStation.longitude" readonly placeholder="Définie via la carte" />
+        </div>
+      </div>
+      @if (formError) {
+        <div class="error-msg">{{ formError }}</div>
+      }
+      <button class="btn btn-success" (click)="createStation()">Créer</button>
+    </div>
+  }
+
+  <!-- Table -->
+  <!-- Content: List or Map -->
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else if (activeView === 'list') {
+    <!-- TABLE VIEW -->
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Région</th>
+            <th>Responsable</th>
+            <th>Réservoirs</th>
+            <th>Statut</th>
+            @if (canExportReport) { <th>Actions</th> }
+          </tr>
+        </thead>
+        <tbody>
+          @for (station of displayedStations; track station.id) {
+            <tr>
+              <td>{{ station.id }}</td>
+              <td><strong>{{ station.name }}</strong></td>
+              <td>{{ station.region }}</td>
+              <td>{{ station.managerName || '-' }}</td>
+              <td>
+                @if (station.tanks && station.tanks.length > 0) {
+                  @for (tank of station.tanks; track tank.id) {
+                    <div class="tank-info">
+                      <span class="fuel-name">{{ tank.fuelTypeName }}</span>
+                      <div class="stock-bar-sm">
+                        <div class="stock-fill-sm"
+                          [class.danger]="tank.critical"
+                          [class.warning]="!tank.critical && tank.stockPercentage < 40"
+                          [class.ok]="!tank.critical && tank.stockPercentage >= 40"
+                          [style.width.%]="tank.stockPercentage">
+                        </div>
+                      </div>
+                      <span class="stock-text">{{ tank.currentStock | number:'1.0-0' }}L ({{ tank.stockPercentage | number:'1.0-0' }}%)</span>
+                    </div>
+                  }
+                } @else {
+                  <span class="text-muted">Aucun réservoir</span>
+                }
+              </td>
+              <td>
+                <span [class]="station.status === 'ACTIVE' ? 'badge badge-success' : 'badge badge-danger'">
+                  {{ station.status }}
+                </span>
+              </td>
+              @if (canExportReport) {
+                <td>
+                  <div class="action-group">
+                    <button class="btn btn-outline btn-sm" (click)="openReportModal(station)" title="Rapport mensuel">
+                      <span class="material-symbols-outlined" style="font-size:14px">summarize</span> Rapport
+                    </button>
+                    @if (isAdmin) {
+                      <button class="btn btn-outline btn-sm" (click)="openEditStation(station)" title="Modifier la station">
+                        <span class="material-symbols-outlined" style="font-size:14px">edit</span>
+                      </button>
+                      <button class="btn btn-outline btn-sm" (click)="openAddTank(station)" title="Ajouter réservoir">
+                        <span class="material-symbols-outlined" style="font-size:14px">add</span> Réservoir
+                      </button>
+                      @if (confirmingId === station.id) {
+                        <span style="font-size:12px;color:#c62828">Confirmer ?</span>
+                        <button class="btn btn-danger btn-sm" (click)="deactivate(station.id)">Oui</button>
+                        <button class="btn btn-outline btn-sm" (click)="confirmingId = null">Non</button>
+                      } @else if (station.status === 'ACTIVE') {
+                        <button class="btn btn-danger btn-sm" (click)="confirmingId = station.id">Désactiver</button>
+                      } @else {
+                        <button class="btn btn-success btn-sm" (click)="activate(station.id)">Activer</button>
+                      }
+                    }
+                  </div>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <!-- MAP VIEW -->
+    <div class="map-container">
+      <div class="map-legend-bar">
+        <span class="legend-item">
+          <span class="legend-dot" style="background:#27AE60"></span> Stock OK
+        </span>
+        <span class="legend-item">
+          <span class="legend-dot" style="background:#F2994A"></span> Stock bas
+        </span>
+        <span class="legend-item">
+          <span class="legend-dot" style="background:#EB5757"></span> Stock critique
+        </span>
+        <span class="legend-item">
+          <span class="legend-dot" style="background:#F2C94C"></span> Sans réservoir
+        </span>
+        <span class="legend-item">
+          <span class="legend-dot" style="background:#888"></span> Inactive
+        </span>
+        <span class="station-count">{{ stations.length }} station(s)</span>
+      </div>
+
+      <div class="map-layout">
+        <div id="stations-map" class="stations-map"></div>
+
+        @if (selectedMapStation) {
+          <aside class="map-detail">
+            <div class="detail-header">
+              <div>
+                <span [class]="'status-pill ' + (selectedMapStation.status === 'ACTIVE' ? 'active' : 'inactive')">
+                  {{ selectedMapStation.status }}
+                </span>
+                <h4 class="detail-title">{{ selectedMapStation.name }}</h4>
+                <p class="detail-sub">{{ selectedMapStation.region }} · ID #{{ selectedMapStation.id }}</p>
+              </div>
+              <button class="side-close" (click)="closeMapDetail()">✕</button>
+            </div>
+
+            <div class="detail-body">
+              @if (selectedMapStation.managerName) {
+                <div class="detail-row">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:var(--text-muted)">person</span>
+                  <span>Responsable: <strong>{{ selectedMapStation.managerName }}</strong></span>
+                </div>
+              }
+              @if (selectedMapStation.address) {
+                <div class="detail-row">
+                  <span class="material-symbols-outlined" style="font-size:14px;color:var(--text-muted)">location_on</span>
+                  <span>{{ selectedMapStation.address }}</span>
+                </div>
+              }
+
+              <div class="detail-section-title">Réservoirs</div>
+
+              @if (selectedMapStation.tanks.length) {
+                @for (tank of selectedMapStation.tanks; track tank.id) {
+                  <div class="tank-card">
+                    <div class="tank-card-header">
+                      <span class="tank-fuel-name">{{ tank.fuelTypeName }}</span>
+                      <span [class]="'tank-status ' + (tank.critical ? 'critical' : tank.stockPercentage < 40 ? 'warning' : 'ok')">
+                        {{ tank.critical ? 'CRITIQUE' : tank.stockPercentage < 40 ? 'BAS' : 'OK' }}
+                      </span>
+                    </div>
+                    <div class="tank-bar">
+                      <div class="tank-bar-fill"
+                        [class.danger]="tank.critical"
+                        [class.warning]="!tank.critical && tank.stockPercentage < 40"
+                        [class.ok]="!tank.critical && tank.stockPercentage >= 40"
+                        [style.width.%]="tank.stockPercentage">
+                      </div>
+                    </div>
+                    <div class="tank-stats">
+                      <span>{{ tank.currentStock | number:'1.0-0' }} / {{ tank.capacity | number:'1.0-0' }} L</span>
+                      <span>{{ tank.stockPercentage | number:'1.0-0' }}%</span>
+                    </div>
+                    <div class="tank-threshold">
+                      Seuil critique: {{ tank.criticalThreshold | number:'1.0-0' }} L
+                    </div>
+                  </div>
+                }
+              } @else {
+                <div class="no-tanks">
+                  <span class="material-symbols-outlined" style="font-size:24px;color:var(--text-muted)">propane_tank</span>
+                  <p>Aucun réservoir configuré</p>
+                </div>
+              }
+
+              @if (canExportReport) {
+                <button class="btn btn-outline full-width" style="margin-top:12px" (click)="openReportModal(selectedMapStation)">
+                  <span class="material-symbols-outlined" style="font-size:14px">summarize</span> Rapport mensuel
+                </button>
+              }
+              @if (isAdmin) {
+                <button class="btn btn-outline full-width" style="margin-top:8px" (click)="openEditStation(selectedMapStation)">
+                  <span class="material-symbols-outlined" style="font-size:14px">edit</span> Modifier la station
+                </button>
+                <button class="btn btn-outline full-width" style="margin-top:8px" (click)="openAddTank(selectedMapStation)">
+                  <span class="material-symbols-outlined" style="font-size:14px">add</span> Ajouter un réservoir
+                </button>
+              }
+            </div>
+          </aside>
+        }
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Add Tank Modal -->
+@if (showTankForm && selectedStation) {
+  <div class="modal-overlay" (click)="showTankForm = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Ajouter un Réservoir</h3>
+      <p class="modal-sub">{{ selectedStation.name }} — {{ selectedStation.region }}</p>
+
+      <div class="form-group">
+        <label>Type de Carburant</label>
+        <select class="form-control" [(ngModel)]="newTank.fuelTypeId">
+          <option [ngValue]="0">Sélectionner</option>
+          @for (ft of fuelTypesList; track ft.id) {
+            <option [ngValue]="ft.id">{{ ft.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Capacité maximale (Litres)</label>
+        <input type="number" class="form-control" [(ngModel)]="newTank.capacity" min="1" placeholder="Ex: 20000" />
+      </div>
+      <div class="form-group">
+        <label>Stock initial (Litres)</label>
+        <input type="number" class="form-control" [(ngModel)]="newTank.currentStock" min="0" placeholder="Ex: 10000" />
+      </div>
+      <div class="form-group">
+        <label>Seuil critique (Litres)</label>
+        <input type="number" class="form-control" [(ngModel)]="newTank.criticalThreshold" min="0" placeholder="Ex: 3000" />
+      </div>
+
+      @if (tankError) {
+        <div class="error-msg">{{ tankError }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submitTank()">Ajouter</button>
+        <button class="btn btn-outline" (click)="showTankForm = false">Annuler</button>
+      </div>
+    </div>
+  </div>
+}
+  <!-- Monthly Report Modal -->
+  @if (showReportModal && reportStation) {
+    <div class="modal-overlay" (click)="closeReportModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3>
+          <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle;color:var(--accent)">summarize</span>
+          Rapport mensuel
+        </h3>
+        <p class="modal-sub">{{ reportStation.name }} — {{ reportStation.region }}</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Année</label>
+            <input type="number" class="form-control"
+                  [(ngModel)]="reportYear" min="2020" max="2100"
+                  [disabled]="reportLoading" />
+          </div>
+          <div class="form-group">
+            <label>Mois</label>
+            <select class="form-control" [(ngModel)]="reportMonth" [disabled]="reportLoading">
+              <option [ngValue]="1">Janvier</option>
+              <option [ngValue]="2">Février</option>
+              <option [ngValue]="3">Mars</option>
+              <option [ngValue]="4">Avril</option>
+              <option [ngValue]="5">Mai</option>
+              <option [ngValue]="6">Juin</option>
+              <option [ngValue]="7">Juillet</option>
+              <option [ngValue]="8">Août</option>
+              <option [ngValue]="9">Septembre</option>
+              <option [ngValue]="10">Octobre</option>
+              <option [ngValue]="11">Novembre</option>
+              <option [ngValue]="12">Décembre</option>
+            </select>
+          </div>
+        </div>
+
+        @if (reportLoading) {
+          <div class="loading" style="margin-top:8px">
+            <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">hourglass_top</span>
+            Génération du rapport en cours...
+          </div>
+        }
+
+        <div class="form-actions">
+          <button class="btn btn-danger" (click)="downloadReport('PDF')" [disabled]="reportLoading" title="Télécharger en PDF">
+            <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">picture_as_pdf</span>
+            Télécharger PDF
+          </button>
+          <button class="btn btn-success" (click)="downloadReport('EXCEL')" [disabled]="reportLoading" title="Télécharger en Excel">
+            <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">table_view</span>
+            Télécharger Excel
+          </button>
+          <button class="btn btn-outline" (click)="closeReportModal()" [disabled]="reportLoading">
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+}
+
+<!-- Edit Station Modal -->
+@if (showEditStation) {
+  <div class="modal-overlay" (click)="closeEditStation()">
+    <div class="modal-content modal-wide" (click)="$event.stopPropagation()">
+      <div class="modal-header-row">
+        <h3>
+          <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle;color:var(--accent)">edit</span>
+          Modifier la Station
+        </h3>
+        <button class="side-close" (click)="closeEditStation()">✕</button>
+      </div>
+      <p class="modal-sub">ID #{{ editStation.id }}</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom de la station</label>
+          <input class="form-control" [(ngModel)]="editStation.name" placeholder="Nom" />
+        </div>
+        <div class="form-group">
+          <label>Région</label>
+          <input class="form-control" [(ngModel)]="editStation.region" placeholder="Région" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Adresse & Localisation</label>
+        <app-address-map-picker
+          [address]="editStation.address || ''"
+          [latitude]="editStation.latitude"
+          [longitude]="editStation.longitude"
+          mapId="edit-station-map"
+          mapHeight="240px"
+          (locationSelected)="onEditLocationSelected($event)"
+        ></app-address-map-picker>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group coord-display">
+          <label>Latitude</label>
+          <input class="form-control" type="number" [(ngModel)]="editStation.latitude" readonly placeholder="Via la carte" />
+        </div>
+        <div class="form-group coord-display">
+          <label>Longitude</label>
+          <input class="form-control" type="number" [(ngModel)]="editStation.longitude" readonly placeholder="Via la carte" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Responsable (Station Manager)</label>
+        <select class="form-control" [(ngModel)]="editStation.managerId">
+          <option [ngValue]="undefined">— Aucun —</option>
+          @for (m of availableManagers; track m.id) {
+            <option [ngValue]="m.id">
+              {{ m.name }}
+              @if (m.stationName) {
+                (actuellement: {{ m.stationName }})
+              } @else {
+                (non assigné)
+              }
+            </option>
+          }
+        </select>
+        <span class="field-hint">
+          Seuls les utilisateurs actifs avec le rôle STATION_MANAGER sont affichés.
+          Assigner un manager déjà affecté le déplacera vers cette station.
+        </span>
+      </div>
+
+      @if (editStationError) {
+        <div class="error-msg">{{ editStationError }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submitEditStation()">
+          <span class="material-symbols-outlined" style="font-size:14px">save</span>
+          Enregistrer
+        </button>
+        <button class="btn btn-outline" (click)="closeEditStation()">Annuler</button>
+      </div>
+    </div>
+  </div>
+}

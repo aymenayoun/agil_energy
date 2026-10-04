@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Gestion des Alertes</h3>
+    <div class="header-actions">
+      <app-station-picker
+        [stations]="stations"
+        [(ngModel)]="selectedStationId"
+        (stationChange)="onStationChange()"
+        [allowAll]="true"
+        placeholder="Toutes les stations"
+        width="240px">
+      </app-station-picker>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else if (alerts.length === 0) {
+    <div class="empty-state">
+      <span class="material-symbols-outlined empty-icon">task_alt</span>
+      <p>Aucune alerte active</p>
+    </div>
+  } @else {
+    <div class="alerts-list">
+      @for (alert of alerts; track alert.id) {
+        <div class="alert-card" [class]="'severity-' + alert.severity.toLowerCase()">
+          <div class="alert-top">
+            <span [class]="'severity-badge badge badge-' + getSeverityBadge(alert.severity)">
+              <span class="material-symbols-outlined" style="font-size:12px">
+                {{ alert.severity === 'HIGH' ? 'error' : alert.severity === 'MEDIUM' ? 'warning' : 'info' }}
+              </span>
+              {{ getSeverityLabel(alert.severity) }}
+            </span>
+            <span class="alert-type">{{ getTypeLabel(alert.alertType) }}</span>
+            <span class="alert-station">
+              <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle;">location_on</span>
+              {{ alert.stationName }}
+            </span>
+            <span class="alert-date">{{ alert.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <p class="alert-msg">{{ alert.message }}</p>
+          <div class="alert-bottom">
+            <span [class]="alert.status === 'ACTIVE' ? 'badge badge-warning' : 'badge badge-success'">
+              {{ alert.status === 'ACTIVE' ? 'Active' : 'Résolue' }}
+            </span>
+            @if (alert.status === 'ACTIVE') {
+              <button class="btn btn-success btn-sm" (click)="resolve(alert.id)">
+                Marquer comme résolue
+              </button>
+            } @else {
+              <span class="resolved-info">
+                Résolue par {{ alert.resolvedByName }} le {{ alert.resolvedAt | date:'dd/MM HH:mm' }}
+              </span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Pagination -->
+    @if (totalPages > 1) {
+      <div class="pagination">
+        <button class="btn btn-outline btn-sm" [disabled]="currentPage === 0" (click)="goToPage(currentPage - 1)">‹ Précédent</button>
+        <span class="page-info">Page {{ currentPage + 1 }} / {{ totalPages }} — {{ totalElements }} alertes</span>
+        <button class="btn btn-outline btn-sm" [disabled]="currentPage >= totalPages - 1" (click)="goToPage(currentPage + 1)">Suivant ›</button>
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,264 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Gestion des Utilisateurs</h3>
+    <button class="btn btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Annuler' : '+ Nouvel Utilisateur' }}
+    </button>
+  </div>
+
+  <!-- Create form -->
+  @if (showForm) {
+    <div class="create-form">
+      <h4>Créer un compte utilisateur</h4>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom complet</label>
+          <input class="form-control" [(ngModel)]="newUser.name" placeholder="Prénom Nom" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-control" type="email" [(ngModel)]="newUser.email" placeholder="email&#64;agil.tn" />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input class="form-control" type="password" [(ngModel)]="newUser.password" placeholder="Min. 8 caractères" />
+        </div>
+        <div class="form-group">
+          <label>Rôle</label>
+          <select class="form-control" [(ngModel)]="newUser.roleName" (ngModelChange)="onRoleChange()">
+            <option value="ADMIN">Administrateur</option>
+            <option value="MANAGER">Gestionnaire Régional</option>
+            <option value="STATION_MANAGER">Responsable Station</option>
+          </select>
+        </div>
+
+        <!-- Station search (STATION_MANAGER only) -->
+        @if (isStationManagerRole) {
+          <div class="form-group station-search-wrapper">
+            <label>Station assignée</label>
+            <div class="search-input-wrap">
+              <span class="search-icon material-symbols-outlined">search</span>
+              <input
+                class="form-control search-input"
+                type="text"
+                [(ngModel)]="stationSearchQuery"
+                (focus)="onStationSearchFocus()"
+                placeholder="Rechercher une station..."
+                autocomplete="off"
+              />
+              @if (newUser.stationId) {
+                <button class="clear-btn" (click)="clearStation()" title="Effacer">×</button>
+              }
+            </div>
+            @if (stationSearchOpen) {
+              <div class="search-dropdown">
+                @if (filteredStations.length === 0) {
+                  <div class="search-empty">Aucune station trouvée</div>
+                } @else {
+                  @for (s of filteredStations; track s.id) {
+                    <div
+                      class="search-option"
+                      [class.selected]="s.id === newUser.stationId"
+                      (mousedown)="selectStation(s)"
+                    >
+                      <span class="station-name">{{ s.name }}</span>
+                      <span class="station-region">{{ s.region }}</span>
+                    </div>
+                  }
+                }
+              </div>
+            }
+            @if (newUser.stationId) {
+              <div class="selected-tag">
+                <span class="material-symbols-outlined" style="font-size:14px">local_gas_station</span>
+                {{ selectedStationLabel }}
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Region picker (MANAGER only) -->
+        @if (isManagerRole) {
+          <div class="form-group">
+            <label>Région assignée</label>
+            <select class="form-control" [(ngModel)]="newUser.region">
+              <option [ngValue]="null" disabled>-- Sélectionner une région --</option>
+              @for (r of availableRegions; track r) {
+                <option [ngValue]="r">{{ r }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+      @if (formError) {
+        <div class="error-msg">{{ formError }}</div>
+      }
+      <button class="btn btn-success" (click)="createUser()">Créer l'utilisateur</button>
+    </div>
+  }
+
+  <!-- Table -->
+  @if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else {
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Statut</th>
+            <th>Périmètre</th>
+            <th>Créé le</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user.id) {
+            <tr>
+              <td><strong>{{ user.name }}</strong></td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span [class]="getRoleBadge(user.roleName)">{{ getRoleLabel(user.roleName) }}</span>
+              </td>
+              <td>
+                <span [class]="user.status === 'ACTIVE' ? 'badge badge-success' : 'badge badge-danger'">
+                  {{ user.status === 'ACTIVE' ? 'Actif' : 'Inactif' }}
+                </span>
+              </td>
+              <td>{{ getScopeLabel(user) }}</td>
+              <td>{{ user.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td>
+                @if (user.id === currentUserId) {
+                  <span class="text-muted" style="font-size:12px">Vous</span>
+                } @else {
+                  <div class="action-group">
+                    <button class="btn btn-outline btn-sm" (click)="openEdit(user)" title="Modifier">
+                      <span class="material-symbols-outlined" style="font-size:14px">edit</span>
+                    </button>
+                    @if (confirmingId === user.id) {
+                      <span class="confirm-label">Confirmer ?</span>
+                      <button class="btn btn-danger btn-sm" (click)="deactivate(user.id)">Oui</button>
+                      <button class="btn btn-outline btn-sm" (click)="confirmingId = null">Non</button>
+                    } @else if (user.status === 'ACTIVE') {
+                      <button class="btn btn-danger btn-sm" (click)="confirmingId = user.id">Désactiver</button>
+                    } @else {
+                      <button class="btn btn-success btn-sm" (click)="activate(user.id)">Activer</button>
+                    }
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-bar">
+      <span>Total : <strong>{{ users.length }}</strong> utilisateurs</span>
+      <span>Actifs : <strong>{{ activeCount }}</strong></span>
+    </div>
+  }
+</div>
+<!-- Edit User Modal -->
+@if (showEditForm) {
+  <div class="modal-overlay" (click)="closeEdit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>
+          <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle;color:var(--accent)">edit</span>
+          Modifier l'utilisateur
+        </h3>
+        <button class="modal-close" (click)="closeEdit()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label>Nom complet</label>
+        <input class="form-control" [(ngModel)]="editUser.name" placeholder="Prénom Nom" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" type="email" [(ngModel)]="editUser.email" placeholder="email&#64;agil.tn" />
+      </div>
+      <div class="form-group">
+        <label>Rôle</label>
+        <select class="form-control" [(ngModel)]="editUser.roleName" (ngModelChange)="onEditRoleChange()">
+          <option value="ADMIN">Administrateur</option>
+          <option value="MANAGER">Gestionnaire Régional</option>
+          <option value="STATION_MANAGER">Responsable Station</option>
+        </select>
+      </div>
+
+      <!-- Station search (STATION_MANAGER only) -->
+      @if (isEditStationManagerRole) {
+        <div class="form-group station-search-wrapper">
+          <label>Station assignée</label>
+          <div class="search-input-wrap">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input
+              class="form-control search-input"
+              type="text"
+              [(ngModel)]="editStationSearchQuery"
+              (focus)="onEditStationSearchFocus()"
+              placeholder="Rechercher une station..."
+              autocomplete="off"
+            />
+            @if (editUser.stationId) {
+              <button class="clear-btn" (click)="clearEditStation()" title="Effacer">×</button>
+            }
+          </div>
+          @if (editStationSearchOpen) {
+            <div class="search-dropdown">
+              @if (editFilteredStations.length === 0) {
+                <div class="search-empty">Aucune station trouvée</div>
+              } @else {
+                @for (s of editFilteredStations; track s.id) {
+                  <div
+                    class="search-option"
+                    [class.selected]="s.id === editUser.stationId"
+                    (mousedown)="selectEditStation(s)"
+                  >
+                    <span class="station-name">{{ s.name }}</span>
+                    <span class="station-region">{{ s.region }}</span>
+                  </div>
+                }
+              }
+            </div>
+          }
+          @if (editUser.stationId) {
+            <div class="selected-tag">
+              <span class="material-symbols-outlined" style="font-size:14px">local_gas_station</span>
+              {{ editSelectedStationLabel }}
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Region picker (MANAGER only) -->
+      @if (isEditManagerRole) {
+        <div class="form-group">
+          <label>Région assignée</label>
+          <select class="form-control" [(ngModel)]="editUser.region">
+            <option [ngValue]="null" disabled>-- Sélectionner une région --</option>
+            @for (r of availableRegions; track r) {
+              <option [ngValue]="r">{{ r }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      @if (editError) {
+        <div class="error-msg">{{ editError }}</div>
+      }
+
+      <div class="form-actions">
+        <button class="btn btn-success" (click)="submitEdit()">
+          <span class="material-symbols-outlined" style="font-size:14px">save</span>
+          Enregistrer
+        </button>
+        <button class="btn btn-outline" (click)="closeEdit()">Annuler</button>
+      </div>
+    </div>
+  </div>
+}

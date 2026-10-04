@@ -1,0 +1,67 @@
+{
+    "success": true,
+    "message": "Opération réussie",
+    "data": [
+        {
+            "id": 1,
+            "stationId": 1,
+            "stationName": "Station Tunis Centre",
+            "fuelTypeId": 1,
+            "fuelTypeName": "GASOIL",
+            "capacity": 30000.00,
+            "currentStock": 12950.54,
+            "criticalThreshold": 5000.00,
+            "stockPercentage": 43.17,
+            "critical": false
+        },
+        {
+            "id": 2,
+            "stationId": 1,
+            "stationName": "Station Tunis Centre",
+            "fuelTypeId": 2,
+            "fuelTypeName": "GASOIL SANS SOUFRE",
+            "capacity": 20000.00,
+            "currentStock": 13275.12,
+            "criticalThreshold": 3500.00,
+            "stockPercentage": 66.38,
+            "critical": false
+        },
+        {
+            "id": 3,
+            "stationId": 1,
+            "stationName": "Station Tunis Centre",
+            "fuelTypeId": 4,
+            "fuelTypeName": "SUPER SP",
+            "capacity": 25000.00,
+            "currentStock": 11281.65,
+            "criticalThreshold": 4000.00,
+            "stockPercentage": 45.13,
+            "critical": false
+        },
+        {
+            "id": 4,
+            "stationId": 1,
+            "stationName": "Station Tunis Centre",
+            "fuelTypeId": 5,
+            "fuelTypeName": "SSP PREMIUM",
+            "capacity": 15000.00,
+            "currentStock": 6341.49,
+            "criticalThreshold": 2500.00,
+            "stockPercentage": 42.28,
+            "critical": false
+        },
+        {
+            "id": 5,
+            "stationId": 1,
+            "stationName": "Station Tunis Centre",
+            "fuelTypeId": 6,
+            "fuelTypeName": "GPL CARBURANT",
+            "capacity": 10000.00,
+            "currentStock": 7050.59,
+            "criticalThreshold": 2000.00,
+            "stockPercentage": 70.51,
+            "critical": false
+        }
+    ],
+    "timestamp": "2026-10-03T19:59:12.3196993"
+}

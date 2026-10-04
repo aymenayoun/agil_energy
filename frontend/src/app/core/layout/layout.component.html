@@ -1,0 +1,25 @@
+<!-- Mobile overlay -->
+@if (sidebarOpen()) {
+  <div class="sidebar-overlay" (click)="sidebarOpen.set(false)"></div>
+}
+
+<div class="app-layout">
+  <app-sidebar [class.open]="sidebarOpen()"></app-sidebar>
+
+  <div class="main-area">
+    <app-navbar (menuToggle)="sidebarOpen.set(!sidebarOpen())"></app-navbar>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast-container">
+  @for (n of notif.notifications(); track n.id) {
+    <div class="toast" [class]="'toast-' + n.type">
+      <span>{{ n.message }}</span>
+      <button class="toast-close" (click)="notif.dismiss(n.id)">✕</button>
+    </div>
+  }
+</div>

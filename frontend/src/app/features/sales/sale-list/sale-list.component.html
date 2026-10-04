@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Historique des Ventes</h3>
+    <a routerLink="/sales/new" class="btn btn-primary">+ Saisir Vente</a>
+  </div>
+
+  <div class="filters-bar">
+    <app-station-picker
+      [stations]="stations"
+      [(ngModel)]="selectedStationId"
+      (stationChange)="loadSales()"
+      placeholder="Rechercher une station..."
+      width="260px">
+    </app-station-picker>
+    <input type="date" [(ngModel)]="startDate" class="form-control filter-date" />
+    <input type="date" [(ngModel)]="endDate" class="form-control filter-date" />
+    <button class="btn btn-outline" (click)="loadSales()">Filtrer</button>
+  </div>
+
+  @if (!selectedStationId) {
+    <div class="empty-state">
+      <div class="icon">
+        <span class="material-symbols-outlined" style="font-size:48px;color:#ccc">description</span>
+      </div>
+      <p>Sélectionnez une station pour afficher les ventes</p>
+    </div>
+  } @else if (loading) {
+    <div class="loading">Chargement...</div>
+  } @else if (sales.length === 0) {
+    <div class="empty-state">
+      <div class="icon">
+        <span class="material-symbols-outlined" style="font-size:48px;color:#ccc">inbox</span>
+      </div>
+      <p>Aucune vente trouvée pour cette période</p>
+    </div>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Carburant</th>
+          <th>Quantité</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (sale of sales; track sale.id) {
+          <tr>
+            <td>{{ sale.saleDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ sale.fuelTypeName }}</td>
+            <td><strong>{{ sale.quantity | number:'1.0-2' }} L</strong></td>
+            <td>
+              <span [class]="sale.validated ? 'badge badge-success' : 'badge badge-warning'">
+                {{ sale.validated ? 'Validée' : 'En attente' }}
+              </span>
+            </td>
+            <td>
+              @if (!sale.validated) {
+                <button class="btn btn-success btn-sm" (click)="validate(sale.id)">Valider</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

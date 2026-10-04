@@ -1,0 +1,433 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;color:var(--accent)">psychology</span>
+      Prévisions IA — Demande en Carburant
+    </h3>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span [class]="'ia-status ' + (iaHealthy ? 'online' : 'offline')">
+        <span class="status-dot"></span>
+        {{ iaHealthy ? 'IA en ligne' : 'IA hors ligne' }}
+      </span>
+      <label class="view-toggle">
+        <span class="view-toggle-label">Vue simplifiée</span>
+        <span class="view-switch">
+          <input type="checkbox" [checked]="viewMode === 'expert'"
+                 (change)="viewMode = viewMode === 'expert' ? 'simple' : 'expert'; onViewModeChange()">
+          <span class="view-slider"></span>
+        </span>
+        <span class="view-toggle-label">Vue experte</span>
+      </label>
+      <button class="btn btn-warning" (click)="generateBatch()" [disabled]="batchLoading">
+        <span class="material-symbols-outlined" style="font-size:16px">bolt</span>
+        {{ batchLoading ? 'Génération...' : 'Batch toutes les stations' }}
+      </button>
+    </div>
+  </div>
+
+  @if (batchMessage) {
+    <div [class]="batchSuccess ? 'success-msg' : 'error-msg'" style="margin-bottom:16px">
+      {{ batchMessage }}
+    </div>
+  }
+  <!-- ===== SIMPLIFIED VIEW (non-technical, default) ===== -->
+  @if (viewMode === 'simple') {
+    <div class="simple-view">
+      <div class="filters-bar" style="margin-top:16px">
+        <app-station-picker
+          [stations]="stations"
+          [(ngModel)]="selectedStationId"
+          (stationChange)="onStationChange()"
+          placeholder="Choisir une station..."
+          width="260px">
+        </app-station-picker>
+        <select [(ngModel)]="selectedFuelTypeId" class="form-control" style="width:180px"
+                [disabled]="!selectedStationId">
+          <option [ngValue]="null">
+            {{ !selectedStationId ? 'Carburant (choisir station)' : (fuelTypes.length === 0 ? 'Aucun carburant' : 'Carburant') }}
+          </option>
+          @for (f of fuelTypes; track f.id) {
+            <option [ngValue]="f.id">{{ f.name }}</option>
+          }
+        </select>
+        <button class="btn btn-primary" (click)="generateAndLoad()"
+          [disabled]="!selectedStationId || !selectedFuelTypeId || generating">
+          <span class="material-symbols-outlined" style="font-size:16px">smart_toy</span>
+          {{ generating ? 'Analyse...' : 'Lancer la prévision' }}
+        </button>
+      </div>
+
+      @if (generating || loading) {
+        <div class="loading">Analyse en cours...</div>
+      } @else if (iaResult) {
+        <!-- Risk banner -->
+        <div [class]="'simple-banner banner-' + getRiskBadge(iaResult.risk_level)">
+          <span class="material-symbols-outlined banner-icon">
+            {{ iaResult.risk_level === 'HIGH' ? 'warning' : (iaResult.risk_level === 'MEDIUM' ? 'info' : 'check_circle') }}
+          </span>
+          <div class="banner-text">
+            <strong>{{ getSimpleRiskLabel() }}</strong>
+            <span>{{ getSimpleRiskMessage() }}</span>
+          </div>
+        </div>
+
+        <!-- Key numbers -->
+        <div class="simple-stats">
+          <div class="simple-stat">
+            <span class="simple-stat-label">Demande prévue demain</span>
+            <span class="simple-stat-value">
+              {{ getTomorrowForecast() !== null ? (getTomorrowForecast() | number:'1.0-0') + ' L' : 'N/A' }}
+            </span>
+          </div>
+          <div class="simple-stat">
+            <span class="simple-stat-label">Total prévu sur 7 jours</span>
+            <span class="simple-stat-value">
+              {{ getWeekTotal() !== null ? (getWeekTotal() | number:'1.0-0') + ' L' : 'N/A' }}
+            </span>
+          </div>
+          <div class="simple-stat">
+            <span class="simple-stat-label">Jours avant rupture</span>
+            <span class="simple-stat-value"
+              [class.text-danger]="iaResult.days_before_rupture && iaResult.days_before_rupture <= 3">
+              {{ iaResult.days_before_rupture ? (iaResult.days_before_rupture | number:'1.0-0') + ' j' : 'Aucun risque' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Forecast chart (reuses same canvas ref) -->
+        @if (predictions.length > 0) {
+          <div class="chart-section" style="margin-top:20px">
+            <canvas #predChart></canvas>
+          </div>
+        }
+
+        <!-- Plain-language AI explanation -->
+        <div class="ai-explain-card" *ngIf="iaResult.status === 'success'">
+          <div class="ai-explain-header">
+            <h4>Explication simple</h4>
+            <button class="btn-ai-explain" (click)="explainWithAI()" [disabled]="aiLoading">
+              {{ aiLoading ? 'Analyse en cours...' : (aiExplanation ? 'Regénérer' : 'Expliquer en langage clair') }}
+            </button>
+          </div>
+          <div class="ai-explain-loading" *ngIf="aiLoading">
+            <div class="spinner"></div>
+            <span>L'assistant prépare une explication...</span>
+          </div>
+          <div class="ai-explain-error" *ngIf="aiError && !aiLoading">
+            <strong>Erreur :</strong> {{ aiError }}
+          </div>
+          <div class="ai-explain-body" *ngIf="aiExplanation && !aiLoading">
+            <p>{{ aiExplanation }}</p>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="material-symbols-outlined" style="font-size:48px;color:var(--text-muted)">smart_toy</span>
+          <p>Choisissez une station et un carburant, puis lancez la prévision.</p>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ===== EXPERT VIEW (full technical detail) ===== -->
+  @if (viewMode === 'expert') {
+
+  <!-- Tab switcher -->
+  <div class="tab-bar">
+    <button [class]="activeTab === 'predict' ? 'tab active' : 'tab'" (click)="activeTab = 'predict'">
+      <span class="material-symbols-outlined" style="font-size:16px">trending_up</span>
+      Prévisions
+    </button>
+    <button [class]="activeTab === 'metrics' ? 'tab active' : 'tab'" (click)="activeTab = 'metrics'; loadMetrics()">
+      <span class="material-symbols-outlined" style="font-size:16px">analytics</span>
+      Historique des modèles
+    </button>
+  </div>
+
+  <!-- ===== TAB: PRÉVISIONS ===== -->
+  @if (activeTab === 'predict') {
+    <div class="filters-bar" style="margin-top:16px">
+      <app-station-picker
+        [stations]="stations"
+        [(ngModel)]="selectedStationId"
+        (stationChange)="onStationChange()"
+        placeholder="Rechercher une station..."
+        width="260px">
+      </app-station-picker>
+      <select [(ngModel)]="selectedFuelTypeId" class="form-control" style="width:180px"
+              [disabled]="!selectedStationId"
+              [title]="!selectedStationId ? 'Sélectionnez d\'abord une station' : ''">
+        <option [ngValue]="null">
+          {{ !selectedStationId ? 'Carburant (choisir station)' : (fuelTypes.length === 0 ? 'Aucun carburant' : 'Carburant') }}
+        </option>
+        @for (f of fuelTypes; track f.id) {
+          <option [ngValue]="f.id">{{ f.name }}</option>
+        }
+      </select>
+      <button class="btn btn-primary" (click)="generateAndLoad()"
+        [disabled]="!selectedStationId || !selectedFuelTypeId || generating">
+        <span class="material-symbols-outlined" style="font-size:16px">smart_toy</span>
+        {{ generating ? 'Génération...' : 'Générer & Afficher' }}
+      </button>
+      <button class="btn btn-outline" (click)="loadPredictions()"
+        [disabled]="!selectedStationId || !selectedFuelTypeId">
+        <span class="material-symbols-outlined" style="font-size:16px">bar_chart</span>
+        Afficher existantes
+      </button>
+    </div>
+
+    <!-- IA Result Summary -->
+    @if (iaResult) {
+      <div class="ia-summary">
+        <div class="ia-cards">
+          <div class="ia-card">
+            <span class="ia-label">Meilleur Modèle</span>
+            <span class="ia-value">{{ iaResult.best_model || 'N/A' }}</span>
+          </div>
+          <div class="ia-card">
+            <span class="ia-label">Score Anomalie</span>
+            <span class="ia-value" [class.text-danger]="iaResult.anomaly_score > 0.5">
+              {{ iaResult.anomaly_score | number:'1.0-4' }}
+            </span>
+          </div>
+          <div class="ia-card">
+            <span class="ia-label">Niveau de Risque</span>
+            <span [class]="'badge badge-' + getRiskBadge(iaResult.risk_level)">
+              {{ iaResult.risk_level }}
+            </span>
+          </div>
+          <div class="ia-card">
+            <span class="ia-label">Jours Avant Rupture</span>
+            <span class="ia-value"
+              [class.text-danger]="iaResult.days_before_rupture && iaResult.days_before_rupture <= 3">
+              {{ iaResult.days_before_rupture ? (iaResult.days_before_rupture | number:'1.0-1') + ' j' : 'N/A' }}
+            </span>
+          </div>
+        </div>
+
+        @if (iaResult.ensemble_weights) {
+          <div class="weights-bar">
+            <span class="weight-label">Poids Ensemble :</span>
+            <span class="weight-item">LR: {{ iaResult.ensemble_weights.LinearRegression * 100 | number:'1.0-1' }}%</span>
+            <span class="weight-item">RF: {{ iaResult.ensemble_weights.RandomForest * 100 | number:'1.0-1' }}%</span>
+            @if (iaResult.ensemble_weights.XGBoost !== undefined) {
+              <span class="weight-item xgb">XGB: {{ iaResult.ensemble_weights.XGBoost * 100 | number:'1.0-1' }}%</span>
+            }
+            @if (iaResult.ensemble_weights.Prophet !== undefined) {
+              <span class="weight-item">Prophet: {{ iaResult.ensemble_weights.Prophet * 100 | number:'1.0-1' }}%</span>
+            }
+          </div>
+        }
+        @if (iaResult.models) {
+          <div class="models-table">
+            <h4>Comparaison des Modèles</h4>
+            <table class="data-table">
+              <thead>
+                <tr><th>Modèle</th><th>MAE</th><th>RMSE</th><th>MAPE</th></tr>
+              </thead>
+              <tbody>
+                @for (entry of getModelEntries(); track entry.name) {
+                  <tr [class.best-model]="entry.name === iaResult.best_model">
+                    <td>
+                      <strong>{{ entry.name }}</strong>
+                      @if (entry.name === iaResult.best_model) {
+                        <span class="badge badge-success" style="margin-left:6px">Meilleur</span>
+                      }
+                    </td>
+                    <td>{{ entry.mae | number:'1.0-2' }}</td>
+                    <td>{{ entry.rmse | number:'1.0-2' }}</td>
+                    <td>{{ (entry.mape * 100) | number:'1.0-2' }}%</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+
+        @if (iaResult.feature_importance && iaResult.feature_importance.length > 0) {
+          <div class="feature-importance-section">
+            <h4>
+              <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;color:var(--accent)">insights</span>
+              Importance des Features
+            </h4>
+            <p class="fi-subtitle">Facteurs les plus influents dans la prédiction de la demande</p>
+            <div class="fi-chart-container">
+              <canvas #featureChart></canvas>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (loading) {
+      <div class="loading">Chargement des prévisions...</div>
+    } @else if (predictions.length === 0 && hasSearched) {
+      <div class="empty-state">
+        <span class="material-symbols-outlined" style="font-size:48px;color:var(--text-muted)">smart_toy</span>
+        <p>Aucune prévision. Cliquez "Générer & Afficher" pour lancer l'IA.</p>
+      </div>
+    } @else if (predictions.length > 0) {
+      <div class="prediction-content">
+        <div class="chart-section">
+          <canvas #predChart></canvas>
+        </div>
+        <table class="data-table" style="margin-top:20px">
+          <thead>
+            <tr><th>Date</th><th>Quantité Prévue</th><th>Modèle</th><th>Confiance</th></tr>
+          </thead>
+          <tbody>
+            @for (p of predictions; track p.id) {
+              <tr>
+                <td>{{ p.predictionDate | date:'dd/MM/yyyy' }}</td>
+                <td><strong>{{ p.predictedQuantity | number:'1.0-2' }} L</strong></td>
+                <td><span class="badge badge-info">{{ p.modelName || 'N/A' }}</span></td>
+                <td>
+                  @if (p.confidenceScore) {
+                    {{ (p.confidenceScore * 100) | number:'1.0-1' }}%
+                  } @else { - }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <!-- Quantile interval summary -->
+      <div class="quantile-card" *ngIf="iaResult?.quantiles">
+        <div class="quantile-header">
+          <h4>
+            <span class="material-symbols-outlined" style="font-size:16px;color:var(--accent)">query_stats</span>
+            Intervalles de confiance (quantiles)
+          </h4>
+          <small *ngIf="getQuantileSummary()">{{ getQuantileSummary() }}</small>
+        </div>
+        <div class="quantile-grid">
+          <div class="quantile-cell quantile-p10">
+            <span class="label">P10 (optimiste)</span>
+            <span class="value">{{ iaResult.quantiles.P10[0] | number:'1.0-0' }} L</span>
+            <small>demain</small>
+          </div>
+          <div class="quantile-cell quantile-p50">
+            <span class="label">P50 (médiane)</span>
+            <span class="value">{{ iaResult.quantiles.P50[0] | number:'1.0-0' }} L</span>
+            <small>demain</small>
+          </div>
+          <div class="quantile-cell quantile-p90">
+            <span class="label">P90 (pessimiste)</span>
+            <span class="value">{{ iaResult.quantiles.P90[0] | number:'1.0-0' }} L</span>
+            <small>demain</small>
+          </div>
+        </div>
+        <p class="quantile-note">
+          La rupture de stock est calculée en utilisant le scénario pessimiste (P90) pour un réapprovisionnement anticipé si nécessaire.
+        </p>
+      </div>
+      <!-- SHAP explanation (interactive per-day + global) -->
+      @if (iaResult?.shap; as shap) {
+        <app-shap-explainer
+          [shap]="shap"
+          [forecast]="iaResult.forecast_7_days">
+        </app-shap-explainer>
+      }
+      <!-- AI Explanation Section -->
+      <div class="ai-explain-card" *ngIf="iaResult && iaResult.status === 'success'">
+        <div class="ai-explain-header">
+          <h4>Explication IA</h4>
+          <button
+            class="btn-ai-explain"
+            (click)="explainWithAI()"
+            [disabled]="aiLoading">
+            {{ aiLoading ? 'Analyse en cours...' : (aiExplanation ? 'Regénérer' : 'Expliquer cette prévision') }}
+          </button>
+          <button
+            *ngIf="aiExplanation"
+            class="btn-ai-clear"
+            (click)="clearAIExplanation()"
+            [disabled]="aiLoading">
+            <span class="material-symbols-outlined" style="font-size:14px">close</span>
+          </button>
+        </div>
+
+        <div class="ai-explain-loading" *ngIf="aiLoading">
+          <div class="spinner"></div>
+          <span>L'assistant analyse la prédiction...</span>
+        </div>
+
+        <div class="ai-explain-error" *ngIf="aiError && !aiLoading">
+          <strong>Erreur :</strong> {{ aiError }}
+        </div>
+
+        <div class="ai-explain-body" *ngIf="aiExplanation && !aiLoading">
+          <p>{{ aiExplanation }}</p>
+          <div class="ai-explain-footer">
+            <small>Généré par l'IA à partir des résultats de prédiction et du contexte AGIL.
+            Cette explication est indicative et ne remplace pas une analyse humaine.</small>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <span class="material-symbols-outlined" style="font-size:48px;color:var(--text-muted)">tune</span>
+        <p>Sélectionnez une station et un carburant, puis générez les prévisions</p>
+      </div>
+    }
+  }
+
+
+  <!-- ===== TAB: HISTORIQUE MODÈLES ===== -->
+  @if (activeTab === 'metrics') {
+    <div style="margin-top:16px">
+      <div class="filters-bar">
+        <app-station-picker
+          [stations]="stations"
+          [(ngModel)]="metricsStationId"
+          (stationChange)="loadMetrics()"
+          [allowAll]="true"
+          placeholder="Toutes les stations"
+          width="240px">
+        </app-station-picker>
+        <span style="font-size:13px;color:#888">{{ metrics.length }} entrées</span>
+      </div>
+
+      @if (metricsLoading) {
+        <div class="loading">Chargement des métriques...</div>
+      } @else if (metrics.length === 0) {
+        <div class="empty-state">
+          <span class="material-symbols-outlined" style="font-size:48px;color:var(--text-muted)">monitoring</span>
+          <p>Aucune métrique disponible. Générez d'abord des prévisions.</p>
+        </div>
+      } @else {
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Modèle</th>
+              <th>Station</th>
+              <th>MAE</th>
+              <th>RMSE</th>
+              <th>MAPE</th>
+              <th>Qualité</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (m of metrics; track m.model_version) {
+              <tr>
+                <td><strong>{{ m.model_name }}</strong></td>
+                <td>{{ getStationName(m.station_id) }}</td>
+                <td>{{ m.mae | number:'1.0-2' }}</td>
+                <td>{{ m.rmse | number:'1.0-2' }}</td>
+                <td>{{ (m.mape * 100) | number:'1.0-2' }}%</td>
+                <td>
+                  <span [class]="'badge badge-' + getMapeQuality(m.mape)">
+                    {{ getMapeLabel(m.mape) }}
+                  </span>
+                </td>
+                <td>{{ m.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+}
+</div>
