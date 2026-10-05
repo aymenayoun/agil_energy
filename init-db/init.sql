@@ -524,6 +524,8 @@ CREATE TABLE `users` (
   `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password_hash` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role_id` bigint NOT NULL,
+  `region` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `station_id` bigint DEFAULT NULL,
   `status` enum('ACTIVE','INACTIVE') COLLATE utf8mb4_unicode_ci DEFAULT 'ACTIVE',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -542,7 +544,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin AGIL','admin@agil.tn','$2a$10$YZecOo1Y7luZi/1wIEdPFeQeg2RP6vkUCbdjd3NvmTmj8MgfUXE7C',1,'ACTIVE','2026-04-11 16:32:03','2026-04-11 16:32:03'),(2,'Manager AGIL','manager@agil.tn','$2a$10$eBPJ5KxZhAqc8JO12rq/qekayrGsMWHml1i6L9NsWfH.QoJRD7kTS',2,'ACTIVE','2026-04-11 16:32:03','2026-04-11 15:40:55'),(3,'Responsable Station','responsable@agil.tn','$2a$10$LStrW7wiywyeSKqkzwFFT.RVr8o7MRyaZmjYMWBvg3CrW1De2rwaO',3,'ACTIVE','2026-04-11 16:32:03','2026-04-11 16:32:03'),(4,'Demo Admin','demo.admin@agil.tn','$2a$10$6pjI8P0.zXmcVKc6oIehp.cesbB3o85xElj7gTmKnMbpXV9Rx0HJ6',1,'ACTIVE','2026-04-26 11:12:35','2026-04-26 11:12:35'),(6,'Demo Station','demo.station@agil.tn','$2a$10$pRrfjfrLdUnIQBlEP6OF3euhFcRF7iwJpUfjXeMX3K/NOTT8.qigS',3,'ACTIVE','2026-04-26 18:00:25','2026-04-26 18:00:25'),(7,'Demo Manager','demo.manager@agil.tn','$2a$10$1NfFRD5xYY1Gmbr0avKQDeCkytPqxzF9aU0beci9HRaBDD.E/yJ7K',2,'ACTIVE','2026-04-26 18:00:54','2026-04-26 18:00:54');
+INSERT INTO `users` (`id`,`name`,`email`,`password_hash`,`role_id`,`status`,`created_at`,`updated_at`) VALUES (1,'Admin AGIL','admin@agil.tn','$2a$10$YZecOo1Y7luZi/1wIEdPFeQeg2RP6vkUCbdjd3NvmTmj8MgfUXE7C',1,'ACTIVE','2026-04-11 16:32:03','2026-04-11 16:32:03'),(2,'Manager AGIL','manager@agil.tn','$2a$10$eBPJ5KxZhAqc8JO12rq/qekayrGsMWHml1i6L9NsWfH.QoJRD7kTS',2,'ACTIVE','2026-04-11 16:32:03','2026-04-11 15:40:55'),(3,'Responsable Station','responsable@agil.tn','$2a$10$LStrW7wiywyeSKqkzwFFT.RVr8o7MRyaZmjYMWBvg3CrW1De2rwaO',3,'ACTIVE','2026-04-11 16:32:03','2026-04-11 16:32:03'),(4,'Demo Admin','demo.admin@agil.tn','$2a$10$6pjI8P0.zXmcVKc6oIehp.cesbB3o85xElj7gTmKnMbpXV9Rx0HJ6',1,'ACTIVE','2026-04-26 11:12:35','2026-04-26 11:12:35'),(6,'Demo Station','demo.station@agil.tn','$2a$10$pRrfjfrLdUnIQBlEP6OF3euhFcRF7iwJpUfjXeMX3K/NOTT8.qigS',3,'ACTIVE','2026-04-26 18:00:25','2026-04-26 18:00:25'),(7,'Demo Manager','demo.manager@agil.tn','$2a$10$1NfFRD5xYY1Gmbr0avKQDeCkytPqxzF9aU0beci9HRaBDD.E/yJ7K',2,'ACTIVE','2026-04-26 18:00:54','2026-04-26 18:00:54');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
