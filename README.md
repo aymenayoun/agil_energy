@@ -252,7 +252,7 @@ Les données sont synthétiques et figées. Rien n'est écrit, aucun serveur n'e
 
 Projet développé dans le cadre d'un stage de fin d'études (PFE) en génie logiciel, chez un distributeur de carburants. Le code publié ici est une version portfolio : les données sont entièrement synthétiques et aucune information d'exploitation réelle n'y figure.
 
-**Aymen Layouni** — Ingénieur en génie logiciel et systèmes d'information
+**Aymen Ayouni** — Ingénieur en génie logiciel et systèmes d'information
 [GitHub](https://github.com/aymenayoun) · [Site](https://aymenayoun.github.io)
 
 ---
@@ -430,5 +430,5 @@ The data is synthetic and frozen. Nothing is written and no server is contacted.
 
 Built as a final-year engineering project (PFE) in software engineering, at a fuel distributor. The code published here is a portfolio version: all data is synthetic and contains no real operational information.
 
-**Aymen Layouni** — Software and Information Systems Engineer
+**Aymen Ayouni** — Software and Information Systems Engineer
 [GitHub](https://github.com/aymenayoun) · [Website](https://aymenayoun.github.io)
