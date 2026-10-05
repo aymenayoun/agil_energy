@@ -61,7 +61,8 @@ export function seedDemoSession(role: DemoRole = currentDemoRole()): void {
 /** Switches role and reloads so every component re-fetches under the new scope. */
 export function switchDemoRole(role: DemoRole): void {
   seedDemoSession(role);
-  // STATION_MANAGER is blocked from /dashboard by the route guard.
-  const landing = role === 'STATION_MANAGER' ? 'sales' : 'dashboard';
-  location.assign(`${document.baseURI}${landing}`);
+  // Navigate to the base URL (a real file) rather than a deep link, which would
+  // 404 on GitHub Pages. defaultRouteGuard then sends each role to its landing
+  // page: ADMIN/MANAGER to /dashboard, STATION_MANAGER to /sales.
+  location.assign(document.baseURI);
 }
