@@ -1,8 +1,8 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": {
-        "ia_service": "available"
-    },
-    "timestamp": "2026-10-03T20:28:38.800792925"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  {
+                 "ia_service":  "available"
+             },
+    "timestamp":  "2026-10-05T21:42:11.942843781"
 }

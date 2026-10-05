@@ -1,95 +1,73 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": [
-        {
-            "id": 1,
-            "name": "Admin AGIL",
-            "email": "admin@agil.tn",
-            "roleName": "ADMIN",
-            "status": "ACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": null,
-            "createdAt": "2026-04-11T16:32:03"
-        },
-        {
-            "id": 2,
-            "name": "Manager AGIL",
-            "email": "manager@agil.tn",
-            "roleName": "MANAGER",
-            "status": "ACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": "Sidi Bouzid",
-            "createdAt": "2026-04-11T16:32:03"
-        },
-        {
-            "id": 3,
-            "name": "Responsable Station_1",
-            "email": "responsable@agil.tn",
-            "roleName": "STATION_MANAGER",
-            "status": "ACTIVE",
-            "stationId": 2,
-            "stationName": "Station La Marsa",
-            "region": null,
-            "createdAt": "2026-04-11T16:32:03"
-        },
-        {
-            "id": 4,
-            "name": "Demo Admin",
-            "email": "demo.admin@agil.tn",
-            "roleName": "ADMIN",
-            "status": "ACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": null,
-            "createdAt": "2026-04-26T11:12:35"
-        },
-        {
-            "id": 6,
-            "name": "Demo Station",
-            "email": "demo.station@agil.tn",
-            "roleName": "STATION_MANAGER",
-            "status": "INACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": null,
-            "createdAt": "2026-04-26T18:00:25"
-        },
-        {
-            "id": 7,
-            "name": "Demo Manager",
-            "email": "demo.manager@agil.tn",
-            "roleName": "MANAGER",
-            "status": "ACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": "Kasserine",
-            "createdAt": "2026-04-26T18:00:54"
-        },
-        {
-            "id": 8,
-            "name": "new_regional",
-            "email": "regional2@agil.tn",
-            "roleName": "MANAGER",
-            "status": "INACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": "Tunis",
-            "createdAt": "2026-07-02T07:14:49"
-        },
-        {
-            "id": 9,
-            "name": "regional3",
-            "email": "regional3@agil.tn",
-            "roleName": "MANAGER",
-            "status": "ACTIVE",
-            "stationId": null,
-            "stationName": null,
-            "region": "Monastir",
-            "createdAt": "2026-07-02T12:02:45"
-        }
-    ],
-    "timestamp": "2026-10-03T18:14:31.752034474"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  [
+                 {
+                     "id":  1,
+                     "name":  "Admin AGIL",
+                     "email":  "admin@agil.tn",
+                     "roleName":  "ADMIN",
+                     "status":  "ACTIVE",
+                     "stationId":  null,
+                     "stationName":  null,
+                     "region":  null,
+                     "createdAt":  "2026-04-11T16:32:03"
+                 },
+                 {
+                     "id":  2,
+                     "name":  "Manager AGIL",
+                     "email":  "manager@agil.tn",
+                     "roleName":  "MANAGER",
+                     "status":  "ACTIVE",
+                     "stationId":  null,
+                     "stationName":  null,
+                     "region":  null,
+                     "createdAt":  "2026-04-11T16:32:03"
+                 },
+                 {
+                     "id":  3,
+                     "name":  "Responsable Station",
+                     "email":  "responsable@agil.tn",
+                     "roleName":  "STATION_MANAGER",
+                     "status":  "ACTIVE",
+                     "stationId":  null,
+                     "stationName":  null,
+                     "region":  null,
+                     "createdAt":  "2026-04-11T16:32:03"
+                 },
+                 {
+                     "id":  4,
+                     "name":  "Demo Admin",
+                     "email":  "demo.admin@agil.tn",
+                     "roleName":  "ADMIN",
+                     "status":  "ACTIVE",
+                     "stationId":  null,
+                     "stationName":  null,
+                     "region":  null,
+                     "createdAt":  "2026-04-26T11:12:35"
+                 },
+                 {
+                     "id":  6,
+                     "name":  "Demo Station",
+                     "email":  "demo.station@agil.tn",
+                     "roleName":  "STATION_MANAGER",
+                     "status":  "ACTIVE",
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "region":  null,
+                     "createdAt":  "2026-04-26T18:00:25"
+                 },
+                 {
+                     "id":  7,
+                     "name":  "Demo Manager",
+                     "email":  "demo.manager@agil.tn",
+                     "roleName":  "MANAGER",
+                     "status":  "ACTIVE",
+                     "stationId":  null,
+                     "stationName":  null,
+                     "region":  "Tunis",
+                     "createdAt":  "2026-04-26T18:00:54"
+                 }
+             ],
+    "timestamp":  "2026-10-05T21:42:11.458921172"
 }

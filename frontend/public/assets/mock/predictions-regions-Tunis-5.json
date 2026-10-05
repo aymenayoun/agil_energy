@@ -1,107 +1,107 @@
-{
-    "success": true,
-    "message": "Prévisions régionales générées",
-    "data": {
-        "region": "Tunis",
-        "fuel_type_id": 6,
-        "status": "success",
-        "forecast_7_days": [
-            320.75,
-            352.14,
-            355.85,
-            375.37,
-            309.48,
-            334.91,
-            324.11
-        ],
-        "anomaly_score": 0.3874,
-        "risk_level": "LOW",
-        "best_model": "RandomForest",
-        "models": {
-            "LinearRegression": {
-                "mae": 48.78790182143941,
-                "rmse": 73.40149966634193,
-                "mape": 0.21594160657472056
-            },
-            "RandomForest": {
-                "mae": 41.918249330482055,
-                "rmse": 64.13222731207476,
-                "mape": 0.1860140530865905
-            },
-            "XGBoost": {
-                "mae": 57.66953848702567,
-                "rmse": 77.35274954438653,
-                "mape": 0.24640204468166885
-            }
-        },
-        "ensemble_weights": {
-            "LinearRegression": 0.329,
-            "RandomForest": 0.382,
-            "XGBoost": 0.289
-        },
-        "message": null,
-        "feature_importance": [
-            {
-                "feature": "lag_14",
-                "importance": 0.1123
-            },
-            {
-                "feature": "day_of_week",
-                "importance": 0.0843
-            },
-            {
-                "feature": "month_cos",
-                "importance": 0.0817
-            },
-            {
-                "feature": "day_sin",
-                "importance": 0.0794
-            },
-            {
-                "feature": "rolling_mean_7",
-                "importance": 0.0722
-            },
-            {
-                "feature": "rolling_mean_14",
-                "importance": 0.0709
-            },
-            {
-                "feature": "lag_7",
-                "importance": 0.0698
-            },
-            {
-                "feature": "day_cos",
-                "importance": 0.0685
-            },
-            {
-                "feature": "rolling_std_14",
-                "importance": 0.0468
-            },
-            {
-                "feature": "day_of_month",
-                "importance": 0.0398
-            },
-            {
-                "feature": "ratio_7_14",
-                "importance": 0.0358
-            },
-            {
-                "feature": "rolling_std_7",
-                "importance": 0.0354
-            },
-            {
-                "feature": "lag_1",
-                "importance": 0.0346
-            },
-            {
-                "feature": "trend_slope_7",
-                "importance": 0.0343
-            },
-            {
-                "feature": "month",
-                "importance": 0.0325
-            }
-        ]
-    },
-    "timestamp": "2026-10-04T11:09:49.786280022"
+﻿{
+    "success":  true,
+    "message":  "PrÃ©visions rÃ©gionales gÃ©nÃ©rÃ©es",
+    "data":  {
+                 "region":  "Tunis",
+                 "fuel_type_id":  5,
+                 "status":  "success",
+                 "forecast_7_days":  [
+                                         513.87,
+                                         525.27,
+                                         559.94,
+                                         593.4,
+                                         576.02,
+                                         446.63,
+                                         521.57
+                                     ],
+                 "anomaly_score":  0.3991,
+                 "risk_level":  "LOW",
+                 "best_model":  "RandomForest",
+                 "models":  {
+                                "LinearRegression":  {
+                                                         "mae":  31.356828498930756,
+                                                         "rmse":  37.01027360138834,
+                                                         "mape":  0.05819498449871241
+                                                     },
+                                "RandomForest":  {
+                                                     "mae":  21.64438154537853,
+                                                     "rmse":  26.33358450603067,
+                                                     "mape":  0.03893639531292892
+                                                 },
+                                "XGBoost":  {
+                                                "mae":  27.025607997349336,
+                                                "rmse":  32.250208001892815,
+                                                "mape":  0.048721507850693194
+                                            }
+                            },
+                 "ensemble_weights":  {
+                                          "LinearRegression":  0.271,
+                                          "RandomForest":  0.405,
+                                          "XGBoost":  0.324
+                                      },
+                 "message":  null,
+                 "feature_importance":  [
+                                            {
+                                                "feature":  "lag_7",
+                                                "importance":  0.1707
+                                            },
+                                            {
+                                                "feature":  "lag_14",
+                                                "importance":  0.1074
+                                            },
+                                            {
+                                                "feature":  "day_cos",
+                                                "importance":  0.1065
+                                            },
+                                            {
+                                                "feature":  "rolling_mean_14",
+                                                "importance":  0.0725
+                                            },
+                                            {
+                                                "feature":  "month_sin",
+                                                "importance":  0.0563
+                                            },
+                                            {
+                                                "feature":  "day_of_week",
+                                                "importance":  0.056
+                                            },
+                                            {
+                                                "feature":  "rolling_mean_7",
+                                                "importance":  0.0516
+                                            },
+                                            {
+                                                "feature":  "month",
+                                                "importance":  0.0516
+                                            },
+                                            {
+                                                "feature":  "month_cos",
+                                                "importance":  0.0434
+                                            },
+                                            {
+                                                "feature":  "ewm_7",
+                                                "importance":  0.0376
+                                            },
+                                            {
+                                                "feature":  "quarter",
+                                                "importance":  0.0337
+                                            },
+                                            {
+                                                "feature":  "rolling_std_7",
+                                                "importance":  0.0301
+                                            },
+                                            {
+                                                "feature":  "day_sin",
+                                                "importance":  0.0298
+                                            },
+                                            {
+                                                "feature":  "rolling_std_14",
+                                                "importance":  0.029
+                                            },
+                                            {
+                                                "feature":  "lag_1",
+                                                "importance":  0.0283
+                                            }
+                                        ]
+             },
+    "timestamp":  "2026-10-05T21:42:14.424197437"
 }

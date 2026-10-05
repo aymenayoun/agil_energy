@@ -1,103 +1,91 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": [
-        {
-            "id": 8275,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-04",
-            "predictedQuantity": 286.76,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-03T20:08:47"
-        },
-        {
-            "id": 9416,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-05",
-            "predictedQuantity": 286.76,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9417,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-06",
-            "predictedQuantity": 304.99,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9418,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-07",
-            "predictedQuantity": 329.82,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9419,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-08",
-            "predictedQuantity": 358.30,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9420,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-09",
-            "predictedQuantity": 281.50,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9421,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-10",
-            "predictedQuantity": 312.16,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9422,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-11",
-            "predictedQuantity": 297.55,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        }
-    ],
-    "timestamp": "2026-10-04T12:50:34.939474962"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  [
+                 {
+                     "id":  8142,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-06",
+                     "predictedQuantity":  306.44,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8143,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-07",
+                     "predictedQuantity":  305.76,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8144,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-08",
+                     "predictedQuantity":  319.27,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8145,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-09",
+                     "predictedQuantity":  365.99,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8146,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-10",
+                     "predictedQuantity":  368.08,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8147,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-11",
+                     "predictedQuantity":  254.91,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 },
+                 {
+                     "id":  8148,
+                     "stationId":  17,
+                     "stationName":  "Station Gafsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "predictionDate":  "2026-10-12",
+                     "predictedQuantity":  326.73,
+                     "modelName":  "Ensemble(RandomForest)",
+                     "confidenceScore":  0.9642,
+                     "generatedAt":  "2026-10-05T17:00:15"
+                 }
+             ],
+    "timestamp":  "2026-10-05T21:42:12.019582128"
 }

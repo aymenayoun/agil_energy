@@ -1,33 +1,75 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": {
-        "question": "bonjour",
-        "answer": "Pas de réponse spécifique à la question posée. La réponse est simplement \"Bonjour\".",
-        "mode": "default",
-        "model_used": "llama3.2:3b",
-        "retrieved_context": [
-            {
-                "text": "Jour férié en Tunisie le 2026-01-14 : Revolution et Jeunesse. Type : national.",
-                "source": "holidays",
-                "metadata": {
-                    "date": "2026-01-14"
-                },
-                "score": 0.39885005354881287,
-                "semantic_score": 0.7977001070976257,
-                "bm25_score": 0.0
-            },
-            {
-                "text": "Jour férié en Tunisie le 2025-01-14 : Revolution et Jeunesse. Type : national.",
-                "source": "holidays",
-                "metadata": {
-                    "date": "2025-01-14"
-                },
-                "score": 0.39797812700271606,
-                "semantic_score": 0.7959562540054321,
-                "bm25_score": 0.0
-            }
-        ]
-    },
-    "timestamp": "2026-10-04T12:52:40.218388055"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  {
+                 "question":  "Quelles sont les stations les plus a risque ?",
+                 "answer":  "Selon les donnÃ©es historiques, les stations avec la plus forte consommation de carburant sont celles situÃ©es dans les gouvernorats de Tunis, Ben Arous, Sfax, Sousse et Nabeul. Cependant, pour identifier les stations les plus Ã  risque, il faut considÃ©rer les facteurs de prÃ©diction tels que la frÃ©quence de fermeture de stations, les causes de fermeture et les caractÃ©ristiques des stations elles-mÃªmes.\n\nEn fonction des donnÃ©es historiques, les stations avec la plus forte frÃ©quence de fermeture sont celles touchÃ©es par des problÃ¨mes de maintenance, de rupture de stock et de coupure Ã©lectrique. Cependant, sans les donnÃ©es en temps rÃ©el, il est difficile de dÃ©terminer les stations les plus Ã  risque.\n\nCependant, en fonction des donnÃ©es actuelles, aucune station n\u0027est actuellement sous le seuil critique de 20% de remplissage, ce qui suggÃ¨re que les stocks sont globalement sains.",
+                 "mode":  "default",
+                 "model_used":  "llama3.2:3b",
+                 "retrieved_context":  [
+                                           {
+                                               "text":  "D\u0027aprÃ¨s les donnÃ©es d\u0027infrastructure AGIL, la rÃ©partition des services annexes dans le rÃ©seau est :\n- boutique : 20 stations (80%)\n- lavage : 16 stations (64%)\n- cafe : 7 stations (28%)",
+                                               "source":  "data_insights",
+                                               "metadata":  {
+                                                                "category":  "services_distribution"
+                                                            },
+                                               "score":  0.7477288524174039,
+                                               "semantic_score":  0.8439801931381226,
+                                               "bm25_score":  0.6514775116966853
+                                           },
+                                           {
+                                               "text":  "D\u0027aprÃ¨s les donnÃ©es historiques AGIL, les 5 gouvernorats avec la plus forte consommation de carburant sont :\nTunis : 14.7% du volume total national\nBen Arous : 13.9% du volume total national\nSfax : 11.9% du volume total national\nSousse : 11.9% du volume total national\nNabeul : 9.3% du volume total national",
+                                               "source":  "data_insights",
+                                               "metadata":  {
+                                                                "category":  "region_ranking"
+                                                            },
+                                               "score":  0.691195150222665,
+                                               "semantic_score":  0.7685959935188293,
+                                               "bm25_score":  0.6137943069265007
+                                           },
+                                           {
+                                               "text":  "D\u0027aprÃ¨s les donnÃ©es historiques AGIL, le classement des causes de fermeture de stations par frÃ©quence est :\n- maintenance : 9 incidents\n- rupture_stock : 9 incidents\n- coupure_electricite : 6 incidents\n- panne_pompe : 6 incidents\n- travaux : 5 incidents\n(Total : 35 incidents sur la pÃ©riode analysÃ©e, touchant 21 stations diffÃ©rentes.)",
+                                               "source":  "data_insights",
+                                               "metadata":  {
+                                                                "category":  "closures",
+                                                                "total":  35
+                                                            },
+                                               "score":  0.6600635207583175,
+                                               "semantic_score":  0.8519219160079956,
+                                               "bm25_score":  0.46820512550863946
+                                           },
+                                           {
+                                               "text":  "Ãtat actuel des stocks AGIL : aucune station n\u0027est actuellement sous le seuil critique de 20% de remplissage. Les niveaux de stock sont globalement sains.",
+                                               "source":  "live_data",
+                                               "metadata":  {
+                                                                "category":  "stock_risk",
+                                                                "at_risk_count":  0
+                                                            },
+                                               "score":  0.6488522599868847,
+                                               "semantic_score":  0.8372966051101685,
+                                               "bm25_score":  0.4604079148636008
+                                           },
+                                           {
+                                               "text":  "Les stations AGIL se rÃ©partissent en deux profils principaux : (1) les grandes stations 24h/24 avec 8 pompes ou plus, situÃ©es sur les axes majeurs et offrant plusieurs services annexes (lavage, boutique, cafÃ©) ; (2) les stations plus petites Ã  ouverture partielle (06h-22h) avec 3-4 pompes, typiquement en zones urbaines denses ou rurales.",
+                                               "source":  "domain_knowledge",
+                                               "metadata":  {
+
+                                                            },
+                                               "score":  0.9400126338005066,
+                                               "semantic_score":  0.8800252676010132,
+                                               "bm25_score":  1.0
+                                           },
+                                           {
+                                               "text":  "Les features les plus importantes pour la prÃ©diction sont typiquement : lag_1 (ventes J-1), rolling_mean_7 (moyenne 7 derniers jours), is_weekend, is_ramadan, fuel_price, et temperature_moy.",
+                                               "source":  "domain_knowledge",
+                                               "metadata":  {
+
+                                                            },
+                                               "score":  0.8092479801026353,
+                                               "semantic_score":  0.8008631467819214,
+                                               "bm25_score":  0.8176328134233494
+                                           }
+                                       ]
+             },
+    "timestamp":  "2026-10-05T21:42:28.548819927"
 }

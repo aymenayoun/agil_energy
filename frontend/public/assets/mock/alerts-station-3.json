@@ -1,130 +1,274 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": {
-        "content": [
-            {
-                "id": 108,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.5814). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-22, 2026-03-29",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:37:47"
-            },
-            {
-                "id": 107,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.51). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-29, 2026-03-30",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:37:46"
-            },
-            {
-                "id": 106,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.6027). Niveau de risque: MEDIUM. Dates suspectes: ",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:37:45"
-            },
-            {
-                "id": 65,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.5814). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-22, 2026-03-29",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:35:40"
-            },
-            {
-                "id": 64,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.51). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-29, 2026-03-30",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:35:38"
-            },
-            {
-                "id": 63,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie détectée (score: 0.6027). Niveau de risque: MEDIUM. Dates suspectes: ",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-11T16:35:37"
-            },
-            {
-                "id": 48,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "LOW",
-                "message": "Consommation anormalement elevee de GPL CARBURANT detectee a Station La Marsa",
-                "status": "ACTIVE",
-                "resolvedByName": null,
-                "resolvedAt": null,
-                "createdAt": "2026-04-07T15:23:01"
-            },
-            {
-                "id": 31,
-                "stationId": 2,
-                "stationName": "Station La Marsa",
-                "alertType": "ANOMALY",
-                "severity": "MEDIUM",
-                "message": "Anomalie de consommation : GASOIL depasse 2 ecarts-types",
-                "status": "RESOLVED",
-                "resolvedByName": "Admin AGIL",
-                "resolvedAt": "2026-03-28T15:23:01",
-                "createdAt": "2026-03-28T15:23:01"
-            }
-        ],
-        "pageable": {
-            "pageNumber": 0,
-            "pageSize": 20,
-            "sort": {
-                "unsorted": false,
-                "empty": false,
-                "sorted": true
-            },
-            "offset": 0,
-            "unpaged": false,
-            "paged": true
-        },
-        "totalElements": 8,
-        "totalPages": 1,
-        "last": true,
-        "numberOfElements": 8,
-        "size": 20,
-        "number": 0,
-        "sort": {
-            "unsorted": false,
-            "empty": false,
-            "sorted": true
-        },
-        "first": true,
-        "empty": false
-    },
-    "timestamp": "2026-10-04T11:05:47.987582082"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  {
+                 "content":  [
+                                 {
+                                     "id":  210,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T20:03:44"
+                                 },
+                                 {
+                                     "id":  209,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T20:03:39"
+                                 },
+                                 {
+                                     "id":  208,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T20:03:30"
+                                 },
+                                 {
+                                     "id":  202,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T19:40:34"
+                                 },
+                                 {
+                                     "id":  201,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T19:40:29"
+                                 },
+                                 {
+                                     "id":  200,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T19:40:19"
+                                 },
+                                 {
+                                     "id":  194,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T16:12:37"
+                                 },
+                                 {
+                                     "id":  193,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T16:12:34"
+                                 },
+                                 {
+                                     "id":  192,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T16:12:29"
+                                 },
+                                 {
+                                     "id":  186,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T15:59:31"
+                                 },
+                                 {
+                                     "id":  185,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T15:59:29"
+                                 },
+                                 {
+                                     "id":  184,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-22T15:59:23"
+                                 },
+                                 {
+                                     "id":  173,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:56"
+                                 },
+                                 {
+                                     "id":  172,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5667). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:56"
+                                 },
+                                 {
+                                     "id":  171,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:52"
+                                 },
+                                 {
+                                     "id":  170,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:52"
+                                 },
+                                 {
+                                     "id":  169,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:43"
+                                 },
+                                 {
+                                     "id":  168,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-19T23:00:43"
+                                 },
+                                 {
+                                     "id":  165,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.5883). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-18T10:07:02"
+                                 },
+                                 {
+                                     "id":  163,
+                                     "stationId":  3,
+                                     "stationName":  "Station Ariana",
+                                     "alertType":  "ANOMALY",
+                                     "severity":  "MEDIUM",
+                                     "message":  "Anomalie dÃ©tectÃ©e (score: 0.519). Niveau de risque: MEDIUM. Dates suspectes: 2026-03-19, 2026-03-20, 2026-03-21, 2026-03-22",
+                                     "status":  "ACTIVE",
+                                     "resolvedByName":  null,
+                                     "resolvedAt":  null,
+                                     "createdAt":  "2026-04-12T17:24:12"
+                                 }
+                             ],
+                 "pageable":  {
+                                  "pageNumber":  0,
+                                  "pageSize":  20,
+                                  "sort":  {
+                                               "sorted":  true,
+                                               "unsorted":  false,
+                                               "empty":  false
+                                           },
+                                  "offset":  0,
+                                  "paged":  true,
+                                  "unpaged":  false
+                              },
+                 "totalElements":  34,
+                 "totalPages":  2,
+                 "last":  false,
+                 "numberOfElements":  20,
+                 "size":  20,
+                 "number":  0,
+                 "sort":  {
+                              "sorted":  true,
+                              "unsorted":  false,
+                              "empty":  false
+                          },
+                 "first":  true,
+                 "empty":  false
+             },
+    "timestamp":  "2026-10-05T21:42:12.100004168"
 }

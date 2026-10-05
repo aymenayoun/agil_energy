@@ -1,10 +1,10 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": {
-        "totalLast7Days": 0,
-        "maxAbsZScore": null,
-        "topStation": null
-    },
-    "timestamp": "2026-10-04T12:37:47.625938713"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  {
+                 "totalLast7Days":  0,
+                 "maxAbsZScore":  null,
+                 "topStation":  null
+             },
+    "timestamp":  "2026-10-05T21:42:30.450810033"
 }

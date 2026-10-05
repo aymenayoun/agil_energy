@@ -1,383 +1,383 @@
-{
-    "success": true,
-    "message": "Prévisions générées",
-    "data": {
-        "station_id": 17,
-        "fuel_type_id": 4,
-        "status": "success",
-        "forecast_7_days": [
-            286.76,
-            304.99,
-            329.82,
-            358.3,
-            281.5,
-            312.16,
-            297.55
-        ],
-        "anomaly_score": 0.2754,
-        "risk_level": "LOW",
-        "days_before_rupture": 11.5,
-        "best_model": "XGBoost",
-        "models": {
-            "LinearRegression": {
-                "mae": 58.28156595987836,
-                "rmse": 70.1583537000077,
-                "mape": 0.17262269056307114
-            },
-            "RandomForest": {
-                "mae": 42.845589134647234,
-                "rmse": 53.011731155452075,
-                "mape": 0.14251690293183852
-            },
-            "XGBoost": {
-                "mae": 36.25977643694197,
-                "rmse": 47.591098084387696,
-                "mape": 0.12035156448090886
-            }
-        },
-        "ensemble_weights": {
-            "LinearRegression": 0.274,
-            "RandomForest": 0.332,
-            "XGBoost": 0.393
-        },
-        "message": null,
-        "feature_importance": [
-            {
-                "feature": "month_cos",
-                "importance": 0.2685
-            },
-            {
-                "feature": "is_holiday",
-                "importance": 0.1324
-            },
-            {
-                "feature": "month_sin",
-                "importance": 0.098
-            },
-            {
-                "feature": "day_cos",
-                "importance": 0.0565
-            },
-            {
-                "feature": "temperature_moy",
-                "importance": 0.0393
-            },
-            {
-                "feature": "day_sin",
-                "importance": 0.032
-            },
-            {
-                "feature": "day_of_week",
-                "importance": 0.0307
-            },
-            {
-                "feature": "is_summer_vacation",
-                "importance": 0.0297
-            },
-            {
-                "feature": "ewm_7",
-                "importance": 0.0284
-            },
-            {
-                "feature": "is_holiday_after",
-                "importance": 0.0259
-            },
-            {
-                "feature": "ramadan_day",
-                "importance": 0.0224
-            },
-            {
-                "feature": "lag_14",
-                "importance": 0.0199
-            },
-            {
-                "feature": "month",
-                "importance": 0.0183
-            },
-            {
-                "feature": "is_school_vacation",
-                "importance": 0.0182
-            },
-            {
-                "feature": "rolling_mean_14",
-                "importance": 0.015
-            }
-        ],
-        "quantiles": {
-            "P10": [
-                297.55,
-                317.82,
-                302.34,
-                320.52,
-                295.36,
-                308.67,
-                304.75
-            ],
-            "P50": [
-                354.86,
-                368.08,
-                388.12,
-                424.97,
-                343.25,
-                376.83,
-                368.79
-            ],
-            "P90": [
-                395.27,
-                406.03,
-                416.94,
-                445.64,
-                408.56,
-                418.67,
-                417.23
-            ],
-            "metrics": {
-                "mae": 35.66222255161831,
-                "rmse": 45.8796402316839,
-                "mape": 0.11575403814407818,
-                "quantile_loss_p50": 17.8311,
-                "coverage_80_pct": 50.0,
-                "coverage_80_calibrated_pct": 78.57,
-                "calibration_offset": 24.02,
-                "interval_width_pct": 22.04
-            }
-        },
-        "shap": {
-            "base_value": 406.27,
-            "top_features_per_day": [
-                [
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 20.99
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -12.61
-                    },
-                    {
-                        "feature": "day_sin",
-                        "value": 0.975,
-                        "shap_value": -12.47
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 1.0,
-                        "shap_value": -10.97
-                    },
-                    {
-                        "feature": "lag_14",
-                        "value": 273.39,
-                        "shap_value": -9.83
-                    }
-                ],
-                [
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 17.92
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -11.26
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 2.0,
-                        "shap_value": -9.79
-                    },
-                    {
-                        "feature": "ewm_7",
-                        "value": 325.686,
-                        "shap_value": -7.87
-                    },
-                    {
-                        "feature": "day_cos",
-                        "value": -0.901,
-                        "shap_value": 7.21
-                    }
-                ],
-                [
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 23.14
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -13.09
-                    },
-                    {
-                        "feature": "day_of_week",
-                        "value": 4.0,
-                        "shap_value": 12.25
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 3.0,
-                        "shap_value": -11.21
-                    },
-                    {
-                        "feature": "day_cos",
-                        "value": -0.901,
-                        "shap_value": 9.4
-                    }
-                ],
-                [
-                    {
-                        "feature": "day_sin",
-                        "value": -0.975,
-                        "shap_value": 25.92
-                    },
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 21.85
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -13.69
-                    },
-                    {
-                        "feature": "day_of_week",
-                        "value": 5.0,
-                        "shap_value": 10.94
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 4.0,
-                        "shap_value": -10.47
-                    }
-                ],
-                [
-                    {
-                        "feature": "day_of_week",
-                        "value": 6.0,
-                        "shap_value": -21.07
-                    },
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 19.8
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -11.52
-                    },
-                    {
-                        "feature": "day_cos",
-                        "value": 0.623,
-                        "shap_value": -10.67
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 5.0,
-                        "shap_value": -6.98
-                    }
-                ],
-                [
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 20.77
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -11.4
-                    },
-                    {
-                        "feature": "rolling_std_7",
-                        "value": 8.819,
-                        "shap_value": 8.62
-                    },
-                    {
-                        "feature": "day_cos",
-                        "value": 1.0,
-                        "shap_value": -8.58
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 6.0,
-                        "shap_value": -8.4
-                    }
-                ],
-                [
-                    {
-                        "feature": "month_cos",
-                        "value": -0.5,
-                        "shap_value": 20.63
-                    },
-                    {
-                        "feature": "month_sin",
-                        "value": 0.866,
-                        "shap_value": -11.89
-                    },
-                    {
-                        "feature": "rolling_std_7",
-                        "value": 8.612,
-                        "shap_value": 8.78
-                    },
-                    {
-                        "feature": "day_of_month",
-                        "value": 7.0,
-                        "shap_value": -8.44
-                    },
-                    {
-                        "feature": "day_cos",
-                        "value": 0.623,
-                        "shap_value": -8.35
-                    }
-                ]
-            ],
-            "global_top_features": [
-                {
-                    "feature": "month_cos",
-                    "mean_abs_shap": 20.73
-                },
-                {
-                    "feature": "month_sin",
-                    "mean_abs_shap": 12.209
-                },
-                {
-                    "feature": "day_of_month",
-                    "mean_abs_shap": 9.466
-                },
-                {
-                    "feature": "day_sin",
-                    "mean_abs_shap": 8.159
-                },
-                {
-                    "feature": "day_of_week",
-                    "mean_abs_shap": 7.863
-                },
-                {
-                    "feature": "day_cos",
-                    "mean_abs_shap": 7.737
-                },
-                {
-                    "feature": "ewm_7",
-                    "mean_abs_shap": 6.464
-                },
-                {
-                    "feature": "rolling_std_7",
-                    "mean_abs_shap": 5.723
-                },
-                {
-                    "feature": "month",
-                    "mean_abs_shap": 4.29
-                },
-                {
-                    "feature": "temperature_moy",
-                    "mean_abs_shap": 4.019
-                }
-            ]
-        }
-    },
-    "timestamp": "2026-10-03T18:01:03.790902021"
+﻿{
+    "success":  true,
+    "message":  "PrÃ©visions gÃ©nÃ©rÃ©es",
+    "data":  {
+                 "station_id":  17,
+                 "fuel_type_id":  4,
+                 "status":  "success",
+                 "forecast_7_days":  [
+                                         306.44,
+                                         305.76,
+                                         319.27,
+                                         365.99,
+                                         368.08,
+                                         254.91,
+                                         326.73
+                                     ],
+                 "anomaly_score":  0.2324,
+                 "risk_level":  "LOW",
+                 "days_before_rupture":  13.2,
+                 "best_model":  "RandomForest",
+                 "models":  {
+                                "LinearRegression":  {
+                                                         "mae":  20.282089295383553,
+                                                         "rmse":  24.63199692940543,
+                                                         "mape":  0.06180223015897595
+                                                     },
+                                "RandomForest":  {
+                                                     "mae":  11.156314413554949,
+                                                     "rmse":  13.850918353946323,
+                                                     "mape":  0.03579432604574983
+                                                 },
+                                "XGBoost":  {
+                                                "mae":  14.282658255440847,
+                                                "rmse":  18.39038663531172,
+                                                "mape":  0.04739748050935634
+                                            }
+                            },
+                 "ensemble_weights":  {
+                                          "LinearRegression":  0.248,
+                                          "RandomForest":  0.428,
+                                          "XGBoost":  0.324
+                                      },
+                 "message":  null,
+                 "feature_importance":  [
+                                            {
+                                                "feature":  "fuel_price",
+                                                "importance":  0.5644
+                                            },
+                                            {
+                                                "feature":  "ewm_7",
+                                                "importance":  0.0572
+                                            },
+                                            {
+                                                "feature":  "day_cos",
+                                                "importance":  0.0432
+                                            },
+                                            {
+                                                "feature":  "temperature_moy",
+                                                "importance":  0.0298
+                                            },
+                                            {
+                                                "feature":  "day_of_week",
+                                                "importance":  0.0268
+                                            },
+                                            {
+                                                "feature":  "month_cos",
+                                                "importance":  0.0249
+                                            },
+                                            {
+                                                "feature":  "lag_14",
+                                                "importance":  0.0227
+                                            },
+                                            {
+                                                "feature":  "day_sin",
+                                                "importance":  0.0182
+                                            },
+                                            {
+                                                "feature":  "quarter",
+                                                "importance":  0.0158
+                                            },
+                                            {
+                                                "feature":  "rolling_mean_14",
+                                                "importance":  0.0155
+                                            },
+                                            {
+                                                "feature":  "month",
+                                                "importance":  0.0144
+                                            },
+                                            {
+                                                "feature":  "rolling_mean_7",
+                                                "importance":  0.0136
+                                            },
+                                            {
+                                                "feature":  "ramadan_day",
+                                                "importance":  0.013
+                                            },
+                                            {
+                                                "feature":  "price_changed_recently",
+                                                "importance":  0.0124
+                                            },
+                                            {
+                                                "feature":  "is_ramadan",
+                                                "importance":  0.0122
+                                            }
+                                        ],
+                 "quantiles":  {
+                                   "P10":  [
+                                               290.3,
+                                               295.82,
+                                               302.67,
+                                               324.91,
+                                               321.57,
+                                               242.13,
+                                               303.38
+                                           ],
+                                   "P50":  [
+                                               314.2,
+                                               304.09,
+                                               324.78,
+                                               371.39,
+                                               381.24,
+                                               261.96,
+                                               342.92
+                                           ],
+                                   "P90":  [
+                                               343.09,
+                                               334.9,
+                                               347.89,
+                                               387.12,
+                                               381.67,
+                                               338.27,
+                                               388.35
+                                           ],
+                                   "metrics":  {
+                                                   "mae":  14.152994995117183,
+                                                   "rmse":  18.546148820145135,
+                                                   "mape":  0.04558380948692299,
+                                                   "quantile_loss_p50":  7.0765,
+                                                   "coverage_80_pct":  78.57,
+                                                   "coverage_80_calibrated_pct":  78.57,
+                                                   "calibration_offset":  0.0,
+                                                   "interval_width_pct":  17.74
+                                               }
+                               },
+                 "shap":  {
+                              "base_value":  380.01,
+                              "top_features_per_day":  [
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  317.785,
+                                                                   "shap_value":  -19.8
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -12.62
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  0.623,
+                                                                   "shap_value":  -10.14
+                                                               },
+                                                               {
+                                                                   "feature":  "temperature_moy",
+                                                                   "value":  20.0,
+                                                                   "shap_value":  -7.51
+                                                               },
+                                                               {
+                                                                   "feature":  "day_sin",
+                                                                   "value":  0.782,
+                                                                   "shap_value":  -4.54
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  318.921,
+                                                                   "shap_value":  -19.7
+                                                               },
+                                                               {
+                                                                   "feature":  "lag_14",
+                                                                   "value":  283.66,
+                                                                   "shap_value":  -13.51
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -10.54
+                                                               },
+                                                               {
+                                                                   "feature":  "temperature_moy",
+                                                                   "value":  20.0,
+                                                                   "shap_value":  -7.33
+                                                               },
+                                                               {
+                                                                   "feature":  "lag_7",
+                                                                   "value":  315.42,
+                                                                   "shap_value":  -5.77
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  319.841,
+                                                                   "shap_value":  -20.72
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -10.74
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  -0.901,
+                                                                   "shap_value":  8.44
+                                                               },
+                                                               {
+                                                                   "feature":  "temperature_moy",
+                                                                   "value":  20.0,
+                                                                   "shap_value":  -6.89
+                                                               },
+                                                               {
+                                                                   "feature":  "lag_7",
+                                                                   "value":  305.92,
+                                                                   "shap_value":  -6.3
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  320.787,
+                                                                   "shap_value":  -18.48
+                                                               },
+                                                               {
+                                                                   "feature":  "day_of_week",
+                                                                   "value":  4.0,
+                                                                   "shap_value":  14.64
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  -0.901,
+                                                                   "shap_value":  11.27
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -9.29
+                                                               },
+                                                               {
+                                                                   "feature":  "lag_7",
+                                                                   "value":  368.14,
+                                                                   "shap_value":  8.65
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  322.129,
+                                                                   "shap_value":  -17.75
+                                                               },
+                                                               {
+                                                                   "feature":  "day_of_week",
+                                                                   "value":  5.0,
+                                                                   "shap_value":  14.02
+                                                               },
+                                                               {
+                                                                   "feature":  "day_sin",
+                                                                   "value":  -0.975,
+                                                                   "shap_value":  11.77
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -10.13
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  -0.223,
+                                                                   "shap_value":  9.14
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "day_of_week",
+                                                                   "value":  6.0,
+                                                                   "shap_value":  -28.29
+                                                               },
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  321.636,
+                                                                   "shap_value":  -16.12
+                                                               },
+                                                               {
+                                                                   "feature":  "lag_14",
+                                                                   "value":  245.64,
+                                                                   "shap_value":  -15.94
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  0.623,
+                                                                   "shap_value":  -14.41
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -13.01
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "feature":  "ewm_7",
+                                                                   "value":  319.658,
+                                                                   "shap_value":  -18.6
+                                                               },
+                                                               {
+                                                                   "feature":  "rolling_std_14",
+                                                                   "value":  26.418,
+                                                                   "shap_value":  15.97
+                                                               },
+                                                               {
+                                                                   "feature":  "fuel_price",
+                                                                   "value":  2.385,
+                                                                   "shap_value":  -12.23
+                                                               },
+                                                               {
+                                                                   "feature":  "day_cos",
+                                                                   "value":  1.0,
+                                                                   "shap_value":  -10.06
+                                                               },
+                                                               {
+                                                                   "feature":  "temperature_moy",
+                                                                   "value":  20.0,
+                                                                   "shap_value":  -7.29
+                                                               }
+                                                           ]
+                                                       ],
+                              "global_top_features":  [
+                                                          {
+                                                              "feature":  "ewm_7",
+                                                              "mean_abs_shap":  18.74
+                                                          },
+                                                          {
+                                                              "feature":  "fuel_price",
+                                                              "mean_abs_shap":  11.223
+                                                          },
+                                                          {
+                                                              "feature":  "day_cos",
+                                                              "mean_abs_shap":  9.861
+                                                          },
+                                                          {
+                                                              "feature":  "day_of_week",
+                                                              "mean_abs_shap":  9.452
+                                                          },
+                                                          {
+                                                              "feature":  "temperature_moy",
+                                                              "mean_abs_shap":  7.337
+                                                          },
+                                                          {
+                                                              "feature":  "lag_7",
+                                                              "mean_abs_shap":  6.944
+                                                          },
+                                                          {
+                                                              "feature":  "lag_14",
+                                                              "mean_abs_shap":  6.18
+                                                          },
+                                                          {
+                                                              "feature":  "day_sin",
+                                                              "mean_abs_shap":  4.312
+                                                          },
+                                                          {
+                                                              "feature":  "rolling_std_14",
+                                                              "mean_abs_shap":  4.261
+                                                          },
+                                                          {
+                                                              "feature":  "rolling_std_7",
+                                                              "mean_abs_shap":  3.118
+                                                          }
+                                                      ]
+                          }
+             },
+    "timestamp":  "2026-10-05T21:42:13.410016275"
 }

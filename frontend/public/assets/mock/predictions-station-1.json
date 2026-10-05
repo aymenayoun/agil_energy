@@ -1,103 +1,91 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": [
-        {
-            "id": 8275,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-04",
-            "predictedQuantity": 286.76,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-03T20:08:47"
-        },
-        {
-            "id": 9416,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-05",
-            "predictedQuantity": 286.76,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9417,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-06",
-            "predictedQuantity": 304.99,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9418,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-07",
-            "predictedQuantity": 329.82,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9419,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-08",
-            "predictedQuantity": 358.30,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9420,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-09",
-            "predictedQuantity": 281.50,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9421,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-10",
-            "predictedQuantity": 312.16,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        },
-        {
-            "id": 9422,
-            "stationId": 17,
-            "stationName": "Station Gafsa",
-            "fuelTypeId": 4,
-            "fuelTypeName": "SUPER SP",
-            "predictionDate": "2026-10-11",
-            "predictedQuantity": 297.55,
-            "modelName": "Ensemble(XGBoost)",
-            "confidenceScore": 0.8796,
-            "generatedAt": "2026-10-04T12:47:13"
-        }
-    ],
-    "timestamp": "2026-10-04T12:50:34.939474962"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  [
+                 {
+                     "id":  7484,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-06",
+                     "predictedQuantity":  971.78,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7485,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-07",
+                     "predictedQuantity":  1018.24,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7486,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-08",
+                     "predictedQuantity":  1055.44,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7487,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-09",
+                     "predictedQuantity":  1146.82,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7488,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-10",
+                     "predictedQuantity":  1143.19,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7489,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-11",
+                     "predictedQuantity":  885.70,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 },
+                 {
+                     "id":  7490,
+                     "stationId":  1,
+                     "stationName":  "Station Tunis Centre",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "predictionDate":  "2026-10-12",
+                     "predictedQuantity":  1146.24,
+                     "modelName":  "Ensemble(LinearRegression)",
+                     "confidenceScore":  0.9138,
+                     "generatedAt":  "2026-10-05T16:18:36"
+                 }
+             ],
+    "timestamp":  "2026-10-05T21:42:12.038298335"
 }

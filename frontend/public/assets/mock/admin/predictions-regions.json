@@ -1,92 +1,92 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": [
-        {
-            "region": "Ariana",
-            "station_count": 8,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Beja",
-            "station_count": 3,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Ben Arous",
-            "station_count": 12,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Bizerte",
-            "station_count": 4,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Gabes",
-            "station_count": 3,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Gafsa",
-            "station_count": 3,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Jendouba",
-            "station_count": 3,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Kairouan",
-            "station_count": 3,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Kasserine",
-            "station_count": 2,
-            "fuel_types": "GASOIL, SUPER SP"
-        },
-        {
-            "region": "Medenine",
-            "station_count": 6,
-            "fuel_types": "GASOIL, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Monastir",
-            "station_count": 4,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Nabeul",
-            "station_count": 8,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
-        },
-        {
-            "region": "Sfax",
-            "station_count": 9,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
-        },
-        {
-            "region": "Sidi Bouzid",
-            "station_count": 2,
-            "fuel_types": "GASOIL, SUPER SP"
-        },
-        {
-            "region": "Sousse",
-            "station_count": 9,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
-        },
-        {
-            "region": "Tozeur",
-            "station_count": 2,
-            "fuel_types": "GASOIL, SUPER SP"
-        },
-        {
-            "region": "Tunis",
-            "station_count": 10,
-            "fuel_types": "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
-        }
-    ],
-    "timestamp": "2026-10-03T18:12:14.827313849"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  [
+                 {
+                     "region":  "Ariana",
+                     "station_count":  8,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Beja",
+                     "station_count":  3,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Ben Arous",
+                     "station_count":  12,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Bizerte",
+                     "station_count":  4,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Gabes",
+                     "station_count":  3,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Gafsa",
+                     "station_count":  3,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Jendouba",
+                     "station_count":  3,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Kairouan",
+                     "station_count":  3,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Kasserine",
+                     "station_count":  2,
+                     "fuel_types":  "GASOIL, SUPER SP"
+                 },
+                 {
+                     "region":  "Medenine",
+                     "station_count":  6,
+                     "fuel_types":  "GASOIL, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Monastir",
+                     "station_count":  4,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Nabeul",
+                     "station_count":  8,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SUPER SP"
+                 },
+                 {
+                     "region":  "Sfax",
+                     "station_count":  9,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
+                 },
+                 {
+                     "region":  "Sidi Bouzid",
+                     "station_count":  2,
+                     "fuel_types":  "GASOIL, SUPER SP"
+                 },
+                 {
+                     "region":  "Sousse",
+                     "station_count":  9,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
+                 },
+                 {
+                     "region":  "Tozeur",
+                     "station_count":  2,
+                     "fuel_types":  "GASOIL, SUPER SP"
+                 },
+                 {
+                     "region":  "Tunis",
+                     "station_count":  10,
+                     "fuel_types":  "GASOIL, GASOIL SANS SOUFRE, GPL CARBURANT, SSP PREMIUM, SUPER SP"
+                 }
+             ],
+    "timestamp":  "2026-10-05T21:42:11.383700257"
 }

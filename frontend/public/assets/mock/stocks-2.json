@@ -1,81 +1,67 @@
-{
-    "success": true,
-    "message": "Opération réussie",
-    "data": [
-        {
-            "id": 2,
-            "name": "Station La Marsa",
-            "region": "Tunis",
-            "address": "Avenue Habib Bourguiba, La Marsa",
-            "latitude": 36.87830000,
-            "longitude": 10.32530000,
-            "status": "ACTIVE",
-            "managerId": 3,
-            "managerName": "Responsable Station_1",
-            "tanks": [
-                {
-                    "id": 6,
-                    "stationId": 2,
-                    "stationName": "Station La Marsa",
-                    "fuelTypeId": 1,
-                    "fuelTypeName": "GASOIL",
-                    "capacity": 30000.00,
-                    "currentStock": 20165.54,
-                    "criticalThreshold": 5000.00,
-                    "stockPercentage": 67.22,
-                    "critical": false
-                },
-                {
-                    "id": 7,
-                    "stationId": 2,
-                    "stationName": "Station La Marsa",
-                    "fuelTypeId": 2,
-                    "fuelTypeName": "GASOIL SANS SOUFRE",
-                    "capacity": 20000.00,
-                    "currentStock": 15813.98,
-                    "criticalThreshold": 3500.00,
-                    "stockPercentage": 79.07,
-                    "critical": false
-                },
-                {
-                    "id": 8,
-                    "stationId": 2,
-                    "stationName": "Station La Marsa",
-                    "fuelTypeId": 4,
-                    "fuelTypeName": "SUPER SP",
-                    "capacity": 25000.00,
-                    "currentStock": 8695.41,
-                    "criticalThreshold": 4000.00,
-                    "stockPercentage": 34.78,
-                    "critical": false
-                },
-                {
-                    "id": 9,
-                    "stationId": 2,
-                    "stationName": "Station La Marsa",
-                    "fuelTypeId": 5,
-                    "fuelTypeName": "SSP PREMIUM",
-                    "capacity": 15000.00,
-                    "currentStock": 7980.86,
-                    "criticalThreshold": 2500.00,
-                    "stockPercentage": 53.21,
-                    "critical": false
-                },
-                {
-                    "id": 10,
-                    "stationId": 2,
-                    "stationName": "Station La Marsa",
-                    "fuelTypeId": 6,
-                    "fuelTypeName": "GPL CARBURANT",
-                    "capacity": 10000.00,
-                    "currentStock": 3163.88,
-                    "criticalThreshold": 2000.00,
-                    "stockPercentage": 31.64,
-                    "critical": false
-                }
-            ],
-            "createdAt": "2026-04-11T16:32:03"
-        }
-    ],
-    "timestamp": "2026-10-04T10:57:36.576944671"
+﻿{
+    "success":  true,
+    "message":  "OpÃ©ration rÃ©ussie",
+    "data":  [
+                 {
+                     "id":  6,
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "fuelTypeId":  1,
+                     "fuelTypeName":  "GASOIL",
+                     "capacity":  30000.00,
+                     "currentStock":  20165.54,
+                     "criticalThreshold":  5000.00,
+                     "stockPercentage":  67.22,
+                     "critical":  false
+                 },
+                 {
+                     "id":  7,
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "fuelTypeId":  2,
+                     "fuelTypeName":  "GASOIL SANS SOUFRE",
+                     "capacity":  20000.00,
+                     "currentStock":  15813.98,
+                     "criticalThreshold":  3500.00,
+                     "stockPercentage":  79.07,
+                     "critical":  false
+                 },
+                 {
+                     "id":  8,
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "fuelTypeId":  4,
+                     "fuelTypeName":  "SUPER SP",
+                     "capacity":  25000.00,
+                     "currentStock":  8695.41,
+                     "criticalThreshold":  4000.00,
+                     "stockPercentage":  34.78,
+                     "critical":  false
+                 },
+                 {
+                     "id":  9,
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "fuelTypeId":  5,
+                     "fuelTypeName":  "SSP PREMIUM",
+                     "capacity":  15000.00,
+                     "currentStock":  7980.86,
+                     "criticalThreshold":  2500.00,
+                     "stockPercentage":  53.21,
+                     "critical":  false
+                 },
+                 {
+                     "id":  10,
+                     "stationId":  2,
+                     "stationName":  "Station La Marsa",
+                     "fuelTypeId":  6,
+                     "fuelTypeName":  "GPL CARBURANT",
+                     "capacity":  10000.00,
+                     "currentStock":  3163.88,
+                     "criticalThreshold":  2000.00,
+                     "stockPercentage":  31.64,
+                     "critical":  false
+                 }
+             ],
+    "timestamp":  "2026-10-05T21:42:11.924379544"
 }
